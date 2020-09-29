@@ -19,7 +19,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for news in news %}
+        {% for news in news|reverse %}
             <tr class="text-center">
                 <td>
                     {{ news.createdAt ? news.createdAt|date('d-m-Y') : '' }}
