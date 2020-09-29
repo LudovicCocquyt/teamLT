@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Admin LT{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        {# CDN MDBootstrap #}
+		{% include 'cdn.html.twig' %}
+    </head>
+    <body>
+        {% include 'admin/navbar.html.twig' %}
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
