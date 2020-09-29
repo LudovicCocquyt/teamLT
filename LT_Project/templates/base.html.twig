@@ -4,8 +4,11 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
+        {# CDN MDBootstrap #}
+		{% include 'cdn.html.twig' %}
     </head>
     <body>
+        {% include 'navbar/navbar.html.twig' %}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
