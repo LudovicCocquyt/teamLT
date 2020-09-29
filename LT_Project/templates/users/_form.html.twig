@@ -8,28 +8,31 @@
     <table class="table table-striped">
     	<tbody>
 	    	<tr class="text-center">
-		  		<th>{{ form_widget(form.email, { 'attr': {'class': "span12",'placeholder': "Email*"} }) }}</th>
+		  		<th>Email* : <br> {{ form_widget(form.email, { 'attr': {'class': "span12",'placeholder': "exemple@team.com"} }) }}</th>
 		  	</tr>
 		  	<tr class="text-center">
-		  		<th>{{ form_widget(form.firstname, { 'attr': {'class': "span12",'placeholder': "Nom"} }) }}</th>
+		  		<th>Nom : <br> {{ form_widget(form.firstname, { 'attr': {'class': "span12",'placeholder': "Doe"} }) }}</th>
 		  	</tr>
 		  	<tr class="text-center">
-		  		<th>{{ form_widget(form.lastname, { 'attr': {'class': "span12",'placeholder': "Prénom"} }) }}</th>
+		  		<th>Prénom : <br> {{ form_widget(form.lastname, { 'attr': {'class': "span12",'placeholder': "John"} }) }}</th>
 		  	</tr>
 		  	<tr class="text-center">
-		  		<th>{{ form_widget(form.username, { 'attr': {'class': "span12",'placeholder': "Pseudo*"} }) }}</th>
+		  		<th>Pseudo* : <br> {{ form_widget(form.username, { 'attr': {'class': "span12",'placeholder': "Gotaga"} }) }}</th>
 		  	</tr>
 		  	<tr class="text-center">
-		  		<th>{{ form_widget(form.birthday, { 'attr': {'class': "span12",'placeholder': "Date de naissance"} }) }}</th>
+		  		<th>Mot de passe* : <br> {{ form_widget(form.password, { 'attr': {'class': "span12",'placeholder': "********"} }) }}</th>
 		  	</tr>
 		  	<tr class="text-center">
-		  		<th>{{ form_widget(form.nationality, { 'attr': {'class': "span12",'placeholder': "nationalité"} }) }}</th>
+		  		<th>Date de naissance : <br> {{ form_widget(form.birthday, { 'attr': {'class': "span12"} }) }}</th>
 		  	</tr>
 		  	<tr class="text-center">
-		  		<th>{{ form_widget(form.description, { 'attr': {'class': "span12",'placeholder': "description"} }) }}</th>
+		  		<th>Nationalité : <br> {{ form_widget(form.nationality, { 'attr': {'class': "span12"} }) }}</th>
 		  	</tr>
 		  	<tr class="text-center">
-		  		<th>{{ form_widget(form.password, { 'attr': {'class': "span12",'placeholder': "Mot de passe*"} }) }}</th>
+		  		<th>Membre Actif ? <br> {{ form_widget(form.isActive, { 'attr': {'class': "span12"} }) }}</th>
+		  	</tr>
+		  	<tr class="text-center">
+		  		<th>{{ form_widget(form.description, { 'attr': {'class': "span12",'placeholder': "Ma bio ...", 'rows' : '10', 'cols' : '100'} }) }}</th>
 		  	</tr>
 		</tbody>
 	</table>

@@ -5,6 +5,7 @@ namespace App\Form;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
@@ -27,6 +28,11 @@ class UsersType extends AbstractType
                     'years'    => range(date('1970'), date('Y')),
                     'required' => true,
                 ))
+            ->add('isActive', ChoiceType::class, [
+                        'choices'  => [
+                                        'Oui' => true,
+                                        'Non' => false,
+                                       ],])
             ->add('nationality', ChoiceType::class, [
                         'choices'  => [
                                         'Europe'         => 'eu.png',
@@ -60,7 +66,7 @@ class UsersType extends AbstractType
                                         'Sweden'         => 'Swe.png',
                                         'United Kingdom' => 'uk.svg',
                                        ],])
-            ->add('description', EmailType::class,[
+            ->add('description', TextareaType::class,[
                 'required'   => true
             ])
         ;

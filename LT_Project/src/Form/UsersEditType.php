@@ -31,6 +31,11 @@ class UsersEditType extends AbstractType
                     'years'    => range(date('1970'), date('Y')),
                     'required' => true,
                 ))
+            ->add('isActive', ChoiceType::class, [
+                        'choices'  => [
+                                        'Oui' => true,
+                                        'Non' => false,
+                                       ],])
             ->add('nationality', ChoiceType::class, [
                         'choices'  => [
                                         'Europe'         => 'eu.png',
