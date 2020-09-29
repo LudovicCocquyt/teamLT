@@ -1,0 +1,52 @@
+{% extends 'admin/baseAdmin.html.twig' %}
+
+
+{% block body %}
+    <div class="row m-0" style="justify-content: space-between;">
+        <h1 class="m-3">News</h1>
+        <a class="m-3" style="color: #63c7d2;" href="{{ path('news_new') }}"><i class="fas fa-plus fa-2x"></i></a>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr class="text-center">
+                <th>Créé</th>
+                <th>Modifié</th>
+                <th>Active</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for news in news %}
+            <tr class="text-center">
+                <td>
+                    {{ news.createdAt ? news.createdAt|date('d-m-Y') : '' }}
+                    <BR> {{ news.createdAt ? news.createdAt|date('H:i:s') : '' }}
+                    <BR> {{ news.createdBy }}
+                </td>
+                <td>
+                    {{ news.updatedAt ? news.updatedAt|date('d-m-Y') : '' }} 
+                    <BR> {{ news.updatedAt ? news.updatedAt|date('H:i:s') : '' }}
+                    <BR> {{ news.updatedBy }}
+                </td>
+                <td>{{ news.isActive ? '<i class="fas fa-check text-success fa-2x"></i>' : '<i class="fas fa-times text-danger fa-2x"></i>' }}
+                </td>
+                <td>{{ news.title }}</td>
+                <td>{{ news.description|slice(0, 50) }}</td>
+                <td class="d-flex" style="justify-content: center;">
+                    <a href="{{ path('news_show', {'id': news.id}) }}"><i class="far fa-eye m-3"></i></a>
+                    <a href="{{ path('news_edit', {'id': news.id}) }}"><i class="fas fa-edit m-3"></i></a>
+                   <p>{{ include('news/_delete_form.html.twig') }}</p>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

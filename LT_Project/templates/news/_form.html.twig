@@ -1,0 +1,25 @@
+{# {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+ #}
+
+ {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <table class="table table-striped">
+    	<tbody>
+		  	<tr class="text-center">
+		  		<th>News Active ? <br> {{ form_widget(form.isActive, { 'attr': {'class': "span12"} }) }}</th>
+		  	</tr>
+		  	<tr class="text-center">
+		  		<th>Titre : <br> {{ form_widget(form.title, { 'attr': {'class': "span12",'placeholder': "Le titre de ma news", 'cols' : '100'} }) }}</th>
+		  	</tr>
+		  	<tr class="text-center">
+		  		<th>{{ form_widget(form.description, { 'attr': {'class': "span12",'placeholder': "Ma super news !!!", 'rows' : '10', 'cols' : '100'} }) }}</th>
+		  	</tr>
+		</tbody>
+	</table>
+	<div class="text-center">
+		<button class="text-center btn mb-5" style="background-color: #63c7d2;">{{ button_label|default('Valider') }}</button>
+    </div>
+{{ form_end(form) }}

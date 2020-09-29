@@ -1,0 +1,36 @@
+{% extends 'admin/baseAdmin.html.twig' %}
+
+{% block body %}
+    <div class="row m-3" style="justify-content: space-between;">
+        <h1>{{ news.title }}</h1>
+        <div>
+            <a style="color: #63c7d2;" href="{{ path('news_edit', {'id': news.id}) }}"><i class="fas fa-edit fa-2x"></i></a>
+            <a class="m-3" style="color: #63c7d2;" href="{{ path('news_index') }}"><i class="fas fa-sign-out-alt  fa-2x"></i></a>
+        </div>
+    </div>
+
+    <table class="table">
+        <tbody>
+                <tr>
+                <th>Créé</th>
+                <td>{{ news.createdAt ? news.createdAt|date('d-m-Y H:i:s') : '' }} par {{ news.createdBy }}</td>
+            </tr>
+            <tr>
+                <th>Modifié</th>
+                <td>{{ news.updatedAt ? news.updatedAt|date('d-m-Y H:i:s') : '' }} par {{ news.updatedBy }}</td>
+            </tr>
+            <tr>
+                <th>Active</th>
+                <td>{{ news.isActive ? '<i class="fas fa-check text-success fa-2x"></i>' : '<i class="fas fa-times text-danger fa-2x"></i>' }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ news.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ news.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
