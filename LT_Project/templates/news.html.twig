@@ -1,0 +1,89 @@
+
+<div class="primary-color pt-1" style="height: 750px;">
+	
+    <!--Main layout-->
+    <main>
+        <div class="container">
+
+        <!--Section: Magazine v.1-->
+        <section class="wow fadeIn">
+
+	        <!--Section heading-->
+            <h2 class="h1 text-center my-5 font-weight-bold">Actualités</h2>
+
+            <!--Grid row-->
+            <div class="text-left">
+
+                <!--Grid column-->
+                <div class="row offset-lg-1 col-lg-10 col-md-12">
+	            	{% for news in news|reverse |slice(0, 1) %}
+	            		{% if news.isActive == true %}
+                		<div class="col-lg-6">
+	                        <!--Image-->
+	                        <div class="view overlay rounded z-depth-1-half mb-3">
+	                            <img src="https://mdbootstrap.com/img/Photos/Others/images/77.jpg" class="img-fluid" alt="Sample post image">
+	                            <a>
+	                                <div class="mask rgba-white-slight"></div>
+	                            </a>
+	                        </div>
+
+	                        
+		            	</div>
+	                	{% endif %}
+	            	{% endfor %}
+
+	                <!--/Featured news-->
+	            	<div class="col-lg-6">
+	                {% for news in news|reverse |slice(1, 4) %}
+	                	{% if news.isActive == true %}
+						<!--Small news-->
+		            	<div class="row mt-2">
+		                	<div class="col-md-3">
+
+		                        <!--Image-->
+		                        <div class="view overlay rounded z-depth-1">
+		                            <img src="https://mdbootstrap.com/img/Photos/Others/photo8.jpg" class="img-fluid" alt="Minor sample post image">
+		                            <a>
+		                                <div class="mask rgba-white-slight"></div>
+		                            </a>
+		                    	</div>
+		                	</div>
+
+							<!--Excerpt-->
+		                    <div class="col-md-9">
+		                        <p class="dark-grey-text">
+		                            <strong> {{ news.createdAt ? news.createdAt|date('d-m-Y') : '' }} par {{ news.createdBy }}</strong>
+		                        </p>
+		                        <a>{{ news.title }}
+		                            <i class="fa fa-angle-right float-right"></i>
+		                        </a>
+		                    </div>
+		            	</div>
+	                	<!--/Small news-->
+	                	{% endif %}
+	                {% endfor %}
+            		</div>
+
+            		{% for news in news|reverse |slice(0, 1) %}
+	            		{% if news.isActive == true %}
+	            			<!--Excerpt-->
+	                        <div class="col-lg-12 news-data">
+	                            <p><strong><i class="fa fa-clock-o"></i> {{ news.createdAt ? news.createdAt|date('d-m-Y') : '' }} par {{ news.createdBy }}</strong></p>
+	                        </div>
+	                        <h3 class="col-lg-12"><a><strong>{{ news.title }}</strong></a></h3>
+                		<div class="col-lg-12">
+            		<p>{{ news.description }}</p>
+		            	</div>
+	                	{% endif %}
+	            	{% endfor %}
+
+                </div>
+                <!--Grid column-->
+            </div>
+            <!--Grid row-->
+        </section>
+        <!--/Section: Magazine v.1-->
+    	</div>
+	</main>
+	    <!--Main layout-->
+</div>
