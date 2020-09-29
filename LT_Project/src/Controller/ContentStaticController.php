@@ -48,15 +48,15 @@ class ContentStaticController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="content_static_show", methods={"GET"})
-     */
-    public function show(ContentStatic $contentStatic): Response
-    {
-        return $this->render('content_static/show.html.twig', [
-            'content_static' => $contentStatic,
-        ]);
-    }
+    // /**
+    //  * @Route("/{id}", name="content_static_show", methods={"GET"})
+    //  */
+    // public function show(ContentStatic $contentStatic): Response
+    // {
+    //     return $this->render('content_static/show.html.twig', [
+    //         'content_static' => $contentStatic,
+    //     ]);
+    // }
 
     /**
      * @Route("/{id}/edit", name="content_static_edit", methods={"GET","POST"})
@@ -67,6 +67,10 @@ class ContentStaticController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $contentStatic->setUpdatedAt(new \DateTime('now'));
+            $contentStatic->setUpdatedby('admin');
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('content_static_index');
@@ -78,17 +82,17 @@ class ContentStaticController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="content_static_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, ContentStatic $contentStatic): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$contentStatic->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($contentStatic);
-            $entityManager->flush();
-        }
+    // /**
+    //  * @Route("/{id}", name="content_static_delete", methods={"DELETE"})
+    //  */
+    // public function delete(Request $request, ContentStatic $contentStatic): Response
+    // {
+    //     if ($this->isCsrfTokenValid('delete'.$contentStatic->getId(), $request->request->get('_token'))) {
+    //         $entityManager = $this->getDoctrine()->getManager();
+    //         $entityManager->remove($contentStatic);
+    //         $entityManager->flush();
+    //     }
 
-        return $this->redirectToRoute('content_static_index');
-    }
+    //     return $this->redirectToRoute('content_static_index');
+    // }
 }

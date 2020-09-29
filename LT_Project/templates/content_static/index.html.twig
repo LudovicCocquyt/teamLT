@@ -1,35 +1,25 @@
 {% extends 'admin/baseAdmin.html.twig' %}
 
 {% block body %}
-    <h1>ContentStatic index</h1>
-    <a href="{{ path('content_static_new') }}">Create new</a>
+    <h1 class="m-3">Home page</h1>
 
-    <table class="table">
+    <table class="table table-striped">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>CreatedBy</th>
-                <th>CreatedAt</th>
-                <th>UpdatedBy</th>
-                <th>UpdatedAt</th>
+                <th>Modifier</th>
                 <th>Title</th>
                 <th>Description</th>
-                <th>actions</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
         {% for content_static in content_statics %}
             <tr>
-                <td>{{ content_static.id }}</td>
-                <td>{{ content_static.createdBy }}</td>
-                <td>{{ content_static.createdAt ? content_static.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ content_static.updatedBy }}</td>
-                <td>{{ content_static.updatedAt ? content_static.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ content_static.updatedAt ? content_static.updatedAt|date('d-m-Y H:i:s') : '' }} par {{ content_static.updatedBy }}</td>
                 <td>{{ content_static.title }}</td>
-                <td>{{ content_static.description }}</td>
+                <td>{{ content_static.description|slice(0, 130) }}</td>
                 <td>
-                    <a href="{{ path('content_static_show', {'id': content_static.id}) }}">show</a>
-                    <a href="{{ path('content_static_edit', {'id': content_static.id}) }}">edit</a>
+                    <a href="{{ path('content_static_edit', {'id': content_static.id}) }}"><i class="fas fa-user-edit"></i></a>
                 </td>
             </tr>
         {% else %}

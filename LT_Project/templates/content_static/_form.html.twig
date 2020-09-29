@@ -1,4 +1,17 @@
-{{ form_start(form) }}
+{# {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+ #}
+
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="text-center">
+	    <tr>
+	  		<th>{{ form_widget(form.description, { 'attr': {'cols': '100', 'class': "span12",'placeholder': "description", 'rows' : '10'} }) }}</th>
+	  	</tr>
+  	</div>
+    <div class="text-center">
+  		<button class="btn mt-5" style="background-color: #63c7d2;">{{ button_label|default('Save') }}</button>
+  	</div>
+{{ form_end(form) }}
+
