@@ -1,0 +1,43 @@
+{% extends 'admin/baseAdmin.html.twig' %}
+
+{% block body %}
+    <h1>ContentStatic index</h1>
+    <a href="{{ path('content_static_new') }}">Create new</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CreatedBy</th>
+                <th>CreatedAt</th>
+                <th>UpdatedBy</th>
+                <th>UpdatedAt</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for content_static in content_statics %}
+            <tr>
+                <td>{{ content_static.id }}</td>
+                <td>{{ content_static.createdBy }}</td>
+                <td>{{ content_static.createdAt ? content_static.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ content_static.updatedBy }}</td>
+                <td>{{ content_static.updatedAt ? content_static.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ content_static.title }}</td>
+                <td>{{ content_static.description }}</td>
+                <td>
+                    <a href="{{ path('content_static_show', {'id': content_static.id}) }}">show</a>
+                    <a href="{{ path('content_static_edit', {'id': content_static.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

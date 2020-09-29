@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ContentStatic{% endblock %}
+
+{% block body %}
+    <h1>Create new ContentStatic</h1>
+
+    {{ include('content_static/_form.html.twig') }}
+
+    <a href="{{ path('content_static_index') }}">back to list</a>
+{% endblock %}
