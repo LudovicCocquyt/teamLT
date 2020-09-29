@@ -1,0 +1,67 @@
+<div class="row ml-0 mr-0" 
+	style=" height: 80px;
+    		position: fixed;
+    		width: 100%;">
+	<!--Navbar-->
+	<nav class="navbar navbar-expand-lg navbar-dark primary-color col-5" style="font-size: large;">
+
+	  <!-- Collapse button -->
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+	    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+
+	  <!-- Collapsible content -->
+	  <div class="collapse navbar-collapse" id="basicExampleNav" style="justify-content: flex-end;">
+
+	    <!-- Links -->
+	    <ul class="navbar-nav">
+	      <li class="nav-item">
+	        <a class="nav-link" href="#">Accueil</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="#">Line Up</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="#">Résultats</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="#">Actualités</a>
+	      </li>
+	      <li class="nav-item">
+	      	<!-- Button trigger modal -->
+	        <a class="nav-link" data-toggle="modal" data-target="#centralModalSm">Contact</a>
+	      </li>
+
+	    </ul>
+	  </div>
+	  <!-- Collapsible content -->
+
+	</nav>
+	<!--/.Navbar-->
+
+	<!-- logo navbar -->
+	<div class="bg-white pt-2 col-2">
+		<img style="" src="image/navbar-logo.png">
+	</div>
+	<!-- /.logo navbar -->
+
+	<!-- logo links -->
+	<div class=" danger-color col-5" style="font-size: x-large;">
+     	<div class="mt-4" style="justify-content: center;">
+
+		    <!-- Links -->
+	        <a class="pr-3 pl-3" style="color: #000000" href="#"><i class="fab fa-steam"></i></a>
+	        <a class="pr-3 pl-3" style="color: #6f84d2" href="#"><i class="fab fa-discord"></i></a>
+	        <a class="pr-3 pl-3" style="color: #0090d8" href="#"><i class="fab fa-battle-net"></i></a>
+	        <a class="pr-3 pl-3" style="color: #4064ac" href="#"><i class="fab fa-facebook"></i></a>
+	        <a class="pr-3 pl-3" style="color: #1da1f3" href="#"><i class="fab fa-twitter"></i></a>
+	        <a class="pr-3 pl-3" style="color: #FFFFFF" href="#"><i class="fab fa-youtube"></i></a>
+	        <a class="pr-3 pl-3" style="color: #8c45f7" href="#"><i class="fab fa-twitch"></i></a>
+
+		</div>
+	</div>
+	<!-- /.logo links -->
+</div>
+
+{% include 'modalContact.html.twig' %}
