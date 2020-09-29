@@ -1,63 +1,57 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Users{% endblock %}
-
+{% extends 'admin/baseAdmin.html.twig' %}
 {% block body %}
-    <h1>Users</h1>
+    <div class="row m-3" style="justify-content: space-between;">
+        <h1>{{ user.username }}</h1>
+        <div>
+            <a style="color: #63c7d2;" href="{{ path('users_edit', {'id': user.id}) }}"><i class="fas fa-user-edit fa-2x"></i></a>
+            <a class="m-3" style="color: #63c7d2;" href="{{ path('users_index') }}"><i class="fas fa-sign-out-alt  fa-2x"></i></a>
+        </div>
+    </div>
 
-    <table class="table">
+
+    <table class="table table-striped">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
+                <th>Créé</th>
+                <td>{{ user.createdAt ? user.createdAt|date('d-m-Y H:i:s') : '' }} par {{ user.createdBy }}</td>
             </tr>
             <tr>
-                <th>CreatedAt</th>
-                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <th>Modifié</th>
+                <td>{{ user.updatedAt ? user.updatedAt|date('d-m-Y H:i:s') : '' }} par {{ user.updatedBy }}</td>
             </tr>
             <tr>
-                <th>CreatedBy</th>
-                <td>{{ user.createdBy }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedBy</th>
-                <td>{{ user.updatedBy }}</td>
-            </tr>
-            <tr>
-                <th>IsActive</th>
-                <td>{{ user.isActive ? 'Yes' : 'No' }}</td>
+                <th>Actif</th>
+                <td>{{ user.isActive ? '<i class="fas fa-check text-success fa-2x"></i>' : '<i class="fas fa-times text-danger fa-2x"></i>' }}</td>
             </tr>
             <tr>
                 <th>Email</th>
                 <td>{{ user.email }}</td>
             </tr>
             <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
+                <th>Nom</th>
                 <td>{{ user.firstname }}</td>
             </tr>
             <tr>
-                <th>Lastname</th>
+                <th>Prénom</th>
                 <td>{{ user.lastname }}</td>
             </tr>
             <tr>
-                <th>Username</th>
+                <th>Pseudo</th>
                 <td>{{ user.username }}</td>
             </tr>
             <tr>
-                <th>Nationality</th>
-                <td>{{ user.nationality }}</td>
+                <th>Nationalité</th>
+                <td>
+                    {% if user.nationality is not null %}
+                        <img style="height: 20px; width: auto;" src="../../flag/{{ user.nationality }}">
+                    {% else %}
+                        <img style="height: 20px; width: auto;" src="../../flag/eu.png">
+                    {% endif %}
+                </td>
             </tr>
             <tr>
-                <th>Birthday</th>
-                <td>{{ user.birthday ? user.birthday|date('Y-m-d H:i:s') : '' }}</td>
+                <th>Date de naissance</th>
+                <td>{{ user.birthday ? user.birthday|date('d-m-Y') : '' }}</td>
             </tr>
             <tr>
                 <th>Description</th>
@@ -66,9 +60,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('users_index') }}">back to list</a>
-
-    <a href="{{ path('users_edit', {'id': user.id}) }}">edit</a>
-
-    {{ include('users/_delete_form.html.twig') }}
 {% endblock %}

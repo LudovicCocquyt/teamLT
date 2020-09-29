@@ -2,19 +2,27 @@
 
 namespace App\Controller;
 
-use App\Entity\Users;
-use App\Form\UsersType;
-use App\Repository\UsersRepository;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use App\Repository\UsersRepository;
+use App\Form\UsersEditType;
+use App\Form\UsersType;
+use App\Entity\Users;
 
 /**
- * @Route("/users")
+ * @Route("users")
  */
 class UsersController extends AbstractController
 {
+    private $encoder;
+
+    public function __construct(UserPasswordEncoderInterface $encoder)
+    {
+        $this->encoder = $encoder;
+    }
     /**
      * @Route("/", name="users_index", methods={"GET"})
      */
@@ -28,13 +36,26 @@ class UsersController extends AbstractController
     /**
      * @Route("/new", name="users_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         $user = new Users();
         $form = $this->createForm(UsersType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $user->setPassword(
+                $encoder->encodePassword(
+                    $user,
+                    $form->get('password')->getData()
+                ));
+
+            $user->setCreatedAt(new \DateTime('now'));
+            $user->setCreatedby('admin');
+            $user->setUpdatedAt(new \DateTime('now'));
+            $user->setUpdatedby('admin');
+            $user->setIsActive(true);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -63,10 +84,14 @@ class UsersController extends AbstractController
      */
     public function edit(Request $request, Users $user): Response
     {
-        $form = $this->createForm(UsersType::class, $user);
+        $form = $this->createForm(UsersEditType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $user->setUpdatedAt(new \DateTime('now'));
+            $user->setUpdatedby('admin');
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('users_index');

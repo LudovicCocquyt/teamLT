@@ -1,9 +1,10 @@
 {# {{ form_start(form) }}
     {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
  #}
 
-{{ form_start(form) }}
+ {{ form_start(form) }}
     {{ form_errors(form) }}
     <table class="table table-striped">
     	<tbody>
@@ -27,9 +28,6 @@
 		  	</tr>
 		  	<tr class="text-center">
 		  		<th>{{ form_widget(form.description, { 'attr': {'class': "span12",'placeholder': "description"} }) }}</th>
-		  	</tr>
-		  	<tr class="text-center">
-		  		<th>{{ form_widget(form.password, { 'attr': {'class': "span12",'placeholder': "Mot de passe*"} }) }}</th>
 		  	</tr>
 		</tbody>
 	</table>

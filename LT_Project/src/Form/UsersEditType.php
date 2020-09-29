@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -10,18 +12,20 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 use App\Entity\Users;
 
-class UsersType extends AbstractType
+class UsersEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('email', EmailType::class,[
-                'required'   => true
+                'required' => true
             ])
-            ->add('password')
             ->add('firstname')
             ->add('lastname')
-            ->add('username')
+            ->add('username', TextType::class,[
+                'required' => true
+            ])
+            ->add('description', TextareaType::class)
             ->add('birthday', DateType::class, array(
                     'label'    => 'Date de naissance',
                     'years'    => range(date('1970'), date('Y')),
@@ -60,9 +64,6 @@ class UsersType extends AbstractType
                                         'Sweden'         => 'Swe.png',
                                         'United Kingdom' => 'uk.svg',
                                        ],])
-            ->add('description', EmailType::class,[
-                'required'   => true
-            ])
         ;
     }
 

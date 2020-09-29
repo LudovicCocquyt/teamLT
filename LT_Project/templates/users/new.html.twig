@@ -1,11 +1,14 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/baseAdmin.html.twig' %}
 
-{% block title %}New Users{% endblock %}
 
 {% block body %}
-    <h1>Create new Users</h1>
+	<div class="row m-3" style="justify-content: space-between;">
+    	<h1>Ajouter un joueur</h1>
+        <div>
+            <a class="m-3" style="color: #63c7d2;" href="{{ path('users_index') }}"><i class="fas fa-sign-out-alt fa-2x"></i></a>
+        </div>
+    </div>
 
     {{ include('users/_form.html.twig') }}
 
-    <a href="{{ path('users_index') }}">back to list</a>
 {% endblock %}
