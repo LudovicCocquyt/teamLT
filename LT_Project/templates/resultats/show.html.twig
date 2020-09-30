@@ -1,0 +1,50 @@
+{% extends 'admin/baseAdmin.html.twig' %}
+
+{% block body %}
+    <div class="row m-3" style="justify-content: space-between;">
+        <h1>
+            {{ resultat.date ? resultat.date|date('d-m-Y') : '' }}
+            VS {{ resultat.teamAdverse }}</h1>
+        <div>
+            <a style="color: #63c7d2;" href="{{ path('resultats_edit', {'id': resultat.id}) }}"><i class="fas fa-edit fa-2x"></i></a>
+            <a class="m-3" style="color: #63c7d2;" href="{{ path('resultats_index') }}"><i class="fas fa-sign-out-alt  fa-2x"></i></a>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>Créé</th>
+                <td>{{ resultat.createdAt ? resultat.createdAt|date('d-m-Y H:i:s') : '' }} par {{ resultat.createdBy }}</td>
+            </tr>
+            <tr>
+                <th>Modifié</th>
+                <td>{{ resultat.updatedAt ? resultat.updatedAt|date('d-m-Y H:i:s') : '' }} par {{ resultat.updatedBy }}</td>
+            </tr>
+            <tr>
+                <th>Date du match</th>
+                <td>{{ resultat.date ? resultat.date|date('d-m-Y H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ resultat.name }}</td>
+            </tr>
+            <tr>
+                <th>Equipes</th>
+                    <td> ?? VS {{ resultat.teamAdverse }}</td>
+                </tr>
+            </tr>
+            <tr>
+                <th>Map</th>
+                <td>{{ resultat.mapOne }} - {{ resultat.mapTwo }}</td>
+            </tr>
+            <tr>
+                <th>Score</th>
+                <td>
+                    {{ resultat.scoreOne }} - {{ resultat.scoreTwo }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+{% endblock %}
