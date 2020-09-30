@@ -1,0 +1,31 @@
+{# {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+ #}
+
+  {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <table class="table table-striped">
+    	<tbody>
+		  	<tr class="text-center">
+		  		<th>Team Active ? <br> {{ form_widget(form.isActive, { 'attr': {'class': "span12"} }) }}</th>
+		  	</tr>
+		  	<tr class="text-center">
+		  		<th>Nom* : <br> {{ form_widget(form.name, { 'attr': {'class': "span12",'placeholder': "Nom (30 lettres max)", 'cols' : '100'} }) }}</th>
+		  	</tr>
+		  	<tr class="text-center">
+		  		<th>Tag* : <br> {{ form_widget(form.tag, { 'attr': {'class': "span12",'placeholder': "Tag (9 lettres max)", 'cols' : '100'} }) }}</th>
+		  	</tr>
+		  	<tr class="text-center">
+		  		<th>Image* : <br> {{ form_widget(form.image, { 'attr': {'class': "span12",'placeholder': "Image", 'cols' : '100'} }) }}</th>
+		  	</tr>
+		  	<tr class="text-center">
+		  		<th>Description : <br> {{ form_widget(form.description, { 'attr': {'class': "span12",'placeholder': "La bio de la line up !!!", 'rows' : '10', 'cols' : '100'} }) }}</th>
+		  	</tr>
+		</tbody>
+	</table>
+	<div class="text-center">
+		<button class="text-center btn mb-5" style="background-color: #63c7d2;">{{ button_label|default('Modifier') }}</button>
+    </div>
+{{ form_end(form) }}

@@ -1,0 +1,49 @@
+{% extends 'admin/baseAdmin.html.twig' %}
+
+{% block body %}
+    <div class="row m-0" style="justify-content: space-between;">
+        <h1 class="m-3">Line Up</h1>
+        <a class="m-3" style="color: #63c7d2;" href="{{ path('lineup_new') }}"><i class="fas fa-plus"></i><i class="fas fa-user-friends fa-2x"></i></a>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr class="text-center">
+                <th>Créé</th>
+                <th>Modifié</th>
+                <th>Nom</th>
+                <th>Active</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for lineup in lineups|reverse %}
+            <tr class="text-center">
+                <td>
+                    {{ lineup.createdAt ? lineup.createdAt|date('d-m-Y') : '' }}
+                    <BR> {{ lineup.createdAt ? lineup.createdAt|date('H:i:s') : '' }}
+                    <BR> {{ lineup.createdBy }}
+                </td>
+                <td>
+                    {{ lineup.updatedAt ? lineup.updatedAt|date('d-m-Y') : '' }} 
+                    <BR> {{ lineup.updatedAt ? lineup.updatedAt|date('H:i:s') : '' }}
+                    <BR> {{ lineup.updatedBy }}
+                </td>
+                <td>{{ lineup.name }}</td>
+                <td>{{ lineup.isActive ? '<i class="fas fa-check text-success fa-2x"></i>' : '<i class="fas fa-times text-danger fa-2x"></i>' }}
+                </td>
+                <td class="d-flex" style="justify-content: center;">
+                    <a href="{{ path('lineup_show', {'id': lineup.id}) }}"><i class="far fa-eye m-3"></i></a>
+                    <a href="{{ path('lineup_edit', {'id': lineup.id}) }}"><i class="fas fa-users-cog m-3"></i></a>
+                   <p>{{ include('lineup/_delete_form.html.twig') }}</p>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
