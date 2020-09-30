@@ -1,0 +1,41 @@
+{% extends 'admin/baseAdmin.html.twig' %}
+
+{% block body %}
+    <div class="row m-3" style="justify-content: space-between;">
+        <h1>{{ jeux.name }}</h1>
+        <div>
+            <a style="color: #63c7d2;" href="{{ path('jeux_edit', {'id': jeux.id}) }}"><i class="fas fa-edit fa-2x"></i></a>
+            <a class="m-3" style="color: #63c7d2;" href="{{ path('jeux_index') }}"><i class="fas fa-sign-out-alt  fa-2x"></i></a>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>Créé</th>
+                <td>{{ jeux.createdAt ? jeux.createdAt|date('d-m-Y H:i:s') : '' }} par {{ jeux.createdBy }}</td>
+            </tr>
+            <tr>
+                <th>Modifié</th>
+                <td>{{ jeux.updatedAt ? jeux.updatedAt|date('d-m-Y H:i:s') : '' }} par {{ jeux.updatedBy }}</td>
+            </tr>
+            <tr>
+                <th>Actif</th>
+                <td>{{ jeux.isActive ? '<i class="fas fa-check text-success fa-2x"></i>' : '<i class="fas fa-times text-danger fa-2x"></i>' }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ jeux.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ jeux.description }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ jeux.image }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+{% endblock %}
