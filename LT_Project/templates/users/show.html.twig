@@ -40,6 +40,14 @@
                 <td>{{ user.username }}</td>
             </tr>
             <tr>
+                <th>line up</th>
+                    <td>
+                        {% for lineUp in user.lineup %}
+                            <p>{{ lineUp.name }}</p>
+                        {% endfor %}
+                    </td>
+            </tr>
+            <tr>
                 <th>Nationalité</th>
                 <td>
                     {% if user.nationality is not null %}

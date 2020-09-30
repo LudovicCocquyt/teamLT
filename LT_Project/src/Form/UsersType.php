@@ -7,9 +7,12 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
+use App\Entity\Lineup;
 use App\Entity\Users;
+
 
 class UsersType extends AbstractType
 {
@@ -23,6 +26,18 @@ class UsersType extends AbstractType
             ->add('firstname')
             ->add('lastname')
             ->add('username')
+            ->add('lineup', EntityType::class, [
+                    // looks for choices from this entity
+                    'class' => Lineup::class,
+                    'required' => false,
+
+                    // uses the User.username property as the visible option string
+                    'choice_label' => 'name',
+
+                    // used to render a select box, check boxes or radios
+                     'multiple' => true,
+                    // 'expanded' => true,
+                ])          
             ->add('birthday', DateType::class, array(
                     'label'    => 'Date de naissance',
                     'years'    => range(date('1970'), date('Y')),

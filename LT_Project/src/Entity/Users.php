@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UsersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -83,11 +85,17 @@ class Users implements UserInterface, \Serializable
      */
     private $description;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Lineup::class, inversedBy="users")
+     */
+    private $lineup;
+
     public function __construct()
     {
         $this->isActive = true;
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid('', true));
+        $this->lineup = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -289,5 +297,31 @@ class Users implements UserInterface, \Serializable
             // see section on salt below
             // $this->salt
         ) = unserialize($serialized, array('allowed_classes' => false));
+    }
+
+    /**
+     * @return Collection|Lineup[]
+     */
+    public function getLineup(): Collection
+    {
+        return $this->lineup;
+    }
+
+    public function addLineup(Lineup $lineup): self
+    {
+        if (!$this->lineup->contains($lineup)) {
+            $this->lineup[] = $lineup;
+        }
+
+        return $this;
+    }
+
+    public function removeLineup(Lineup $lineup): self
+    {
+        if ($this->lineup->contains($lineup)) {
+            $this->lineup->removeElement($lineup);
+        }
+
+        return $this;
     }
 }

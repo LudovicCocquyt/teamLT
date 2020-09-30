@@ -11,6 +11,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 use App\Entity\Users;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Lineup;
 
 class UsersEditType extends AbstractType
 {
@@ -36,6 +38,18 @@ class UsersEditType extends AbstractType
                                         'Oui' => true,
                                         'Non' => false,
                                        ],])
+            ->add('lineup', EntityType::class, [
+                    // looks for choices from this entity
+                    'class' => Lineup::class,
+                    'required' => false,
+
+                    // uses the User.username property as the visible option string
+                    'choice_label' => 'name',
+
+                    // used to render a select box, check boxes or radios
+                     'multiple' => true,
+                    // 'expanded' => true,
+                ])
             ->add('nationality', ChoiceType::class, [
                         'choices'  => [
                                         'Europe'         => 'eu.png',
