@@ -9,9 +9,9 @@
         </div>
     </div>
 
-    <table class="table">
+    <table class="table table-striped">
         <tbody>
-                <tr>
+            <tr>
                 <th>Créé</th>
                 <td>{{ news.createdAt ? news.createdAt|date('d-m-Y H:i:s') : '' }} par {{ news.createdBy }}</td>
             </tr>
