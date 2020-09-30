@@ -90,12 +90,18 @@ class Users implements UserInterface, \Serializable
      */
     private $lineup;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Jeux::class, inversedBy="users")
+     */
+    private $jeux;
+
     public function __construct()
     {
         $this->isActive = true;
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid('', true));
         $this->lineup = new ArrayCollection();
+        $this->jeux = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -320,6 +326,32 @@ class Users implements UserInterface, \Serializable
     {
         if ($this->lineup->contains($lineup)) {
             $this->lineup->removeElement($lineup);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Jeux[]
+     */
+    public function getJeux(): Collection
+    {
+        return $this->jeux;
+    }
+
+    public function addJeux(Jeux $jeux): self
+    {
+        if (!$this->jeux->contains($jeux)) {
+            $this->jeux[] = $jeux;
+        }
+
+        return $this;
+    }
+
+    public function removeJeux(Jeux $jeux): self
+    {
+        if ($this->jeux->contains($jeux)) {
+            $this->jeux->removeElement($jeux);
         }
 
         return $this;

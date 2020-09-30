@@ -12,32 +12,35 @@
     <table class="table table-striped">
         <tbody>
             <tr>
-                <th>Créé</th>
-                <td>{{ user.createdAt ? user.createdAt|date('d-m-Y H:i:s') : '' }} par {{ user.createdBy }}</td>
+                <th>Créé - Modifié - Actif</th>
+                <td>{{ user.createdAt ? user.createdAt|date('d-m-Y H:i:s') : '' }} par {{ user.createdBy }}
+                    <br>{{ user.updatedAt ? user.updatedAt|date('d-m-Y H:i:s') : '' }} par {{ user.updatedBy }} 
+                    <br>{{ user.isActive ? '<i class="fas fa-check text-success fa-2x"></i>' : '<i class="fas fa-times text-danger fa-2x"></i>' }}</td>
             </tr>
             <tr>
-                <th>Modifié</th>
-                <td>{{ user.updatedAt ? user.updatedAt|date('d-m-Y H:i:s') : '' }} par {{ user.updatedBy }}</td>
+                <th>Email - Date de naissance</th>
+                <td>{{ user.email }} 
+                <br>{{ user.birthday ? user.birthday|date('d-m-Y') : '' }}</td>
             </tr>
             <tr>
-                <th>Actif</th>
-                <td>{{ user.isActive ? '<i class="fas fa-check text-success fa-2x"></i>' : '<i class="fas fa-times text-danger fa-2x"></i>' }}</td>
+                <th>Nom - Prénom - Pseudo</th>
+                <td>
+                    {% if user.nationality is not null %}
+                        <img style="height: 20px; width: auto;" src="../../flag/{{ user.nationality }}">
+                    {% else %}
+                        <img style="height: 20px; width: auto;" src="../../flag/eu.png">
+                    {% endif %}
+                    {{ user.username }}
+                    <br>{{ user.lastname }} - {{ user.firstname }}
+                </td>
             </tr>
             <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ user.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Prénom</th>
-                <td>{{ user.lastname }}</td>
-            </tr>
-            <tr>
-                <th>Pseudo</th>
-                <td>{{ user.username }}</td>
+                <th>Jeux</th>
+                    <td>
+                        {% for jeux in user.Jeux %}
+                            <p>{{ jeux.name }}</p>
+                        {% endfor %}
+                    </td>
             </tr>
             <tr>
                 <th>line up</th>
@@ -46,20 +49,6 @@
                             <p>{{ lineUp.name }}</p>
                         {% endfor %}
                     </td>
-            </tr>
-            <tr>
-                <th>Nationalité</th>
-                <td>
-                    {% if user.nationality is not null %}
-                        <img style="height: 20px; width: auto;" src="../../flag/{{ user.nationality }}">
-                    {% else %}
-                        <img style="height: 20px; width: auto;" src="../../flag/eu.png">
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th>Date de naissance</th>
-                <td>{{ user.birthday ? user.birthday|date('d-m-Y') : '' }}</td>
             </tr>
             <tr>
                 <th>Description</th>

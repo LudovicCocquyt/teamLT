@@ -2,17 +2,19 @@
 
 namespace App\Form;
 
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 use App\Entity\Users;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Lineup;
+use App\Entity\Jeux;
+
 
 class UsersEditType extends AbstractType
 {
@@ -27,7 +29,9 @@ class UsersEditType extends AbstractType
             ->add('username', TextType::class,[
                 'required' => true
             ])
-            ->add('description', TextareaType::class)
+            ->add('description', TextareaType::class,[
+                'required' => false
+            ])
             ->add('birthday', DateType::class, array(
                     'label'    => 'Date de naissance',
                     'years'    => range(date('1970'), date('Y')),
@@ -38,6 +42,18 @@ class UsersEditType extends AbstractType
                                         'Oui' => true,
                                         'Non' => false,
                                        ],])
+            ->add('jeux', EntityType::class, [
+                    // looks for choices from this entity
+                    'class' => Jeux::class,
+                    'required' => false,
+
+                    // uses the User.username property as the visible option string
+                    'choice_label' => 'name',
+
+                    // used to render a select box, check boxes or radios
+                     'multiple' => true,
+                    // 'expanded' => true,
+                ])
             ->add('lineup', EntityType::class, [
                     // looks for choices from this entity
                     'class' => Lineup::class,

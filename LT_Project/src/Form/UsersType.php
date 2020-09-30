@@ -4,6 +4,7 @@ namespace App\Form;
 
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -12,6 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 use App\Entity\Lineup;
 use App\Entity\Users;
+use App\Entity\Jeux;
 
 
 class UsersType extends AbstractType
@@ -25,7 +27,21 @@ class UsersType extends AbstractType
             ->add('password')
             ->add('firstname')
             ->add('lastname')
-            ->add('username')
+            ->add('username', TextType::class,[
+                'required' => true
+            ])
+            ->add('jeux', EntityType::class, [
+                    // looks for choices from this entity
+                    'class' => Jeux::class,
+                    'required' => false,
+
+                    // uses the User.username property as the visible option string
+                    'choice_label' => 'name',
+
+                    // used to render a select box, check boxes or radios
+                     'multiple' => true,
+                    // 'expanded' => true,
+                ])
             ->add('lineup', EntityType::class, [
                     // looks for choices from this entity
                     'class' => Lineup::class,
@@ -37,7 +53,7 @@ class UsersType extends AbstractType
                     // used to render a select box, check boxes or radios
                      'multiple' => true,
                     // 'expanded' => true,
-                ])          
+                ])
             ->add('birthday', DateType::class, array(
                     'label'    => 'Date de naissance',
                     'years'    => range(date('1970'), date('Y')),
@@ -82,7 +98,7 @@ class UsersType extends AbstractType
                                         'United Kingdom' => 'uk.svg',
                                        ],])
             ->add('description', TextareaType::class,[
-                'required'   => true
+                'required'   => false
             ])
         ;
     }
