@@ -73,6 +73,10 @@ class NewsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $news->setUpdatedAt(new \DateTime('now'));
+            $news->setUpdatedby('admin');
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('news_index');
