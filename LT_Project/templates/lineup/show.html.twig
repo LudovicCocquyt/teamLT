@@ -37,10 +37,18 @@
                 <td>{{ lineup.image }}</td>
             </tr>
             <tr>
+                <th>Jeux</th>
+                <td>
+                    {% for game in lineup.jeux%}
+                        {{ game.name }}<br>
+                    {% endfor%}
+                </td>
+            </tr>
+            <tr>
                 <th>Joueurs</th>
                 <td>
                     {% for player in lineup.users%}
-                        <br>{{ player.username }}
+                        {{ player.username }}<br>
                     {% endfor%}
                 </td>
             </tr>

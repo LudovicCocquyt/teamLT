@@ -69,9 +69,15 @@ class Lineup
      */
     private $users;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Jeux::class, inversedBy="lineups")
+     */
+    private $jeux;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->jeux = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -208,6 +214,32 @@ class Lineup
     {
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Jeux[]
+     */
+    public function getJeux(): Collection
+    {
+        return $this->jeux;
+    }
+
+    public function addJeux(Jeux $jeux): self
+    {
+        if (!$this->jeux->contains($jeux)) {
+            $this->jeux[] = $jeux;
+        }
+
+        return $this;
+    }
+
+    public function removeJeux(Jeux $jeux): self
+    {
+        if ($this->jeux->contains($jeux)) {
+            $this->jeux->removeElement($jeux);
         }
 
         return $this;

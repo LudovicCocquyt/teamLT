@@ -64,9 +64,15 @@ class Jeux
      */
     private $users;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Lineup::class, mappedBy="jeux")
+     */
+    private $lineups;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->lineups = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -193,6 +199,34 @@ class Jeux
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
             $user->removeJeux($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Lineup[]
+     */
+    public function getLineups(): Collection
+    {
+        return $this->lineups;
+    }
+
+    public function addLineup(Lineup $lineup): self
+    {
+        if (!$this->lineups->contains($lineup)) {
+            $this->lineups[] = $lineup;
+            $lineup->addJeux($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLineup(Lineup $lineup): self
+    {
+        if ($this->lineups->contains($lineup)) {
+            $this->lineups->removeElement($lineup);
+            $lineup->removeJeux($this);
         }
 
         return $this;
