@@ -74,10 +74,16 @@ class Lineup
      */
     private $jeux;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Resultats::class, mappedBy="lineup")
+     */
+    private $resultats;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->jeux = new ArrayCollection();
+        $this->resultats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -240,6 +246,37 @@ class Lineup
     {
         if ($this->jeux->contains($jeux)) {
             $this->jeux->removeElement($jeux);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Resultats[]
+     */
+    public function getResultats(): Collection
+    {
+        return $this->resultats;
+    }
+
+    public function addResultat(Resultats $resultat): self
+    {
+        if (!$this->resultats->contains($resultat)) {
+            $this->resultats[] = $resultat;
+            $resultat->setLineup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResultat(Resultats $resultat): self
+    {
+        if ($this->resultats->contains($resultat)) {
+            $this->resultats->removeElement($resultat);
+            // set the owning side to null (unless already changed)
+            if ($resultat->getLineup() === $this) {
+                $resultat->setLineup(null);
+            }
         }
 
         return $this;

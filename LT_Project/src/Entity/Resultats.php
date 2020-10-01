@@ -72,6 +72,11 @@ class Resultats
      */
     private $scoreTwo;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Lineup::class, inversedBy="resultats")
+     */
+    private $lineup;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -205,6 +210,18 @@ class Resultats
     public function setScoreTwo(int $scoreTwo): self
     {
         $this->scoreTwo = $scoreTwo;
+
+        return $this;
+    }
+
+    public function getLineup(): ?Lineup
+    {
+        return $this->lineup;
+    }
+
+    public function setLineup(?Lineup $lineup): self
+    {
+        $this->lineup = $lineup;
 
         return $this;
     }

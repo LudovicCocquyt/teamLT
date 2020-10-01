@@ -30,19 +30,19 @@
                 <td>{{ resultat.name }}</td>
             </tr>
             <tr>
-                <th>Equipes</th>
-                    <td> ?? VS {{ resultat.teamAdverse }}</td>
+                <th>Notre line up</th>
+                    <td> {{ resultat.lineup.name }} --> {{ resultat.scoreOne }} </td>
                 </tr>
+            </tr>
+            <tr>
+                <th>Line up adverse</th>
+                <td>
+                    {{ resultat.teamAdverse }} --> {{ resultat.scoreTwo }}
+                </td>
             </tr>
             <tr>
                 <th>Map</th>
                 <td>{{ resultat.mapOne }} - {{ resultat.mapTwo }}</td>
-            </tr>
-            <tr>
-                <th>Score</th>
-                <td>
-                    {{ resultat.scoreOne }} - {{ resultat.scoreTwo }}
-                </td>
             </tr>
         </tbody>
     </table>
