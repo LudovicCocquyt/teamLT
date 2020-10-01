@@ -3,10 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Lineup;
+use App\Entity\Users;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class LineupType extends AbstractType
 {
@@ -17,6 +19,18 @@ class LineupType extends AbstractType
             ->add('name')
             ->add('tag')
             ->add('image')
+            ->add('users', EntityType::class, [
+                    // looks for choices from this entity
+                    'class' => Users::class,
+                    'required' => false,
+
+                    // uses the User.username property as the visible option string
+                    'choice_label' => 'userName',
+
+                    // used to render a select box, check boxes or radios
+                     'multiple' => true,
+                    // 'expanded' => true,
+                ])
             ->add('description', TextareaType::class)
         ;
     }

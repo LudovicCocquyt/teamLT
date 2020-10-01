@@ -65,7 +65,7 @@ class Lineup
     private $isActive;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Users::class, mappedBy="lineup")
+     * @ORM\ManyToMany(targetEntity=Users::class, inversedBy="lineups")
      */
     private $users;
 
@@ -199,7 +199,6 @@ class Lineup
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
-            $user->addLineup($this);
         }
 
         return $this;
@@ -209,9 +208,9 @@ class Lineup
     {
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
-            $user->removeLineup($this);
         }
 
         return $this;
     }
+
 }

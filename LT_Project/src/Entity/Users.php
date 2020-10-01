@@ -86,14 +86,14 @@ class Users implements UserInterface, \Serializable
     private $description;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Lineup::class, inversedBy="users")
-     */
-    private $lineup;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Jeux::class, inversedBy="users")
      */
     private $jeux;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Lineup::class, mappedBy="users")
+     */
+    private $lineups;
 
     public function __construct()
     {
@@ -102,6 +102,7 @@ class Users implements UserInterface, \Serializable
         // $this->salt = md5(uniqid('', true));
         $this->lineup = new ArrayCollection();
         $this->jeux = new ArrayCollection();
+        $this->lineups = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -306,32 +307,6 @@ class Users implements UserInterface, \Serializable
     }
 
     /**
-     * @return Collection|Lineup[]
-     */
-    public function getLineup(): Collection
-    {
-        return $this->lineup;
-    }
-
-    public function addLineup(Lineup $lineup): self
-    {
-        if (!$this->lineup->contains($lineup)) {
-            $this->lineup[] = $lineup;
-        }
-
-        return $this;
-    }
-
-    public function removeLineup(Lineup $lineup): self
-    {
-        if ($this->lineup->contains($lineup)) {
-            $this->lineup->removeElement($lineup);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Jeux[]
      */
     public function getJeux(): Collection
@@ -352,6 +327,34 @@ class Users implements UserInterface, \Serializable
     {
         if ($this->jeux->contains($jeux)) {
             $this->jeux->removeElement($jeux);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Lineup[]
+     */
+    public function getLineups(): Collection
+    {
+        return $this->lineups;
+    }
+
+    public function addLineup(Lineup $lineup): self
+    {
+        if (!$this->lineups->contains($lineup)) {
+            $this->lineups[] = $lineup;
+            $lineup->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLineup(Lineup $lineup): self
+    {
+        if ($this->lineups->contains($lineup)) {
+            $this->lineups->removeElement($lineup);
+            $lineup->removeUser($this);
         }
 
         return $this;

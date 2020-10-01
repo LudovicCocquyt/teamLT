@@ -54,18 +54,6 @@ class UsersEditType extends AbstractType
                      'multiple' => true,
                     // 'expanded' => true,
                 ])
-            ->add('lineup', EntityType::class, [
-                    // looks for choices from this entity
-                    'class' => Lineup::class,
-                    'required' => false,
-
-                    // uses the User.username property as the visible option string
-                    'choice_label' => 'name',
-
-                    // used to render a select box, check boxes or radios
-                     'multiple' => true,
-                    // 'expanded' => true,
-                ])
             ->add('nationality', ChoiceType::class, [
                         'choices'  => [
                                         'Europe'         => 'eu.png',

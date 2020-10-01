@@ -37,6 +37,14 @@
                 <td>{{ lineup.image }}</td>
             </tr>
             <tr>
+                <th>Joueurs</th>
+                <td>
+                    {% for player in lineup.users%}
+                        <br>{{ player.username }}
+                    {% endfor%}
+                </td>
+            </tr>
+            <tr>
                 <th>Description</th>
                 <td>{{ lineup.description }}</td>
             </tr>
