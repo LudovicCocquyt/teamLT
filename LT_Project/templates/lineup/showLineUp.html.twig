@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="aqua-gradient pb-5" style="padding-top: 100px; height: auto;">
+    <div class="container" style="width: 80%;">
+            <div class="row m-0" style="justify-content: space-between;">
+                
+                <div class="col-7">
+                    <hr>
+                    <div class="row" style="justify-content: center;">
+                        <p class="ml-2 mr-2 font-weight-bold" style="font-size: 30px;">{{ lineup.name }}</p>
+                    </div>
+                    <hr>
+
+                    <div>
+                        <p class="text-center">{{ lineup.description }}</p>
+                    </div>
+                    <hr>
+
+                    <div class="row" style="justify-content: space-between;">
+                        <p>Jeux</p>
+                            <div class="text-right">
+                                {% for jeux in lineup.Jeux %}
+                                    <p>{{ jeux.name }}</p>
+                                {% endfor %}
+                            </div>
+                    </div>
+                    <hr>
+
+                    <div class="row" style="justify-content: space-between;">
+                        <p>Joueurs</p>
+                        <div class="">
+                            {% for player in lineup.users %}
+                                <a class="ml-1 mr-1" href="{{ path('user_show', {'id': player.id}) }}">{{ player.username }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+    {# -------------------------------------------------------- #}
+                <div class="col-5 mt-3">
+                    <div class="text-center mb-3">
+                        <img style="height: 150px; width: 150px;" src="../../img/cod.jpeg">
+                    </div>
+                    <hr>
+
+                    <div class="text-center">
+                        <p class="font-weight-bold">Palmares</p>
+                 
+                        {% for palmares in lineup.palmares %}
+                            <p class="mb-0">{{ palmares.jeux.name }}</p>
+                            <p>{{ palmares.name }} - Top {{ palmares.rank }}</p>
+                        {% endfor %}
+                    </div>
+                    <hr>
+
+                    <div class="text-center">
+                        <p class="font-weight-bold">Matchs</p>
+
+                        {% for resultat in lineup.resultats|slice(0, 10) %}
+                            <p class="mb-0">{{ resultat.lineup.name }} {{ resultat.scoreOne }} - {{ resultat.scoreTwo }} {{ resultat.teamAdverse }}</p>
+                        {% endfor %}
+                    </div>
+
+                </div>
+
+            </div>
+    </div>
+</div>
+            
+{% endblock %}

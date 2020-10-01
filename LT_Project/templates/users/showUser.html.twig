@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="aqua-gradient pb-5" style="padding-top: 100px; height: auto;">
+    <div class="container" style="width: 80%;">
+            <div class="row m-0" style="justify-content: space-between;">
+                
+                <div class="col-7">
+                    <hr>
+                    <div class="row" style="justify-content: center;">
+                        <p class="mt-1">
+                            {% if user.nationality is not null %}
+                                <img style="height: 20px; width: auto;" src="../../flag/{{ user.nationality }}">
+                            {% else %}
+                                <img style="height: 20px; width: auto;" src="../../flag/eu.png">
+                            {% endif %}
+                        </p>
+                        <p class="ml-2 mr-2" style="font-size: 25px;">{{ user.firstname }}</p>
+                        <p class="ml-2 mr-2 font-weight-bold" style="font-size: 30px;">" {{ user.username }} "</p>
+                        <p class="ml-2" style="font-size: 25px;">{{ user.lastname }}</p>
+                        <p class="ml-4 mt-2">{{ user.birthday ? user.birthday|date('m') : '' }} ans</p>
+                    </div>
+                    <hr>
+
+                    <div>
+                        <p class="text-center">{{ user.description }}</p>
+                    </div>
+                    <hr>
+
+                    <div class="row" style="justify-content: space-between;">
+                        <p>Jeux</p>
+                            <div class="text-right">
+                                {% for jeux in user.Jeux %}
+                                    <p>{{ jeux.name }}</p>
+                                {% endfor %}
+                            </div>
+                    </div>
+                    <hr>
+
+                    <div class="row" style="justify-content: space-between;">
+                        <p>Line up</p>
+                            <div class="text-right">
+                                {% for lineUp in user.lineups %}
+                                    <p>{{ lineUp.name }}</p>
+                                {% endfor %}
+                            </div>
+                    </div>
+
+                </div>
+    {# -------------------------------------------------------- #}
+                <div class="col-5 mt-3">
+                    <div class="text-center mb-3">
+                        <img style="height: 150px; width: 150px;" src="../../img/cod.jpeg">
+                    </div>
+                    <hr>
+
+                    <div class="text-center">
+                        <p class="font-weight-bold">Palmares</p>
+                 
+                        {% for palmares in user.palmares %}
+                            <p class="mb-0">{{ palmares.jeux.name }}</p>
+                            <p>{{ palmares.name }} - Top {{ palmares.rank }}</p>
+                        {% endfor %}
+                    </div>
+                    <hr>
+
+                    <div class="text-center">
+                        <p class="font-weight-bold">Matchs</p>
+
+                        {% for resultat in user.resultats|slice(0, 10) %}
+                            <p class="mb-0">{{ resultat.lineup.name }} {{ resultat.scoreOne }} - {{ resultat.scoreTwo }} {{ resultat.teamAdverse }}</p>
+                        {% endfor %}
+                    </div>
+
+                </div>
+
+            </div>
+    </div>
+</div>
+            
+{% endblock %}
