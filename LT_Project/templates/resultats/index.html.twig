@@ -13,7 +13,7 @@
                 <th>Modifier</th>
                 <th>Date du match</th>
                 <th>Nom</th>
-                <th>Adversaire</th>
+                <th>Line up</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -33,10 +33,9 @@
                 <td>
                     {{ resultat.date ? resultat.date|date('d-m-Y') : '' }}
                     <br> {{ resultat.date ? resultat.date|date('H:i:s') : '' }}
-                    <br>{{ resultat.updatedBy }}
                 </td>
                 <td>{{ resultat.name }}</td>
-                <td>{{ resultat.teamAdverse }}</td>
+                <td>{{ resultat.lineup.name }} VS {{ resultat.teamAdverse }}</td>
                 <td class="d-flex" style="justify-content: center;">
                     <a href="{{ path('resultats_show', {'id': resultat.id}) }}"><i class="far fa-eye m-3"></i></a>
                     <a href="{{ path('resultats_edit', {'id': resultat.id}) }}"><i class="fas fa-edit m-3"></i></a>

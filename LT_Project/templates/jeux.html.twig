@@ -37,21 +37,12 @@
                 <div class="card-body card-body-cascade text-center pb-5">
 
                   <!-- Title -->
-                  <h4 class="white-text card-title"><strong>Line Up</strong></h4>
+                  <h4 class="white-text card-title"><strong>Nos line up</strong></h4>
                   <!-- Text -->
-                    <a class="m-5" href="">{{ jeux.name }}</a>
-                    <a class="m-5" href="">{{ jeux.name }}</a>
-                    <a class="m-5" href="">{{ jeux.name }}</a>
-                    <a class="m-5" href="">{{ jeux.name }}</a>
-                    <a class="m-5" href="">{{ jeux.name }}</a>
-                    <a class="m-5" href="">{{ jeux.name }}</a>
-                    <a class="m-5" href="">{{ jeux.name }}</a>
-                    <a class="m-5" href="">{{ jeux.name }}</a>
-                    <a class="m-5" href="">{{ jeux.name }}</a>
-                    <a class="m-5" href="">{{ jeux.name }}</a>
-                    <a class="m-5" href="">{{ jeux.name }}</a>
-                    <a class="m-5" href="">{{ jeux.name }}</a>
-                    <a class="m-5" href="">{{ jeux.name }}</a>
+                  {% for lineup in jeux.lineups %}
+                    <a class="m-5" href="">{{ lineup.name }}</a>
+                  {% endfor %}
+                    
                 </div>
 
               </div>
