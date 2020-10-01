@@ -105,6 +105,11 @@ class Users implements UserInterface, \Serializable
      */
     private $palmares;
 
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
     public function __construct()
     {
         $this->isActive = true;
@@ -424,6 +429,13 @@ class Users implements UserInterface, \Serializable
             $this->palmares->removeElement($palmare);
             $palmare->removeUser($this);
         }
+
+        return $this;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }

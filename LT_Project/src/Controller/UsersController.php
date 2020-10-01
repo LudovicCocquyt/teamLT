@@ -116,4 +116,14 @@ class UsersController extends AbstractController
 
         return $this->redirectToRoute('users_index');
     }
+
+    /**
+     * @Route("/{id}/showUser", name="user_show", methods={"GET"})
+     */
+    public function showUser(Users $user): Response
+    {
+        return $this->render('users/showUser.html.twig', [
+            'user' => $user,
+        ]);
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Lineup;
 use App\Form\LineupType;
 use App\Repository\LineupRepository;
+use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -100,5 +101,16 @@ class LineupController extends AbstractController
         }
 
         return $this->redirectToRoute('lineup_index');
+    }
+
+        /**
+     * @Route("/{id}/showLineUp", name="lineups_show", methods={"GET"})
+     */
+    public function showLineUp(Lineup $lineup, UsersRepository $userRepo): Response
+    {
+        return $this->render('lineup/showLineUp.html.twig', [
+            'lineup' => $lineup,
+            // 'user'   =>$userRepo->findAll()
+        ]);
     }
 }
