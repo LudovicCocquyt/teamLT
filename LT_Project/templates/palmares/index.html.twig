@@ -1,0 +1,50 @@
+{% extends 'admin/baseAdmin.html.twig' %}
+
+{% block body %}
+    <div class="row m-0" style="justify-content: space-between;">
+        <h1 class="m-3">Palmares</h1>
+        <a class="m-3" style="color: #63c7d2;" href="{{ path('palmares_new') }}"><i class="fas fa-plus"></i><i class="fas fa-user-friends fa-2x"></i></a>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr class="text-center">
+                <th>Créé</th>
+                <th>Modifié</th>
+                <th>Line up</th>
+                <th>Nom</th>
+                <th>Rank</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for palmare in palmares %}
+            <tr class="text-center">
+                <td>
+                    {{ palmare.createdAt ? palmare.createdAt|date('d-m-Y') : '' }}
+                    <BR> {{ palmare.createdAt ? palmare.createdAt|date('H:i:s') : '' }}
+                    <BR> {{ palmare.createdBy }}
+                </td>
+                <td>
+                    {{ palmare.updatedAt ? palmare.updatedAt|date('d-m-Y') : '' }} 
+                    <BR> {{ palmare.updatedAt ? palmare.updatedAt|date('H:i:s') : '' }}
+                    <BR> {{ palmare.updatedBy }}
+                </td>
+                <td>{{ palmare.lineup.name }}</td>
+                <td>{{ palmare.name }}</td>
+                <td>{{ palmare.rank }}</td>
+                <td class="d-flex" style="justify-content: center;">
+                    <a href="{{ path('palmares_show', {'id': palmare.id}) }}"><i class="far fa-eye m-3"></i></a>
+                    <a href="{{ path('palmares_edit', {'id': palmare.id}) }}"><i class="fas fa-users-cog m-3"></i></a>
+                   <p>{{ include('palmares/_delete_form.html.twig') }}</p>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

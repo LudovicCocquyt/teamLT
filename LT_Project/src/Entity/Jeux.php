@@ -74,11 +74,17 @@ class Jeux
      */
     private $resultats;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Palmares::class, mappedBy="jeux")
+     */
+    private $palmares;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->lineups = new ArrayCollection();
         $this->resultats = new ArrayCollection();
+        $this->palmares = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -263,6 +269,37 @@ class Jeux
             // set the owning side to null (unless already changed)
             if ($resultat->getJeu() === $this) {
                 $resultat->setJeu(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Palmares[]
+     */
+    public function getPalmares(): Collection
+    {
+        return $this->palmares;
+    }
+
+    public function addPalmare(Palmares $palmare): self
+    {
+        if (!$this->palmares->contains($palmare)) {
+            $this->palmares[] = $palmare;
+            $palmare->setJeux($this);
+        }
+
+        return $this;
+    }
+
+    public function removePalmare(Palmares $palmare): self
+    {
+        if ($this->palmares->contains($palmare)) {
+            $this->palmares->removeElement($palmare);
+            // set the owning side to null (unless already changed)
+            if ($palmare->getJeux() === $this) {
+                $palmare->setJeux(null);
             }
         }
 

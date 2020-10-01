@@ -100,6 +100,11 @@ class Users implements UserInterface, \Serializable
      */
     private $resultats;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Palmares::class, mappedBy="user")
+     */
+    private $palmares;
+
     public function __construct()
     {
         $this->isActive = true;
@@ -109,6 +114,7 @@ class Users implements UserInterface, \Serializable
         $this->jeux = new ArrayCollection();
         $this->lineups = new ArrayCollection();
         $this->resultats = new ArrayCollection();
+        $this->palmares = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -389,6 +395,34 @@ class Users implements UserInterface, \Serializable
         if ($this->resultats->contains($resultat)) {
             $this->resultats->removeElement($resultat);
             $resultat->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Palmares[]
+     */
+    public function getPalmares(): Collection
+    {
+        return $this->palmares;
+    }
+
+    public function addPalmare(Palmares $palmare): self
+    {
+        if (!$this->palmares->contains($palmare)) {
+            $this->palmares[] = $palmare;
+            $palmare->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePalmare(Palmares $palmare): self
+    {
+        if ($this->palmares->contains($palmare)) {
+            $this->palmares->removeElement($palmare);
+            $palmare->removeUser($this);
         }
 
         return $this;

@@ -1,0 +1,51 @@
+{% extends 'admin/baseAdmin.html.twig' %}
+
+{% block title %}Palmares{% endblock %}
+
+{% block body %}
+    <div class="row m-3" style="justify-content: space-between;">
+        <h1>{{ palmare.name }}</h1>
+        <div>
+            <a style="color: #63c7d2;" href="{{ path('palmares_edit', {'id': palmare.id}) }}"><i class="fas fa-edit fa-2x"></i></a>
+            <a class="m-3" style="color: #63c7d2;" href="{{ path('palmares_index') }}"><i class="fas fa-sign-out-alt  fa-2x"></i></a>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>Créé</th>
+                <td>{{ palmare.createdAt ? palmare.createdAt|date('d-m-Y H:i:s') : '' }} par {{ palmare.createdBy }}</td>
+            </tr>
+            <tr>
+                <th>Modifié</th>
+                <td>{{ palmare.updatedAt ? palmare.updatedAt|date('d-m-Y H:i:s') : '' }} par {{ palmare.updatedBy }}</td>
+            </tr>
+            <tr>
+                <th>Date de la competition</th>
+                <td>{{ palmare.date ? palmare.date|date('d-m-Y') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Rank</th>
+                <td>{{ palmare.rank }}</td>
+            </tr>
+            <tr>
+                <th>Jeux</th>
+                <td>{{ palmare.jeux.name }}</td>
+            </tr>
+            <tr>
+                <th>Line up</th>
+                <td>{{ palmare.lineup.name }}</td>
+            </tr>
+            <tr>
+                <th>Joueurs</th>
+                <td>
+                    {% for player in palmare.user%}
+                        {{ player.username }}<br>
+                    {% endfor%}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+{% endblock %}
