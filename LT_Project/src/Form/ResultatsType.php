@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 use App\Entity\Resultats;
 use App\Entity\Lineup;
+use App\Entity\Users;
 
 class ResultatsType extends AbstractType
 {
@@ -33,6 +34,18 @@ class ResultatsType extends AbstractType
             ->add('scoreOne')
             ->add('teamAdverse')
             ->add('scoreTwo')
+            ->add('user', EntityType::class, [
+                    // looks for choices from this entity
+                    'class' => Users::class,
+                    'required' => false,
+
+                    // uses the User.username property as the visible option string
+                    'choice_label' => 'userName',
+
+                    // used to render a select box, check boxes or radios
+                     'multiple' => true,
+                    // 'expanded' => true,
+                ])
         ;
     }
 

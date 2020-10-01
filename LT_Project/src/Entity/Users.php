@@ -95,6 +95,11 @@ class Users implements UserInterface, \Serializable
      */
     private $lineups;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Resultats::class, mappedBy="user")
+     */
+    private $resultats;
+
     public function __construct()
     {
         $this->isActive = true;
@@ -103,6 +108,7 @@ class Users implements UserInterface, \Serializable
         $this->lineup = new ArrayCollection();
         $this->jeux = new ArrayCollection();
         $this->lineups = new ArrayCollection();
+        $this->resultats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -355,6 +361,34 @@ class Users implements UserInterface, \Serializable
         if ($this->lineups->contains($lineup)) {
             $this->lineups->removeElement($lineup);
             $lineup->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Resultats[]
+     */
+    public function getResultats(): Collection
+    {
+        return $this->resultats;
+    }
+
+    public function addResultat(Resultats $resultat): self
+    {
+        if (!$this->resultats->contains($resultat)) {
+            $this->resultats[] = $resultat;
+            $resultat->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResultat(Resultats $resultat): self
+    {
+        if ($this->resultats->contains($resultat)) {
+            $this->resultats->removeElement($resultat);
+            $resultat->removeUser($this);
         }
 
         return $this;

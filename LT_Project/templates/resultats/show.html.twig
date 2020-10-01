@@ -44,6 +44,14 @@
                 <th>Map</th>
                 <td>{{ resultat.mapOne }} - {{ resultat.mapTwo }}</td>
             </tr>
+            <tr>
+                <th>Joueurs</th>
+                <td>
+                    {% for user in resultat.user %}
+                        {{ user.username }}</br>
+                    {% endfor %}
+                </td>
+            </tr>
         </tbody>
     </table>
 

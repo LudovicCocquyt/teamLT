@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ResultatsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -76,6 +78,16 @@ class Resultats
      * @ORM\ManyToOne(targetEntity=Lineup::class, inversedBy="resultats")
      */
     private $lineup;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Users::class, inversedBy="resultats")
+     */
+    private $user;
+
+    public function __construct()
+    {
+        $this->user = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -222,6 +234,32 @@ class Resultats
     public function setLineup(?Lineup $lineup): self
     {
         $this->lineup = $lineup;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Users[]
+     */
+    public function getUser(): Collection
+    {
+        return $this->user;
+    }
+
+    public function addUser(Users $user): self
+    {
+        if (!$this->user->contains($user)) {
+            $this->user[] = $user;
+        }
+
+        return $this;
+    }
+
+    public function removeUser(Users $user): self
+    {
+        if ($this->user->contains($user)) {
+            $this->user->removeElement($user);
+        }
 
         return $this;
     }

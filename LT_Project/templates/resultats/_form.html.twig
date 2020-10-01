@@ -12,6 +12,12 @@
 		  		<th>Date du match : <br> {{ form_widget(form.date, { 'attr': {'class': "span12"} }) }}</th>
 		  	</tr>
 		  	<tr class="text-center">
+		  		<th>Line up : <br> {{ form_widget(form.lineup, { 'attr': {'class': "span12", 'cols' : '100'} }) }}</th>
+		  	</tr>
+		  	<tr class="text-center">
+		  		<th>Joueurs : <br> {{ form_widget(form.user, { 'attr': {'class': "span12"} }) }}</th>
+		  	</tr>
+		  	<tr class="text-center">
 		  		<th>Nom : <br> {{ form_widget(form.name, { 'attr': {'class': "span12",'placeholder': "Nom du match", 'cols' : '100'} }) }}</th>
 		  	</tr>
 		  	<tr class="text-center">
@@ -19,9 +25,6 @@
 		  	</tr>
 		  	<tr class="text-center">
 		  		<th>Map 2 : <br> {{ form_widget(form.mapTwo, { 'attr': {'class': "span12", 'cols' : '100'} }) }}</th>
-		  	</tr>
-		  	<tr class="text-center">
-		  		<th>Line up : <br> {{ form_widget(form.lineup, { 'attr': {'class': "span12", 'cols' : '100'} }) }}</th>
 		  	</tr>
 		  	<tr class="text-center">
 		  		<th>Score 1 : <br> {{ form_widget(form.scoreOne, { 'attr': {'class': "span12", 'cols' : '100'} }) }}</th>
