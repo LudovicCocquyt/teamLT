@@ -3,7 +3,7 @@
 {% block body %}
     <div class="row m-0" style="justify-content: space-between;">
         <h1 class="m-3">Palmares</h1>
-        <a class="m-3" style="color: #63c7d2;" href="{{ path('palmares_new') }}"><i class="fas fa-plus"></i><i class="fas fa-user-friends fa-2x"></i></a>
+        <a class="m-3" style="color: #63c7d2;" href="{{ path('palmares_new') }}"><i class="fas fa-plus"></i><i class="fas fa-trophy fa-2x"></i></a>
     </div>
 
     <table class="table table-striped">
@@ -35,7 +35,9 @@
                 <td>{{ palmare.rank }}</td>
                 <td class="d-flex" style="justify-content: center;">
                     <a href="{{ path('palmares_show', {'id': palmare.id}) }}"><i class="far fa-eye m-3"></i></a>
-                    <a href="{{ path('palmares_edit', {'id': palmare.id}) }}"><i class="fas fa-users-cog m-3"></i></a>
+                    <a href="{{ path('palmares_edit', {'id': palmare.id}) }}">
+                    <i class="fas fa-edit m-3"></i>
+                    </a>
                    <p>{{ include('palmares/_delete_form.html.twig') }}</p>
                 </td>
             </tr>
