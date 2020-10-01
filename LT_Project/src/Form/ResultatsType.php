@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use App\Entity\Resultats;
 use App\Entity\Lineup;
 use App\Entity\Users;
+use App\Entity\Jeux;
 
 class ResultatsType extends AbstractType
 {
@@ -19,6 +20,18 @@ class ResultatsType extends AbstractType
             ->add('name')
             ->add('mapOne')
             ->add('mapTwo')
+                    // looks for choices from this entity
+            ->add('jeu', EntityType::class, [
+                    'class'    => Jeux::class,
+                    'required' => true,
+
+                    // uses the User.username property as the visible option string
+                    'choice_label' => 'name',
+
+                    // used to render a select box, check boxes or radios
+                     'multiple' => false,
+                    // 'expanded' => true,
+                ])
             ->add('lineup', EntityType::class, [
                     // looks for choices from this entity
                     'class' => Lineup::class,

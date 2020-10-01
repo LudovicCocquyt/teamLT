@@ -34,7 +34,7 @@
                     {{ resultat.date ? resultat.date|date('d-m-Y') : '' }}
                     <br> {{ resultat.date ? resultat.date|date('H:i:s') : '' }}
                 </td>
-                <td>{{ resultat.name }}</td>
+                <td>{{ resultat.jeu.name }}<br>{{ resultat.name }}</td>
                 <td>{{ resultat.lineup.name }} VS {{ resultat.teamAdverse }}</td>
                 <td class="d-flex" style="justify-content: center;">
                     <a href="{{ path('resultats_show', {'id': resultat.id}) }}"><i class="far fa-eye m-3"></i></a>

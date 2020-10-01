@@ -84,6 +84,11 @@ class Resultats
      */
     private $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Jeux::class, inversedBy="resultats")
+     */
+    private $jeu;
+
     public function __construct()
     {
         $this->user = new ArrayCollection();
@@ -260,6 +265,18 @@ class Resultats
         if ($this->user->contains($user)) {
             $this->user->removeElement($user);
         }
+
+        return $this;
+    }
+
+    public function getJeu(): ?Jeux
+    {
+        return $this->jeu;
+    }
+
+    public function setJeu(?Jeux $jeu): self
+    {
+        $this->jeu = $jeu;
 
         return $this;
     }
