@@ -41,7 +41,7 @@
                         <p>Line up</p>
                             <div class="text-right">
                                 {% for lineUp in user.lineups %}
-                                    <p>{{ lineUp.name }}</p>
+                                    <a href="{{ path('lineups_show', {'id': lineUp.id}) }}">{{ lineUp.name }}</a>
                                 {% endfor %}
                             </div>
                     </div>

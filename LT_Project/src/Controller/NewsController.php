@@ -101,4 +101,14 @@ class NewsController extends AbstractController
 
         return $this->redirectToRoute('news_index');
     }
+
+    /**
+     * @Route("/{id}/showNews", name="showNews_show", methods={"GET"})
+     */
+    public function showNews(News $news): Response
+    {
+        return $this->render('news/showNews.html.twig', [
+            'news' => $news,
+        ]);
+    }
 }
