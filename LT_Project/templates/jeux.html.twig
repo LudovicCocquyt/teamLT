@@ -41,7 +41,9 @@
                   <h4 class="white-text card-title"><strong>Nos line up</strong></h4>
                   <!-- Text -->
                   {% for lineup in jeux.lineups %}
-                    <a class="ml-1 mr-1" href="{{ path('lineups_show', {'id': lineup.id}) }}">{{ lineup.name }}</a>
+                    {% if lineup.isActive == true %}
+                      <a class="ml-1 mr-1" href="{{ path('lineups_show', {'id': lineup.id}) }}">{{ lineup.name }}</a>
+                    {% endif %}
                   {% endfor %}
                     
                 </div>
