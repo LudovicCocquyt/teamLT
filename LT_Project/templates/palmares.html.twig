@@ -7,15 +7,26 @@
 		    
 		    <section class="row">
 			    <div class="text-center col-6">
-		            {% for palmares in palmares|slice(10,19)|reverse %}
-		                <p class="mb-0">{{ palmares.jeux.name }}</p>
+		            {% for palmares in palmares|slice(0,9)|reverse %}
+		                <p class="mb-0 font-weight-bold">{{ palmares.jeux.name }}</p>
 		                <p class="mb-1">{{ palmares.name }} - Top {{ palmares.rank }}</p>
 		            {% endfor %}
 		        </div>
 		        <div class="text-center col-6">
-		            {% for palmares in palmares|slice(0,9)|reverse %}
-		                <p class="mb-0 font-weight-bold">{{ palmares.jeux.name }}</p>
-		                <p class="mb-1">{{ palmares.name }} - Top {{ palmares.rank }}</p>
+		            {% for resultat in resultats|slice(0,19)|reverse %}
+		                <div class="row" style="justify-content: center;">
+                		{% if  resultat.scoreOne < resultat.scoreTwo %}
+		                	<p class="mb-0 col-4">{{ resultat.lineup.name }}</p>
+		                	<p class="mb-0 col-4">
+		                	<span class="text-danger">{{ resultat.scoreOne }}</span> - <span class="text-success">{{ resultat.scoreTwo }}</p>
+		                	<p class="mb-0 col-4">{{ resultat.teamAdverse }}</p>
+		                {% else %}
+		                	<p class="mb-0 col-4">{{ resultat.lineup.name }}</p>
+		                	<p class="mb-0 col-4">
+		                	<span class="text-success">{{ resultat.scoreOne }}</span> - <span class="text-danger">{{ resultat.scoreTwo }}</p>
+		                	<p class="mb-0 col-4">{{ resultat.teamAdverse }}</p>
+		                {% endif %}
+		                </div>
 		            {% endfor %}
 		        </div>
 		    </section>
@@ -45,7 +56,7 @@
 		            {% endfor %}
 		        </div>
 		        <div class="text-center col-6">
-		            {% for resultat in resultats|slice(0,19)|reverse %}
+		            {% for resultat in resultats|slice(30,39)|reverse %}
 		                <div class="row" style="justify-content: center;">
                 		{% if  resultat.scoreOne < resultat.scoreTwo %}
 		                	<p class="mb-0 col-4">{{ resultat.lineup.name }}</p>
