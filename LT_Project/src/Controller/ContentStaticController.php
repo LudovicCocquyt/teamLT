@@ -35,6 +35,12 @@ class ContentStaticController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $contentStatic->setCreatedAt(new \DateTime('now'));
+            $contentStatic->setCreatedby('admin');
+            $contentStatic->setUpdatedAt(new \DateTime('now'));
+            $contentStatic->setUpdatedby('ludo');
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($contentStatic);
             $entityManager->flush();
