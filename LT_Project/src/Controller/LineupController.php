@@ -8,6 +8,7 @@ use App\Repository\LineupRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\ContentStaticRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -106,11 +107,11 @@ class LineupController extends AbstractController
         /**
      * @Route("/{id}/showLineUp", name="lineups_show", methods={"GET"})
      */
-    public function showLineUp(Lineup $lineup, UsersRepository $userRepo): Response
+    public function showLineUp(Lineup $lineup, UsersRepository $userRepo, ContentStaticRepository $contentStaticRepo): Response
     {
         return $this->render('lineup/showLineUp.html.twig', [
-            'lineup' => $lineup,
-            // 'user'   =>$userRepo->findAll()
+            'lineup'  => $lineup,
+            'statics' => $contentStaticRepo->findAll()
         ]);
     }
 }
