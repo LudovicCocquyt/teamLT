@@ -15,7 +15,10 @@ class ContentStaticType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('description', textareaType::class)
+            ->add('description', textareaType::class, [
+                    'empty_data' => '' ,
+                    'required' => false,
+                ])
         ;
     }
 

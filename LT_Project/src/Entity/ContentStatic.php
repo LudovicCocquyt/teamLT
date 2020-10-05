@@ -43,7 +43,7 @@ class ContentStatic
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=800)
+     * @ORM\Column(type="string", length=800, nullable=true)
      */
     private $description;
 
