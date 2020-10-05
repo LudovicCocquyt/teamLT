@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -11,8 +12,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
-use App\Entity\Users;
 use App\Entity\Lineup;
+use App\Entity\Images;
+use App\Entity\Users;
 use App\Entity\Jeux;
 
 
@@ -87,6 +89,15 @@ class UsersEditType extends AbstractType
                                         'Sweden'         => 'Swe.png',
                                         'United Kingdom' => 'uk.svg',
                                        ],])
+            ->add('description', TextareaType::class,[
+                'required'   => false
+            ])
+            ->add('images', FileType::class,[
+                'label'    => false,
+                'multiple' => false,
+                'mapped'   => false,
+                'required' => false
+            ])
         ;
     }
 

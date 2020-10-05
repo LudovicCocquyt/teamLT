@@ -7,9 +7,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\ContentStaticRepository;
+use App\Repository\ImagesRepository;
 use App\Repository\UsersRepository;
 use App\Form\UsersEditType;
 use App\Form\UsersType;
+use App\Entity\Images;
 use App\Entity\Users;
 
 /**
@@ -55,6 +58,21 @@ class UsersController extends AbstractController
             $user->setUpdatedAt(new \DateTime('now'));
             $user->setUpdatedby('admin');
             $user->setIsActive(true);
+            if (!is_null($form->get('images')->getData())) {
+                // On récupère l'image transmise
+                $image = $form->get('images')->getData();
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                // On copie le fichier dans le dossier uploads
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+                // On crée l'image dans la base de données
+                $img = new Images();
+                $img->setName($fichier);
+                $user->addImage($img);
+            }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -82,12 +100,41 @@ class UsersController extends AbstractController
     /**
      * @Route("/{id}/edit", name="users_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Users $user): Response
+    public function edit(Request $request, Users $user, ImagesRepository $imageRepo = null): Response
     {
         $form = $this->createForm(UsersEditType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            //Gestion des images
+            if ($form->get('images')->getData() && !empty($imageRepo->findBy(array('users' => $user)))) {
+
+                $lastImage = $imageRepo->findBy(array('users' => $user))[0];
+                // On récupère le nom de l'image
+                $nom = $lastImage->getName();
+                // On supprime le fichier
+                unlink($this->getParameter('images_directory').'/'.$nom);
+
+                // On supprime l'entrée de la base
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($lastImage);
+                $em->flush();
+
+            }
+            // On récupère l'mage transmise
+            $image = $form->get('images')->getData();
+            // On génère un nouveau nom de fichier
+            $fichier = md5(uniqid()).'.'.$image->guessExtension();
+            // On copie le fichier dans le dossier image
+            $image->move(
+                $this->getParameter('images_directory'),
+                $fichier
+            );
+            // On crée l'image dans la base de données
+            $img = new Images();
+            $img->setName($fichier);
+            $user->addImage($img);
 
             $user->setUpdatedAt(new \DateTime('now'));
             $user->setUpdatedby('admin');
@@ -120,10 +167,14 @@ class UsersController extends AbstractController
     /**
      * @Route("/{id}/showUser", name="user_show", methods={"GET"})
      */
-    public function showUser(Users $user): Response
+    public function showUser(Users $user, ContentStaticRepository $contentStaticRepo, ImagesRepository $imageRepo): Response
     {
+        $image = (!empty($imageRepo->findBy(array('users' => $user)))) ? $imageRepo->findBy(array('users' => $user))[0]->getName() : 'navbar-logo.png' ;
+
         return $this->render('users/showUser.html.twig', [
-            'user' => $user,
+            'user'      => $user,
+            'statics'   => $contentStaticRepo->findAll(),
+            'imageName' => $image
         ]);
     }
 }

@@ -110,16 +110,22 @@ class Users implements UserInterface, \Serializable
      */
     private $roles = [];
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Images", mappedBy="users",cascade={"persist"})
+     */
+    private $images;
+
     public function __construct()
     {
-        $this->isActive = true;
+        $this->isActive  = true;
         // may not be needed, see section on salt below
-        // $this->salt = md5(uniqid('', true));
-        $this->lineup = new ArrayCollection();
-        $this->jeux = new ArrayCollection();
-        $this->lineups = new ArrayCollection();
+        // $this->salt   = md5(uniqid('', true));
+        $this->lineup    = new ArrayCollection();
+        $this->jeux      = new ArrayCollection();
+        $this->lineups   = new ArrayCollection();
         $this->resultats = new ArrayCollection();
-        $this->palmares = new ArrayCollection();
+        $this->palmares  = new ArrayCollection();
+        $this->images    = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -436,6 +442,37 @@ class Users implements UserInterface, \Serializable
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Images[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Images $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Images $image): self
+    {
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
+            // set the owning side to null (unless already changed)
+            if ($image->getRealisations() === $this) {
+                $image->setRealisations(null);
+            }
+        }
 
         return $this;
     }
