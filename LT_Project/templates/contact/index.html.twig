@@ -1,0 +1,45 @@
+{% extends 'admin/baseAdmin.html.twig' %}
+
+{% block body %}
+    <div class="row m-0" style="justify-content: space-between;">
+        <h1 class="m-3">Contact</h1>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr class="text-center">
+                <th>Id</th>
+                <th>CreatedAt</th>
+                <th>Object</th>
+                <th>description</th>
+                <th>Etat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contact in contacts|reverse %}
+            <tr class="text-center">
+                <td>{{ contact.id }}</td>
+                <td>
+                    {{ contact.createdAt ? contact.createdAt|date('Y-m-d') : '' }} <br>
+                    {{ contact.createdAt ? contact.createdAt|date('H:i:s') : '' }}
+                </td>
+                <td>{{ contact.object }}</td>
+                <td>{{ contact.description }}</td>
+                <td>{{ contact.isActive ? '<i class="fas fa-check text-success fa-2x"></i>' : '<i class="fas fa-times text-danger fa-2x"></i>' }}
+                </td>
+                <td class="d-flex" style="justify-content: center;">
+                    <a href="{{ path('contact_show', {'id': contact.id}) }}"><i class="far fa-eye m-3"></i></a>
+                    <a href="{{ path('contact_edit', {'id': contact.id}) }}"><i class="fas fa-edit m-3"></i></a>
+                   <p>{{ include('contact/_delete_form.html.twig') }}</p>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

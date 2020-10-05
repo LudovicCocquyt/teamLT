@@ -1,0 +1,16 @@
+ {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <table class="table table-striped">
+    	<tbody>
+		  	<tr class="text-center">
+		  		<th>Réponse d'un admin : <br> {{ form_widget(form.returnMessage, { 'attr': {'class': "span12",'placeholder': "Votre réponse ...", 'rows' : '10', 'cols' : '100'} }) }}</th>
+		  	</tr>
+		  	<tr class="text-center">
+		  		<th>Cloturer message ? <br> {{ form_widget(form.isActive, { 'attr': {'class': "span12"} }) }}</th>
+		  	</tr>
+		</tbody>
+	</table>
+	<div class="text-center">
+		<button class="text-center btn mb-5" style="background-color: #63c7d2;">{{ button_label|default('Valider') }}</button>
+    </div>
+{{ form_end(form) }}

@@ -1,0 +1,24 @@
+{# {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+ #}
+ {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <table class="table table-striped">
+    	<tbody>
+		  	<tr class="text-center">
+		  		<th>Nom* : <br> {{ form_widget(form.name, { 'attr': {'class': "span12",'placeholder': "Nom / pseudo"} }) }}</th>
+		  	</tr>
+		  	<tr class="text-center">
+		  		<th>Objet* : <br> {{ form_widget(form.object, { 'attr': {'class': "span12",'placeholder': "Motif"} }) }}</th>
+		  	</tr>
+		  	<tr class="text-center">
+		  		<th>Message* : <br> {{ form_widget(form.description, { 'attr': {'class': "span12",'placeholder': "Votre message ...", 'rows' : '10', 'cols' : '100'} }) }}</th>
+		  	</tr>
+		</tbody>
+	</table>
+	<div class="text-center">
+		<button class="text-center btn mb-5" style="background-color: #63c7d2;">{{ button_label|default('Envoyer') }}</button>
+    </div>
+{{ form_end(form) }}
