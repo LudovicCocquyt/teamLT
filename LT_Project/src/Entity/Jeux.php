@@ -55,11 +55,6 @@ class Jeux
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $image;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Users::class, mappedBy="jeux")
      */
     private $users;
@@ -79,12 +74,23 @@ class Jeux
      */
     private $palmares;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Images", mappedBy="users",cascade={"persist"})
+     */
+    private $images;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imageName;
+
     public function __construct()
     {
-        $this->users = new ArrayCollection();
-        $this->lineups = new ArrayCollection();
+        $this->users     = new ArrayCollection();
+        $this->lineups   = new ArrayCollection();
         $this->resultats = new ArrayCollection();
-        $this->palmares = new ArrayCollection();
+        $this->palmares  = new ArrayCollection();
+        $this->images    = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -172,18 +178,6 @@ class Jeux
     public function setDescription(?string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
 
         return $this;
     }
@@ -302,6 +296,49 @@ class Jeux
                 $palmare->setJeux(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Images[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Images $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setJeux($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Images $image): self
+    {
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
+            // set the owning side to null (unless already changed)
+            if ($image->getRealisations() === $this) {
+                $image->setRealisations(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    public function setImageName(?string $imageName): self
+    {
+        $this->imageName = $imageName;
 
         return $this;
     }

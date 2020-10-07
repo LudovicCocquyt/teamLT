@@ -26,6 +26,11 @@ class Images
      */
     private $users;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Jeux", inversedBy="images")
+     */
+    private $jeux;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +56,18 @@ class Images
     public function setUsers(?Users $users): self
     {
         $this->users = $users;
+
+        return $this;
+    }
+
+    public function getJeux(): ?Jeux
+    {
+        return $this->jeux;
+    }
+
+    public function setJeux(?Jeux $jeux): self
+    {
+        $this->jeux = $jeux;
 
         return $this;
     }

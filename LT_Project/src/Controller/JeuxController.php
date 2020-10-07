@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Jeux;
+use App\Entity\Images;
 use App\Form\JeuxType;
 use App\Repository\JeuxRepository;
+use App\Repository\ImagesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,6 +43,25 @@ class JeuxController extends AbstractController
             $jeux->setUpdatedAt(new \DateTime('now'));
             $jeux->setUpdatedby('ludo');
 
+            if (!is_null($form->get('images')->getData())) {
+                // On récupère l'image transmise
+                $image = $form->get('images')->getData();
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                // On copie le fichier dans le dossier uploads
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+                // On crée l'image dans la base de données
+                $img = new Images();
+                $img->setName($fichier);
+                $jeux->setImageName($fichier);
+
+
+                $jeux->addImage($img);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($jeux);
             $entityManager->flush();
@@ -67,7 +88,7 @@ class JeuxController extends AbstractController
     /**
      * @Route("/{id}/edit", name="jeux_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Jeux $jeux): Response
+    public function edit(Request $request, Jeux $jeux, imagesRepository $imageRepo = null): Response
     {
         $form = $this->createForm(JeuxType::class, $jeux);
         $form->handleRequest($request);
@@ -76,6 +97,41 @@ class JeuxController extends AbstractController
 
             $jeux->setUpdatedAt(new \DateTime('now'));
             $jeux->setUpdatedby('admin');
+
+            //Gestion de l'image
+            if ($form->get('images')->getData()) {
+
+                if (!empty($imageRepo->findBy(array('jeux' => $jeux)))) {
+                    //si il y a une image, on supprime l'image
+
+                    $lastImage = $imageRepo->findBy(array('jeux' => $jeux))[0];
+                    // On récupère le nom de l'image
+                    $nom = $lastImage->getName();
+                    // On supprime le fichier
+                    unlink($this->getParameter('images_directory').'/'.$nom);
+
+                    // On supprime l'entrée de la base
+                    $em = $this->getDoctrine()->getManager();
+                    $em->remove($lastImage);
+                    $em->flush();
+
+                }
+
+                // On récupère l'image transmise
+                $image = $form->get('images')->getData();
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                // On copie le fichier dans le dossier image
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+                // On crée l'image dans la base de données
+                $img = new Images();
+                $img->setName($fichier);
+                $jeux->setImageName($fichier);
+                $jeux->addImage($img);
+            }
 
             $this->getDoctrine()->getManager()->flush();
 
@@ -88,17 +144,17 @@ class JeuxController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="jeux_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Jeux $jeux): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$jeux->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($jeux);
-            $entityManager->flush();
-        }
+    // /**
+    //  * @Route("/{id}", name="jeux_delete", methods={"DELETE"})
+    //  */
+    // public function delete(Request $request, Jeux $jeux): Response
+    // {
+    //     if ($this->isCsrfTokenValid('delete'.$jeux->getId(), $request->request->get('_token'))) {
+    //         $entityManager = $this->getDoctrine()->getManager();
+    //         $entityManager->remove($jeux);
+    //         $entityManager->flush();
+    //     }
 
-        return $this->redirectToRoute('jeux_index');
-    }
+    //     return $this->redirectToRoute('jeux_index');
+    // }
 }

@@ -10,7 +10,7 @@
     </div>
 
     <table class="table table-striped">
-        <tbody>
+        <tbody class="text-center">
             <tr>
                 <th>Créé</th>
                 <td>{{ jeux.createdAt ? jeux.createdAt|date('d-m-Y H:i:s') : '' }} par {{ jeux.createdBy }}</td>
@@ -33,7 +33,7 @@
             </tr>
             <tr>
                 <th>Image</th>
-                <td>{{ jeux.image }}</td>
+                <td><img class="card-img-top" style="height: 150px; width: auto;" src="../image/{{ jeux.imageName }}" alt="Card image cap"></td>
             </tr>
         </tbody>
     </table>

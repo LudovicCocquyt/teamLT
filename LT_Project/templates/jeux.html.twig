@@ -23,16 +23,18 @@
             </div>
             <!--Grid column-->
 
-              <div class="col-md-6 col-xl-6">
+              <div class="col-md-6 col-xl-5 ml-5">
               <!-- Card Wider -->
               <div class="card card-cascade wider bg-transparent">
 
-                <!-- Card image -->
-                <div class="view view-cascade overlay">
-                  <img class="card-img-top" src="img/{{ jeux.image }}" alt="Card image cap">
-                    <div class="mask rgba-white-slight"></div>
-                  </a>
-                </div>
+                {% if jeux.imageName is not empty  %}
+                  <!-- Card image -->
+                  <div class="view view-cascade overlay">
+                      <img class="card-img-top" src="image/{{ jeux.imageName }}" alt="Card image cap">
+                      <div class="mask rgba-white-slight"></div>
+                    </a>
+                  </div>
+                {% endif %}
 
                 <!-- Card content -->
                 <div class="card-body card-body-cascade text-center pb-5">
