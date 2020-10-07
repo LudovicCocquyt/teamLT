@@ -49,15 +49,17 @@
                 </div>
     {# -------------------------------------------------------- #}
                 <div class="col-5 mt-3">
+                {% if imageName is not empty %}
                     <div class="text-center mb-3">
                         <img style="height: 150px; width: 150px;" src="../../image/{{ imageName }}">
                     </div>
                     <hr>
+                {% endif %}
 
                     <div class="text-center">
                         <p class="font-weight-bold">Palmares</p>
                  
-                        {% for palmares in user.palmares %}
+                        {% for palmares in user.palmares|reverse %}
                             <p class="mb-0">{{ palmares.jeux.name }}</p>
                             <p>{{ palmares.name }} - Top {{ palmares.rank }}</p>
                         {% endfor %}
@@ -67,7 +69,7 @@
                     <div class="text-center">
                         <p class="font-weight-bold">Matchs</p>
 
-                        {% for resultat in user.resultats|slice(0, 10) %}
+                        {% for resultat in user.resultats|reverse|slice(0, 10)|reverse %}
                             <p class="mb-0">{{ resultat.lineup.name }} {{ resultat.scoreOne }} - {{ resultat.scoreTwo }} {{ resultat.teamAdverse }}</p>
                         {% endfor %}
                     </div>
