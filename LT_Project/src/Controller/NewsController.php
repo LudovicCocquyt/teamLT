@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\News;
 use App\Form\NewsType;
 use App\Repository\NewsRepository;
+use App\Repository\ContentStaticRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -105,10 +106,11 @@ class NewsController extends AbstractController
     /**
      * @Route("/{id}/showNews", name="showNews_show", methods={"GET"})
      */
-    public function showNews(News $news): Response
+    public function showNews(News $news, ContentStaticRepository $ContentStaticRepo): Response
     {
         return $this->render('news/showNews.html.twig', [
             'news' => $news,
+            'statics' => $ContentStaticRepo->findAll() 
         ]);
     }
 }
