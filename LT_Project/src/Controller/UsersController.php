@@ -58,6 +58,7 @@ class UsersController extends AbstractController
             $user->setUpdatedAt(new \DateTime('now'));
             $user->setUpdatedby('admin');
             $user->setIsActive(true);
+            
             if (!is_null($form->get('images')->getData())) {
                 // On récupère l'image transmise
                 $image = $form->get('images')->getData();
@@ -107,34 +108,39 @@ class UsersController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            //Gestion des images
-            if ($form->get('images')->getData() && !empty($imageRepo->findBy(array('users' => $user)))) {
+            //Gestion de l'image
+            if ($form->get('images')->getData()) {
 
-                $lastImage = $imageRepo->findBy(array('users' => $user))[0];
-                // On récupère le nom de l'image
-                $nom = $lastImage->getName();
-                // On supprime le fichier
-                unlink($this->getParameter('images_directory').'/'.$nom);
+                if (!empty($imageRepo->findBy(array('users' => $user)))) {
+                    //si il y a une image, on supprime l'image
 
-                // On supprime l'entrée de la base
-                $em = $this->getDoctrine()->getManager();
-                $em->remove($lastImage);
-                $em->flush();
+                    $lastImage = $imageRepo->findBy(array('users' => $user))[0];
+                    // On récupère le nom de l'image
+                    $nom = $lastImage->getName();
+                    // On supprime le fichier
+                    unlink($this->getParameter('images_directory').'/'.$nom);
 
+                    // On supprime l'entrée de la base
+                    $em = $this->getDoctrine()->getManager();
+                    $em->remove($lastImage);
+                    $em->flush();
+
+                }
+
+                // On récupère l'image transmise
+                $image = $form->get('images')->getData();
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                // On copie le fichier dans le dossier image
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+                // On crée l'image dans la base de données
+                $img = new Images();
+                $img->setName($fichier);
+                $user->addImage($img);
             }
-            // On récupère l'mage transmise
-            $image = $form->get('images')->getData();
-            // On génère un nouveau nom de fichier
-            $fichier = md5(uniqid()).'.'.$image->guessExtension();
-            // On copie le fichier dans le dossier image
-            $image->move(
-                $this->getParameter('images_directory'),
-                $fichier
-            );
-            // On crée l'image dans la base de données
-            $img = new Images();
-            $img->setName($fichier);
-            $user->addImage($img);
 
             $user->setUpdatedAt(new \DateTime('now'));
             $user->setUpdatedby('admin');
@@ -169,7 +175,7 @@ class UsersController extends AbstractController
      */
     public function showUser(Users $user, ContentStaticRepository $contentStaticRepo, ImagesRepository $imageRepo): Response
     {
-        $image = (!empty($imageRepo->findBy(array('users' => $user)))) ? $imageRepo->findBy(array('users' => $user))[0]->getName() : 'navbar-logo.png' ;
+        $image = (!empty($imageRepo->findBy(array('users' => $user)))) ? $imageRepo->findBy(array('users' => $user))[0]->getName() : '' ;
 
         return $this->render('users/showUser.html.twig', [
             'user'      => $user,
