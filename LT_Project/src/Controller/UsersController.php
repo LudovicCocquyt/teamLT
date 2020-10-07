@@ -22,9 +22,10 @@ class UsersController extends AbstractController
 {
     private $encoder;
 
-    public function __construct(UserPasswordEncoderInterface $encoder)
+    public function __construct(UserPasswordEncoderInterface $encoder, ImagesRepository $imageRepo)
     {
-        $this->encoder = $encoder;
+        $this->encoder   = $encoder;
+        $this->imageRepo = $imageRepo;
     }
     /**
      * @Route("/", name="users_index", methods={"GET"})
@@ -163,6 +164,20 @@ class UsersController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            $data  = json_decode($request->getContent(), true);
+            
+            if ($this->imageRepo->findBy(array('users' => $user))) {
+
+                $image = $this->imageRepo->findBy(array('users' => $user))[0];
+                // On récupère le nom de l'image
+                $nom = $image->getName();
+                // On supprime le fichier
+                unlink($this->getParameter('images_directory').'/'.$nom);
+            
+                $entityManager->remove($image);
+            }
+
             $entityManager->remove($user);
             $entityManager->flush();
         }
@@ -173,9 +188,9 @@ class UsersController extends AbstractController
     /**
      * @Route("/{id}/showUser", name="user_show", methods={"GET"})
      */
-    public function showUser(Users $user, ContentStaticRepository $contentStaticRepo, ImagesRepository $imageRepo): Response
+    public function showUser(Users $user, ContentStaticRepository $contentStaticRepo): Response
     {
-        $image = (!empty($imageRepo->findBy(array('users' => $user)))) ? $imageRepo->findBy(array('users' => $user))[0]->getName() : '' ;
+        $image = (!empty($this->imageRepo->findBy(array('users' => $user)))) ? $this->imageRepo->findBy(array('users' => $user))[0]->getName() : '' ;
 
         return $this->render('users/showUser.html.twig', [
             'user'      => $user,
