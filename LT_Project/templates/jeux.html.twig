@@ -1,113 +1,95 @@
-{% for jeux in jeux %}
-  {% if jeux.isActive == true %}
 
-  <div id="lineup" style="width: 100%; height: 580px; padding-top: 8em; 
-    margin-top: -10em; ">
+<div id="lineup" style="width: 100%; height: auto; 
+padding-top: 5em; 
+    margin-top: -3em;
+    background-color: #000;
+    ">
+  <div class="row justify-content-center mr-0 ml-0" style="padding-bottom: 70px;">
 
-  <!-- Main navigation -->
-  <header>
-    <!-- Full Page Intro -->
-    <div class="view" style="background-image: url('img/fond.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center; margin-top: -50px;">
-      <!-- Mask & flexbox options-->
-      <div class="mask rgba-gradient d-flex justify-content-center align-items-center">
-        <!-- Content -->
-        <div class="container">
-          <!--Grid row-->
-          <div class="row">
-            <!--Grid column-->
-            <div class="col-md-6 mb-5 mt-md-0 mt-5 white-text text-center text-md-left">
-              <h1 class="h1-responsive font-weight-bold wow fadeInLeft" data-wow-delay="0.3s">{{ jeux.name }} </h1>
-              <hr class="hr-light wow fadeInLeft" data-wow-delay="0.3s">
-              <h6 class="mb-3 wow fadeInLeft" data-wow-delay="0.3s">{{ jeux.description }}</h6>
-              <a class="btn btn-outline-white btn-rounded wow fadeInLeft d-none" data-wow-delay="0.3s">Learn more</a>
-            </div>
-            <!--Grid column-->
+    {% for jeux in jeux %}
+      <div class="col-12 col-lg-6 mt-2">
 
-              <div class="col-md-6 col-xl-5 ml-5">
-              <!-- Card Wider -->
-              <div class="card card-cascade wider bg-transparent">
-
-                {% if jeux.imageName is not empty  %}
-                  <!-- Card image -->
-                  <div class="view view-cascade overlay">
-                      <img class="card-img-top" src="image/{{ jeux.imageName }}" alt="Card image cap">
-                      <div class="mask rgba-white-slight"></div>
-                    </a>
-                  </div>
-                {% endif %}
-
-                <!-- Card content -->
-                <div class="card-body card-body-cascade text-center pb-5">
-
-                  <!-- Title -->
-                  <h4 class="white-text card-title"><strong>Nos line up</strong></h4>
-                  <!-- Text -->
-                  {% for lineup in jeux.lineups %}
-                    {% if lineup.isActive == true %}
-                      <a class="ml-1 mr-1" href="{{ path('lineups_show', {'id': lineup.id}) }}">{{ lineup.name }}</a>
-                    {% endif %}
-                  {% endfor %}
-                    
-                </div>
-
+          <div class="card mx-auto text-white card_article">
+              <img src="image/{{ jeux.imageName }}" class="card-img" alt="..." 
+              width="100%"
+              style="height: 340px;" 
+              >
+              <div class=" display-info d-none text-center
+              {# card-img-overlay #}
+              ">
+              <p class="text-dark">Nos line up <br><span class="font-weight-bold" style="font-size: x-large">{{ jeux.name }}</span></p>
+                {% for lineup in jeux.lineups %}
+                  {% if lineup.isActive == true %}
+                    <a class="ml-1 mr-1 text-dark lineupD" href="{{ path('lineups_show', {'id': lineup.id}) }}">{{ lineup.name}}</a>
+                  {% endif %}
+                {% endfor %}
               </div>
-              <!-- Card Wider -->
-              </div>
-
           </div>
-          <!--Grid row-->
-        </div>
-        <!-- Content -->
+          
       </div>
-      <!-- Mask & flexbox options-->
-    </div>
-    <!-- Full Page Intro -->
-  </header>
-  <!-- Main navigation -->
+    {% endfor %}
+
+      <div class="col-12 col-lg-6 mt-2">
+
+          <div class="card mx-auto text-white card_article bg-white pt-5" style="padding-bottom: 40px;">
+              <img src="image/navbar-logo.png" class="card-img mt-3 mb-3" alt="..." 
+              width="100%"
+              style="height: 220px;" 
+              >
+              <div class="display-info d-none text-center">
+              <p class="mt-5">
+                <a class="font-weight-bold text-dark"  style="font-size: x-large" href="{{ path('contact_new') }}">
+                <span>Rejoindre une line up ?</span>
+                <br>
+                <span>Créer une line up ?</span>
+                <br>
+                <span>Par ici</span>
+                <br>
+                <i class="fas fa-arrow-circle-right"></i>
+                </a>
+              </p>
+              </div>
+          </div>
+      </div>
+
   </div>
-  {% endif %}
-{% endfor %}
+</div>
 
-<style>
+<style type="text/css">
 
-  html,
-  body,
-  header,
-  .view {
-    height: 100%;
+  .lineupD:hover{
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-size: x-large;"
   }
+  .card_article{
+  opacity: 1;
+}
 
-  @media (max-width: 740px) {
-    html,
-    body,
-    header,
-    .view {
-      height: 1000px;
-    }
-  }
-  @media (min-width: 800px) and (max-width: 850px) {
-    html,
-    body,
-    header,
-    .view {
-      height: 650px;
-    }
-  }
-  
-  .rgba-gradient {
-    background: linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(72, 15, 144, 0.4) 100%);
-  }
+.card_article:hover img{
+  opacity: 0.4;
+  transition : 1000ms;
+}
 
-  .card {
-    background-color: rgba(126, 123, 215, 0.2);
-  }
+.card_article:hover .display-info{
+  display: block !important;
+  margin-top: -64px;
+  z-index: 100;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
 
-  .md-form label {
-    color: #ffffff;
-  }
+.card-img-overlay {
+  padding-top: 10rem;
+}
 
-  h6 {
-    line-height: 1.7;
+@media screen and (max-width : 576px) {
+  .card-img-overlay {
+    padding-top: 5rem;
   }
-
+}
 </style>
