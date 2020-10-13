@@ -5,8 +5,11 @@
     <div class="container" style="width: 80%;">
             <div class="row m-0" style="justify-content: space-between;">
                 
-                <div class="col-7">
+                <div class="col-xl-7">
                     <hr>
+                    <div class="mobileImg text-center mb-3 d-none">
+                        <img style="height: 150px; width: 150px;" src="../../img/cod.jpeg">
+                    </div>
                     <div class="row" style="justify-content: center;">
                         <p class="ml-2 mr-2 font-weight-bold" style="font-size: 30px;">{{ lineup.name }}</p>
                     </div>
@@ -38,11 +41,13 @@
 
                 </div>
     {# -------------------------------------------------------- #}
-                <div class="col-5 mt-3">
-                    <div class="text-center mb-3">
+                <div class="stats col-5 mt-3">
+                    {# {% if imageName is not empty %} #}
+                    <div class="imageLarge text-center mb-3">
                         <img style="height: 150px; width: 150px;" src="../../img/cod.jpeg">
                     </div>
                     <hr>
+                    {# {% endif %} #}
 
                     <div class="text-center">
                         <p class="font-weight-bold">Palmares</p>
@@ -68,4 +73,22 @@
     </div>
 </div>
             
+
+<style type="text/css">
+
+    @media screen and (max-width : 1024px) {
+
+        .imageLarge {
+            display: none !important;
+        }
+
+        .mobileImg {
+            display: block !important;
+        }
+
+        .stats {
+            display: contents;
+        }
+    }
+</style>
 {% endblock %}

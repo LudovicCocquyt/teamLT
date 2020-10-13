@@ -20,7 +20,7 @@ class HomeController extends AbstractController
     {
 
     	return $this->render('homePage.html.twig', [
-            'jeux'     => $jeuxRepo->findAll(),
+            'jeux'     => $jeuxRepo->findBy(array('isActive' => true)),
             'news'     => $newsRepo->findAll(),
             'statics'  => $ContentStaticRepo->findAll(),
             'resultats' => $resultatsRepo->findAll(),

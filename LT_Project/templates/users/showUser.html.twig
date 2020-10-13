@@ -5,8 +5,12 @@
     <div class="container" style="width: 80%;">
             <div class="row m-0" style="justify-content: space-between;">
                 
-                <div class="col-7">
+                <div class="col-xl-7">
                     <hr>
+                    <div class="d-none mobileImg text-center mb-3">
+                        <img style="height: 150px; width: 150px;" src="../../image/{{ imageName }}">
+                    </div>
+
                     <div class="row" style="justify-content: center;">
                         <p class="mt-1">
                             {% if user.nationality is not null %}
@@ -48,9 +52,9 @@
 
                 </div>
     {# -------------------------------------------------------- #}
-                <div class="col-5 mt-3">
+                <div class="statsPerso col-5 mt-3">
                 {% if imageName is not empty %}
-                    <div class="text-center mb-3">
+                    <div class="imageLarge text-center mb-3">
                         <img style="height: 150px; width: 150px;" src="../../image/{{ imageName }}">
                     </div>
                     <hr>
@@ -79,5 +83,23 @@
             </div>
     </div>
 </div>
+
+<style type="text/css">
+
+    @media screen and (max-width : 1024px) {
+
+        .imageLarge {
+            display: none !important;
+        }
+
+        .mobileImg {
+            display: block !important;
+        }
+
+        .statsPerso {
+            display: contents;
+        }
+    }
+</style>
             
 {% endblock %}
