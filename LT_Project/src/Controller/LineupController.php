@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Lineup;
+use App\Entity\Images;
 use App\Form\LineupType;
 use App\Repository\ImagesRepository;
 use App\Repository\LineupRepository;
@@ -41,7 +42,7 @@ class LineupController extends AbstractController
     public function new(Request $request): Response
     {
         $lineup = new Lineup();
-        $form = $this->createForm(LineupType::class, $lineup);
+        $form   = $this->createForm(LineupType::class, $lineup);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -50,6 +51,22 @@ class LineupController extends AbstractController
             $lineup->setCreatedby('admin');
             $lineup->setUpdatedAt(new \DateTime('now'));
             $lineup->setUpdatedby('ludo');
+
+            if (!is_null($form->get('images')->getData())) {
+                // On récupère l'image transmise
+                $image = $form->get('images')->getData();
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                // On copie le fichier dans le dossier uploads
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+                // On crée l'image dans la base de données
+                $img = new Images();
+                $img->setName($fichier);
+                $lineup->addImage($img);
+            }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($lineup);
@@ -87,6 +104,40 @@ class LineupController extends AbstractController
             $lineup->setUpdatedAt(new \DateTime('now'));
             $lineup->setUpdatedby('admin');
 
+            //Gestion de l'image
+            if ($form->get('images')->getData()) {
+
+                if (!empty($this->imageRepo->findBy(array('lineup' => $lineup)))) {
+                    //si il y a une image, on supprime l'image
+
+                    $lastImage = $this->imageRepo->findBy(array('lineup' => $lineup))[0];
+                    // On récupère le nom de l'image
+                    $nom = $lastImage->getName();
+                    // On supprime le fichier
+                    unlink($this->getParameter('images_directory').'/'.$nom);
+
+                    // On supprime l'entrée de la base
+                    $em = $this->getDoctrine()->getManager();
+                    $em->remove($lastImage);
+                    $em->flush();
+
+                }
+
+                // On récupère l'image transmise
+                $image = $form->get('images')->getData();
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                // On copie le fichier dans le dossier image
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+                // On crée l'image dans la base de données
+                $img = new Images();
+                $img->setName($fichier);
+                $lineup->addImage($img);
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('lineup_index');
@@ -94,7 +145,7 @@ class LineupController extends AbstractController
 
         return $this->render('lineup/edit.html.twig', [
             'lineup' => $lineup,
-            'form' => $form->createView(),
+            'form'   => $form->createView(),
         ]);
     }
 
@@ -106,16 +157,16 @@ class LineupController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$lineup->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
 
-            // if ($this->imageRepo->findBy(array('lineups' => $lineup))) {
+            if ($this->imageRepo->findBy(array('lineup' => $lineup))) {
 
-            //     $image = $this->imageRepo->findBy(array('lineups' => $lineup))[0];
-            //     // On récupère le nom de l'image
-            //     $nom = $image->getName();
-            //     // On supprime le fichier
-            //     unlink($this->getParameter('images_directory').'/'.$nom);
+                $image = $this->imageRepo->findBy(array('lineup' => $lineup))[0];
+                // On récupère le nom de l'image
+                $nom = $image->getName();
+                // On supprime le fichier
+                unlink($this->getParameter('images_directory').'/'.$nom);
             
-            //     $entityManager->remove($image);
-            // }
+                $entityManager->remove($image);
+            }
 
             $entityManager->remove($lineup);
             $entityManager->flush();
@@ -129,9 +180,12 @@ class LineupController extends AbstractController
      */
     public function showLineUp(Lineup $lineup, UsersRepository $userRepo, ContentStaticRepository $contentStaticRepo): Response
     {
+        $image = (!empty($this->imageRepo->findBy(array('lineup' => $lineup)))) ? $this->imageRepo->findBy(array('lineup' => $lineup))[0]->getName() : '' ;
+
         return $this->render('lineup/showLineUp.html.twig', [
-            'lineup'  => $lineup,
-            'statics' => $contentStaticRepo->findAll()
+            'lineup'    => $lineup,
+            'statics'   => $contentStaticRepo->findAll(),
+            'imageName' => $image
         ]);
     }
 }

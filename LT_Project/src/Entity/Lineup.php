@@ -50,9 +50,9 @@ class Lineup
     private $tag;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\OneToMany(targetEntity="App\Entity\Images", mappedBy="lineup",cascade={"persist"})
      */
-    private $image;
+    private $images;
 
     /**
      * @ORM\Column(type="string", length=800, nullable=true)
@@ -86,10 +86,11 @@ class Lineup
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
-        $this->jeux = new ArrayCollection();
+        $this->users     = new ArrayCollection();
+        $this->jeux      = new ArrayCollection();
         $this->resultats = new ArrayCollection();
-        $this->palmares = new ArrayCollection();
+        $this->palmares  = new ArrayCollection();
+        $this->images    = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -169,14 +170,33 @@ class Lineup
         return $this;
     }
 
-    public function getImage(): ?string
+    /**
+     * @return Collection|Images[]
+     */
+    public function getImages(): Collection
     {
-        return $this->image;
+        return $this->images;
     }
 
-    public function setImage(string $image): self
+    public function addImage(Images $image): self
     {
-        $this->image = $image;
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setLineup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Images $image): self
+    {
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
+            // set the owning side to null (unless already changed)
+            if ($image->getLineup() === $this) {
+                $image->setLineup(null);
+            }
+        }
 
         return $this;
     }

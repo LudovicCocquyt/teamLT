@@ -31,6 +31,11 @@ class Images
      */
     private $jeux;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Lineup", inversedBy="images")
+     */
+    private $lineup;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +73,18 @@ class Images
     public function setJeux(?Jeux $jeux): self
     {
         $this->jeux = $jeux;
+
+        return $this;
+    }
+
+    public function getLineup(): ?Lineup
+    {
+        return $this->lineup;
+    }
+
+    public function setLineup(?Lineup $lineup): self
+    {
+        $this->lineup = $lineup;
 
         return $this;
     }

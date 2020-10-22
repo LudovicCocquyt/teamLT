@@ -5,11 +5,13 @@ namespace App\Form;
 use App\Entity\Lineup;
 use App\Entity\Jeux;
 use App\Entity\Users;
+use App\Entity\Images;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class LineupType extends AbstractType
 {
@@ -19,7 +21,12 @@ class LineupType extends AbstractType
             ->add('isActive')
             ->add('name')
             ->add('tag')
-            ->add('image')
+            ->add('images', FileType::class,[
+                    'label'    => false,
+                    'multiple' => false,
+                    'mapped'   => false,
+                    'required' => false
+            ])
             ->add('users', EntityType::class, [
                     // looks for choices from this entity
                     'class' => Users::class,
