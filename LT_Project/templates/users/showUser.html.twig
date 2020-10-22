@@ -22,7 +22,7 @@
                         <p class="ml-2 mr-2" style="font-size: 25px;">{{ user.firstname }}</p>
                         <p class="ml-2 mr-2 font-weight-bold" style="font-size: 30px;">" {{ user.username }} "</p>
                         <p class="ml-2" style="font-size: 25px;">{{ user.lastname }}</p>
-                        <p class="ml-4 mt-2">{{ user.birthday ? user.birthday|date('m') : '' }} ans</p>
+                        <p class="ml-4 mt-2">{{ birthday }} ans</p>
                     </div>
                     <hr>
 
@@ -52,29 +52,41 @@
 
                 </div>
     {# -------------------------------------------------------- #}
-                <div class="statsPerso col-5 mt-3">
+                <div class="statsPerso col-4 m-3 borderColor">
                 {% if imageName is not empty %}
-                    <div class="imageLarge text-center mb-3">
+                    <div class="imageLarge borderColor text-center mb-3">
                         <img style="height: 150px; width: 150px;" src="../../image/{{ imageName }}">
                     </div>
-                    <hr>
                 {% endif %}
 
-                    <div class="text-center">
+                    <div class="text-center borderColor">
                         <p class="font-weight-bold">Palmares</p>
-                 
+                        <hr>
                         {% for palmares in user.palmares|reverse %}
                             <p class="mb-0">{{ palmares.jeux.name }}</p>
                             <p>{{ palmares.name }} - Top {{ palmares.rank }}</p>
                         {% endfor %}
                     </div>
-                    <hr>
 
-                    <div class="text-center">
+                    <div class="text-center borderColor">
                         <p class="font-weight-bold">Matchs</p>
-
+                         <hr>
                         {% for resultat in user.resultats|reverse|slice(0, 10)|reverse %}
-                            <p class="mb-0">{{ resultat.lineup.name }} {{ resultat.scoreOne }} - {{ resultat.scoreTwo }} {{ resultat.teamAdverse }}</p>
+                            {% if  resultat.scoreOne < resultat.scoreTwo %}
+                            <div class="row">
+                                <p class="mb-0 col-4">{{ resultat.lineup.name }}</p>
+                                <p class="mb-0 col-4">
+                                <span class="text-danger">{{ resultat.scoreOne }}</span> - <span class="text-success">{{ resultat.scoreTwo }}</span></p>
+                                <p class="mb-0 col-4">{{ resultat.teamAdverse }}</p>
+                            </div>
+                            {% else %}
+                            <div class="row">
+                                <p class="mb-0 col-4">{{ resultat.lineup.name }}</p>
+                                <p class="mb-0 col-4">
+                                <span class="text-success">{{ resultat.scoreOne }}</span> - <span class="text-danger">{{ resultat.scoreTwo }}</span></p>
+                                <p class="mb-0 col-4">{{ resultat.teamAdverse }}</p>
+                            </div>    
+                            {% endif %}
                         {% endfor %}
                     </div>
 
@@ -99,6 +111,12 @@
         .statsPerso {
             display: contents;
         }
+    }
+
+    .borderColor{
+        border: solid 1px #000;
+        margin-bottom: 15px;
+        padding: 10px;
     }
 </style>
             

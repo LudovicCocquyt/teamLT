@@ -197,7 +197,16 @@ class UsersController extends AbstractController
         return $this->render('users/showUser.html.twig', [
             'user'      => $user,
             'statics'   => $contentStaticRepo->findAll(),
-            'imageName' => $image
+            'imageName' => $image,
+            'birthday'  => $this->birthday($user->getBirthday()->format('d/m/Y'))
         ]);
     }
+
+    private function birthday($birthday) 
+    { 
+        $am = explode('/', $birthday);
+        $an = explode('/', date('d/m/Y'));
+        if(($am[1] < $an[1]) || (($am[1] == $an[1]) && ($am[0] <= $an[0]))) return $an[2] - $am[2];
+        return $an[2] - $am[2] - 1; 
+    } 
 }

@@ -60,7 +60,7 @@
 
 	        <div class="text-center col-6 col-lg-4">
 		            {% for resultat in resultats|slice(10.19)|reverse %}
-		                <div class="row" style="justify-content: center;">
+		                <div class="row" style="justify-content: center;  border: solid 1px;">
                 		{% if  resultat.scoreOne < resultat.scoreTwo %}
 		                	<p class="mb-0 col-4">{{ resultat.lineup.name }}</p>
 		                	<p class="mb-0 col-4">
