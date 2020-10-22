@@ -1,7 +1,10 @@
+{% if palmares and resultats is not empty %}
 <div id="palmares" style="padding-top: 6em; margin-top: -6em; width: 100%; height: auto; background-color: #FFF; margin-bottom: 8rem;">
+    
+    {% if palmares is not empty %}
 	<section class="col-12">
 		<div class="row m-0">
-		    
+
 		    <h1 class="col-12 col-lg-3 text-primary" style="font-family: 'Kaushan Script', cursive; font-size: 90px;">Palmares</h1>
 		    
 		    {% if palmares|length <= 10 %}
@@ -29,8 +32,9 @@
 
 		</div>
 	</section>
-	<hr class="container">
+    {% endif %}
 
+    {% if resultats is not empty %}
 	<section class="col-12">
 		<div class="row m-0">
 		    
@@ -38,7 +42,7 @@
 		    
 		    <div class="text-center col-6 col-lg-4">
 	            {% for resultat in resultats|slice(0,9)|reverse %}
-	                <div class="row" style="justify-content: center;">
+	                <div class="row m-1" style="justify-content: center; border: solid 1px;">
             		{% if  resultat.scoreOne < resultat.scoreTwo %}
 	                	<p class="mb-0 col-4">{{ resultat.lineup.name }}</p>
 	                 	<p class="mb-0 col-4">
@@ -74,4 +78,6 @@
 		    
 		</div>
 	</section>
+    {% endif %}
 </div>
+{% endif %}

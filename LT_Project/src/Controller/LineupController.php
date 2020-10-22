@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Lineup;
 use App\Form\LineupType;
+use App\Repository\ImagesRepository;
 use App\Repository\LineupRepository;
 use App\Repository\UsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +18,13 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class LineupController extends AbstractController
 {
+    private $imageRepo;
+
+    public function __construct(ImagesRepository $imageRepo)
+    {
+        $this->imageRepo = $imageRepo;
+    }
+
     /**
      * @Route("/", name="lineup_index", methods={"GET"})
      */
@@ -97,6 +105,18 @@ class LineupController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$lineup->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            // if ($this->imageRepo->findBy(array('lineups' => $lineup))) {
+
+            //     $image = $this->imageRepo->findBy(array('lineups' => $lineup))[0];
+            //     // On récupère le nom de l'image
+            //     $nom = $image->getName();
+            //     // On supprime le fichier
+            //     unlink($this->getParameter('images_directory').'/'.$nom);
+            
+            //     $entityManager->remove($image);
+            // }
+
             $entityManager->remove($lineup);
             $entityManager->flush();
         }

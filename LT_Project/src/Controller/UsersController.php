@@ -22,6 +22,8 @@ class UsersController extends AbstractController
 {
     private $encoder;
 
+    private $imageRepo;
+
     public function __construct(UserPasswordEncoderInterface $encoder, ImagesRepository $imageRepo)
     {
         $this->encoder   = $encoder;
