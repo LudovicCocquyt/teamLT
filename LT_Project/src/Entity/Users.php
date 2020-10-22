@@ -469,8 +469,8 @@ class Users implements UserInterface, \Serializable
         if ($this->images->contains($image)) {
             $this->images->removeElement($image);
             // set the owning side to null (unless already changed)
-            if ($image->getRealisations() === $this) {
-                $image->setRealisations(null);
+            if ($image->getUsers() === $this) {
+                $image->setUsers(null);
             }
         }
 
