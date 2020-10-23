@@ -2,17 +2,17 @@
 
 namespace App\Controller;
 
-use App\Entity\Lineup;
-use App\Entity\Images;
-use App\Form\LineupType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use App\Repository\ContentStaticRepository;
 use App\Repository\ImagesRepository;
 use App\Repository\LineupRepository;
 use App\Repository\UsersRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use App\Repository\ContentStaticRepository;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use App\Form\LineupType;
+use App\Entity\Lineup;
+use App\Entity\Images;
 
 /**
  * @Route("/lineup")
