@@ -35,7 +35,7 @@
     {% endif %}
 
     {% if resultats is not empty %}
-	<section class="col-12">
+	<section class="col-12 mt-5">
 		<div class="row m-0">
 		    
 		    <h1 class="col-12 col-lg-3 text-danger" style="font-family: 'Kaushan Script', cursive; font-size: 90px;">Matchs</h1>
@@ -44,15 +44,15 @@
 	            {% for resultat in resultats|slice(0,9)|reverse %}
 	                <div class="row m-1" style="justify-content: center; border: solid 1px;">
             		{% if  resultat.scoreOne < resultat.scoreTwo %}
-	                	<p class="mb-0 col-4">{{ resultat.lineup.name }}</p>
-	                 	<p class="mb-0 col-4">
-	                	<span class="text-danger">{{ resultat.scoreOne }}</span> - <span class="text-success">{{ resultat.scoreTwo }}</p>
-	                	<p class="mb-0 col-4">{{ resultat.teamAdverse }}</p>
+	                	<p class="mb-0 col-4 bg-danger weight5">{{ resultat.lineup.name }}</p>
+	                 	<p class="mb-0 col-4 bg-danger weight5">
+	                	<span class="">{{ resultat.scoreOne }}</span> - <span class="">{{ resultat.scoreTwo }}</span></p>
+	                	<p class="mb-0 col-4 bg-danger weight5">{{ resultat.teamAdverse }}</p>
 	                {% else %}
-	                	<p class="mb-0 col-4">{{ resultat.lineup.name }}</p>
-	                	<p class="mb-0 col-4">
-	                	<span class="text-success">{{ resultat.scoreOne }}</span> - <span class="text-danger">{{ resultat.scoreTwo }}</p>
-	                	<p class="mb-0 col-4">{{ resultat.teamAdverse }}</p>
+	                	<p class="mb-0 col-4 bg-success weight5">{{ resultat.lineup.name }}</p>
+	                	<p class="mb-0 col-4 bg-success weight5">
+	                	<span class="">{{ resultat.scoreOne }}</span> - <span class="">{{ resultat.scoreTwo }}</span></p>
+	                	<p class="mb-0 col-4 bg-success weight5">{{ resultat.teamAdverse }}</p>
 	                {% endif %}
 	                </div>
 	            {% endfor %}
@@ -62,15 +62,15 @@
 		            {% for resultat in resultats|slice(10.19)|reverse %}
 		                <div class="row" style="justify-content: center;  border: solid 1px;">
                 		{% if  resultat.scoreOne < resultat.scoreTwo %}
-		                	<p class="mb-0 col-4">{{ resultat.lineup.name }}</p>
-		                	<p class="mb-0 col-4">
-		                	<span class="text-danger">{{ resultat.scoreOne }}</span> - <span class="text-success">{{ resultat.scoreTwo }}</p>
-		                	<p class="mb-0 col-4">{{ resultat.teamAdverse }}</p>
+		                	<p class="mb-0 col-4 bg-danger weight5">{{ resultat.lineup.name }}</p>
+		                	<p class="mb-0 col-4 bg-danger weight5">
+		                	<span class="text-danger">{{ resultat.scoreOne }}</span> - <span class="bg-success">{{ resultat.scoreTwo }}</span></p>
+		                	<p class="mb-0 col-4 bg-danger weight5">{{ resultat.teamAdverse }}</p>
 		                {% else %}
-		                	<p class="mb-0 col-4">{{ resultat.lineup.name }}</p>
-		                	<p class="mb-0 col-4">
-		                	<span class="text-success">{{ resultat.scoreOne }}</span> - <span class="text-danger">{{ resultat.scoreTwo }}</p>
-		                	<p class="mb-0 col-4">{{ resultat.teamAdverse }}</p>
+		                	<p class="mb-0 col-4 bg-success weight5">{{ resultat.lineup.name }}</p>
+		                	<p class="mb-0 col-4 bg-success weight5">
+		                	<span class="text-success weight5">{{ resultat.scoreOne }}</span> - <span class="">{{ resultat.scoreTwo }}</span></p>
+		                	<p class="mb-0 col-4 bg-success weight5">{{ resultat.teamAdverse }}</p>
 		                {% endif %}
 		                </div>
 		            {% endfor %}
@@ -80,4 +80,9 @@
 	</section>
     {% endif %}
 </div>
+<style type="text/css">
+	.weight5{
+		font-weight: 500 !important;
+	}
+</style>
 {% endif %}

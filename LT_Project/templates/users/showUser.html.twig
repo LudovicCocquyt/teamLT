@@ -73,18 +73,18 @@
                          <hr>
                         {% for resultat in user.resultats|reverse|slice(0, 10)|reverse %}
                             {% if  resultat.scoreOne < resultat.scoreTwo %}
-                            <div class="row">
-                                <p class="mb-0 col-4">{{ resultat.lineup.name }}</p>
-                                <p class="mb-0 col-4">
-                                <span class="text-danger">{{ resultat.scoreOne }}</span> - <span class="text-success">{{ resultat.scoreTwo }}</span></p>
-                                <p class="mb-0 col-4">{{ resultat.teamAdverse }}</p>
+                            <div class="row mr-0 ml-0 borderScore">
+                                <p class="mb-0 col-4 bg-danger weight5">{{ resultat.lineup.name }}</p>
+                                <p class="mb-0 col-4 bg-danger weight5">
+                                <span>{{ resultat.scoreOne }}</span> - <span>{{ resultat.scoreTwo }}</span></p>
+                                <p class="mb-0 col-4 bg-danger weight5">{{ resultat.teamAdverse }}</p>
                             </div>
                             {% else %}
-                            <div class="row">
-                                <p class="mb-0 col-4">{{ resultat.lineup.name }}</p>
-                                <p class="mb-0 col-4">
-                                <span class="text-success">{{ resultat.scoreOne }}</span> - <span class="text-danger">{{ resultat.scoreTwo }}</span></p>
-                                <p class="mb-0 col-4">{{ resultat.teamAdverse }}</p>
+                            <div class="row mr-0 ml-0 borderScore">
+                                <p class="mb-0 col-4 bg-success weight5">{{ resultat.lineup.name }}</p>
+                                <p class="mb-0 col-4 bg-success weight5">
+                                <span>{{ resultat.scoreOne }}</span> - <span>{{ resultat.scoreTwo }}</span></p>
+                                <p class="mb-0 col-4 bg-success weight5">{{ resultat.teamAdverse }}</p>
                             </div>    
                             {% endif %}
                         {% endfor %}
@@ -117,6 +117,14 @@
         border: solid 1px #000;
         margin-bottom: 15px;
         padding: 10px;
+    }
+
+    .borderScore {
+        border: solid 1px wheat;
+    }
+
+    .weight5{
+        font-weight: 500 !important;
     }
 </style>
             
