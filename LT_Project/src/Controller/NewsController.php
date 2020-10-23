@@ -2,20 +2,29 @@
 
 namespace App\Controller;
 
-use App\Entity\News;
-use App\Form\NewsType;
-use App\Repository\NewsRepository;
-use App\Repository\ContentStaticRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use App\Repository\ContentStaticRepository;
+use App\Repository\ImagesRepository;
+use App\Repository\NewsRepository;
+use App\Form\NewsType;
+use App\Entity\Images;
+use App\Entity\News;
 
 /**
  * @Route("/news")
  */
 class NewsController extends AbstractController
 {
+    private $imageRepo;
+
+    public function __construct(ImagesRepository $imageRepo)
+    {
+        $this->imageRepo = $imageRepo;
+    }
+
     /**
      * @Route("/", name="news_index", methods={"GET"})
      */
@@ -41,6 +50,22 @@ class NewsController extends AbstractController
             $news->setCreatedby('admin');
             $news->setUpdatedAt(new \DateTime('now'));
             $news->setUpdatedby('ludo');
+
+            if (!is_null($form->get('images')->getData())) {
+                // On récupère l'image transmise
+                $image = $form->get('images')->getData();
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                // On copie le fichier dans le dossier uploads
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+                // On crée l'image dans la base de données
+                $img = new Images();
+                $img->setName($fichier);
+                $news->addImage($img);
+            }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($news);
@@ -78,6 +103,40 @@ class NewsController extends AbstractController
             $news->setUpdatedAt(new \DateTime('now'));
             $news->setUpdatedby('admin');
 
+            //Gestion de l'image
+            if ($form->get('images')->getData()) {
+
+                if (!empty($this->imageRepo->findBy(array('news' => $news)))) {
+                    //si il y a une image, on supprime l'image
+
+                    $lastImage = $this->imageRepo->findBy(array('news' => $news))[0];
+                    // On récupère le nom de l'image
+                    $nom = $lastImage->getName();
+                    // On supprime le fichier
+                    unlink($this->getParameter('images_directory').'/'.$nom);
+
+                    // On supprime l'entrée de la base
+                    $em = $this->getDoctrine()->getManager();
+                    $em->remove($lastImage);
+                    $em->flush();
+
+                }
+
+                // On récupère l'image transmise
+                $image = $form->get('images')->getData();
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                // On copie le fichier dans le dossier image
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+                // On crée l'image dans la base de données
+                $img = new Images();
+                $img->setName($fichier);
+                $news->addImage($img);
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('news_index');
@@ -95,6 +154,18 @@ class NewsController extends AbstractController
     public function delete(Request $request, News $news): Response
     {
         if ($this->isCsrfTokenValid('delete'.$news->getId(), $request->request->get('_token'))) {
+
+            if ($this->imageRepo->findBy(array('news' => $news))) {
+
+                $image = $this->imageRepo->findBy(array('news' => $news))[0];
+                // On récupère le nom de l'image
+                $nom = $image->getName();
+                // On supprime le fichier
+                unlink($this->getParameter('images_directory').'/'.$nom);
+            
+                $entityManager->remove($image);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($news);
             $entityManager->flush();
@@ -108,9 +179,11 @@ class NewsController extends AbstractController
      */
     public function showNews(News $news, ContentStaticRepository $ContentStaticRepo): Response
     {
+        $image = (!empty($this->imageRepo->findBy(array('news' => $news)))) ? $this->imageRepo->findBy(array('news' => $news))[0]->getName() : '' ;
         return $this->render('news/showNews.html.twig', [
-            'news' => $news,
-            'statics' => $ContentStaticRepo->findAll() 
+            'news'      => $news,
+            'statics'   => $ContentStaticRepo->findAll(),
+            'imageName' => $image
         ]);
     }
 }

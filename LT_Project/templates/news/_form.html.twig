@@ -12,7 +12,10 @@
 		  		<th>News Active ? <br> {{ form_widget(form.isActive, { 'attr': {'class': "span12"} }) }}</th>
 		  	</tr>
 		  	<tr class="text-center">
-		  		<th>Titre : <br> {{ form_widget(form.title, { 'attr': {'class': "span12",'placeholder': "Le titre de ma news", 'cols' : '100'} }) }}</th>
+		  		<th>Image : <br> {{ form_widget(form.images, { 'attr': {'class': "span12"} }) }}</th>
+		  	</tr>
+		  	<tr class="text-center">
+		  		<th>Titre : <br> {{ form_widget(form.title, { 'attr': {'class': "span12",'placeholder': "Titre de ma news", 'cols' : '100'} }) }}</th>
 		  	</tr>
 		  	<tr class="text-center">
 		  		<th>{{ form_widget(form.description, { 'attr': {'class': "span12",'placeholder': "Ma super news !!!", 'rows' : '10', 'cols' : '100'} }) }}</th>
