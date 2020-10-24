@@ -41,9 +41,9 @@ class PalmaresController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $palmare->setCreatedAt(new \DateTime('now'));
-            $palmare->setCreatedby('admin');
+            $palmare->setCreatedby($this->getUser()->getUserName());
             $palmare->setUpdatedAt(new \DateTime('now'));
-            $palmare->setUpdatedby('ludo');
+            $palmare->setUpdatedby($this->getUser()->getUserName());
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($palmare);
@@ -83,8 +83,8 @@ class PalmaresController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $palmare->setUpdatedAt(new \DateTime('now'));
-            $palmare->setUpdatedby('admin');
-            
+            $palmare->setUpdatedby($this->getUser()->getUserName());
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('palmares_index');

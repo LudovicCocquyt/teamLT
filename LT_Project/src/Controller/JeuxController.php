@@ -50,9 +50,9 @@ class JeuxController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $jeux->setCreatedAt(new \DateTime('now'));
-            $jeux->setCreatedby('admin');
+            $jeux->setCreatedby($this->getUser()->getUserName());
             $jeux->setUpdatedAt(new \DateTime('now'));
-            $jeux->setUpdatedby('ludo');
+            $jeux->setUpdatedby($this->getUser()->getUserName());
 
             if (!is_null($form->get('images')->getData())) {
                 // On récupère l'image transmise
@@ -111,7 +111,7 @@ class JeuxController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $jeux->setUpdatedAt(new \DateTime('now'));
-            $jeux->setUpdatedby('admin');
+            $jeux->setUpdatedby($this->getUser()->getUserName());
 
             //Gestion de l'image
             if ($form->get('images')->getData()) {

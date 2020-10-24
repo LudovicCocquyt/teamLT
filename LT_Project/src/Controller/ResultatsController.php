@@ -41,9 +41,9 @@ class ResultatsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $resultat->setCreatedAt(new \DateTime('now'));
-            $resultat->setCreatedby('admin');
+            $resultat->setCreatedby($this->getUser()->getUserName());
             $resultat->setUpdatedAt(new \DateTime('now'));
-            $resultat->setUpdatedby('ludo');
+            $resultat->setUpdatedby($this->getUser()->getUserName());
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($resultat);
@@ -83,7 +83,7 @@ class ResultatsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $resultat->setUpdatedAt(new \DateTime('now'));
-            $resultat->setUpdatedby('admin');
+            $resultat->setUpdatedby($this->getUser()->getUserName());
 
             $this->getDoctrine()->getManager()->flush();
 

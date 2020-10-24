@@ -52,9 +52,9 @@ class LineupController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $lineup->setCreatedAt(new \DateTime('now'));
-            $lineup->setCreatedby('admin');
+            $lineup->setCreatedby($this->getUser()->getUserName());
             $lineup->setUpdatedAt(new \DateTime('now'));
-            $lineup->setUpdatedby('ludo');
+            $lineup->setUpdatedby($this->getUser()->getUserName());
 
             if (!is_null($form->get('images')->getData())) {
                 // On récupère l'image transmise
@@ -110,7 +110,7 @@ class LineupController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $lineup->setUpdatedAt(new \DateTime('now'));
-            $lineup->setUpdatedby('admin');
+            $lineup->setUpdatedby($this->getUser()->getUserName());
 
             //Gestion de l'image
             if ($form->get('images')->getData()) {

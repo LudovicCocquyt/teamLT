@@ -51,9 +51,9 @@ class NewsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $news->setCreatedAt(new \DateTime('now'));
-            $news->setCreatedby('admin');
+            $news->setCreatedby($this->getUser()->getUserName());
             $news->setUpdatedAt(new \DateTime('now'));
-            $news->setUpdatedby('ludo');
+            $news->setUpdatedby($this->getUser()->getUserName());
 
             if (!is_null($form->get('images')->getData())) {
                 // On récupère l'image transmise
@@ -109,7 +109,7 @@ class NewsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $news->setUpdatedAt(new \DateTime('now'));
-            $news->setUpdatedby('admin');
+            $news->setUpdatedby($this->getUser()->getUserName());
 
             //Gestion de l'image
             if ($form->get('images')->getData()) {

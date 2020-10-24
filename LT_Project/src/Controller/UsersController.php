@@ -59,9 +59,9 @@ class UsersController extends AbstractController
                 ));
 
             $user->setCreatedAt(new \DateTime('now'));
-            $user->setCreatedby('admin');
+            $user->setCreatedby($this->getUser()->getUserName());
             $user->setUpdatedAt(new \DateTime('now'));
-            $user->setUpdatedby('admin');
+            $user->setUpdatedby($this->getUser()->getUserName());
             $user->setIsActive(true);
             
             if (!is_null($form->get('images')->getData())) {
@@ -152,7 +152,7 @@ class UsersController extends AbstractController
             }
 
             $user->setUpdatedAt(new \DateTime('now'));
-            $user->setUpdatedby('admin');
+            $user->setUpdatedby($this->getUser()->getUserName());
 
             $this->getDoctrine()->getManager()->flush();
 
@@ -194,6 +194,7 @@ class UsersController extends AbstractController
 
         return $this->redirectToRoute('users_index');
     }
+
 
     /**
      * @Route("/{id}/showUser", name="user_show", methods={"GET"})
