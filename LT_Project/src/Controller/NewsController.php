@@ -155,6 +155,8 @@ class NewsController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$news->getId(), $request->request->get('_token'))) {
 
+            $entityManager = $this->getDoctrine()->getManager();
+
             if ($this->imageRepo->findBy(array('news' => $news))) {
 
                 $image = $this->imageRepo->findBy(array('news' => $news))[0];
@@ -166,7 +168,6 @@ class NewsController extends AbstractController
                 $entityManager->remove($image);
             }
 
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($news);
             $entityManager->flush();
         }

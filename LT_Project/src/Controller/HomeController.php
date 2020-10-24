@@ -19,15 +19,16 @@ class HomeController extends AbstractController
      */
     public function home(ContentStaticRepository $contentStaticRepo,NewsRepository $newsRepo, JeuxRepository $jeuxRepo, PalmaresRepository $palmaresRepo, ResultatsRepository $resultatsRepo, ImagesRepository $imageRepo)
     {
-        $idLastNews = $newsRepo->findBy(array(),array('id' => 'DESC'))[0]->getId();
+        $arrayNewsActive = $newsRepo->findBy(array('isActive' => true));
+        $lastNewsId      = end($arrayNewsActive)->getId();
 
     	return $this->render('homePage.html.twig', [
-            'jeux'      => $jeuxRepo->findBy(array('isActive' => true)),
-            'news'      => $newsRepo->findAll(),
             'statics'   => $contentStaticRepo->findAll(),
-            'resultats' => $resultatsRepo->findAll(),
+            'news'      => $newsRepo->findBy(array('isActive' => true)),
+            'imageNews' => $imageRepo->findBy(array('news' => $lastNewsId))[0]->getName(),
             'palmares'  => $palmaresRepo->findAll(),
-            'imageNews' => $imageRepo->findBy( array('news' => $idLastNews))[0]->getName()
+            'resultats' => $resultatsRepo->findAll(),
+            'jeux'      => $jeuxRepo->findBy(array('isActive' => true))
         ]);
 	}
 }
