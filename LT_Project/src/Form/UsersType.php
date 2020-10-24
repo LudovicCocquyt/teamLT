@@ -31,9 +31,20 @@ class UsersType extends AbstractType
             ->add('username', TextType::class,[
                 'required' => true
             ])
+            ->add('roles', ChoiceType::class, [
+                'choices' => [
+                    'Utilisateur'    => 'ROLE_USER',
+                    'Editeur'        => 'ROLE_EDITOR',
+                    'Administrateur' => 'ROLE_ADMIN'
+                ],
+                'expanded' => true,
+                'multiple' => true,
+                'required' => true, 
+                'label'    => 'Rôles'
+            ])
             ->add('jeux', EntityType::class, [
                     // looks for choices from this entity
-                    'class' => Jeux::class,
+                    'class'    => Jeux::class,
                     'required' => false,
 
                     // uses the User.username property as the visible option string
@@ -42,17 +53,18 @@ class UsersType extends AbstractType
                     // used to render a select box, check boxes or radios
                      'multiple' => true,
                     // 'expanded' => true,
-                ])
+            ])
             ->add('birthday', DateType::class, array(
                     'label'    => 'Date de naissance',
                     'years'    => range(date('1970'), date('Y')),
                     'required' => true,
-                ))
+            ))
             ->add('isActive', ChoiceType::class, [
-                        'choices'  => [
-                                        'Oui' => true,
-                                        'Non' => false,
-                                       ],])
+                'choices'  => [
+                        'Oui' => true,
+                        'Non' => false,
+                ],
+            ])
             ->add('nationality', ChoiceType::class, [
                         'choices'  => [
                                         'Europe'         => 'eu.png',
@@ -85,7 +97,8 @@ class UsersType extends AbstractType
                                         'Spain'          => 'esp.png',
                                         'Sweden'         => 'Swe.png',
                                         'United Kingdom' => 'uk.svg',
-                                       ],])
+                ],
+            ])
             ->add('description', TextareaType::class,[
                 'required'   => false
             ])

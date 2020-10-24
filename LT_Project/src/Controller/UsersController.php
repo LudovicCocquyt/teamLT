@@ -16,7 +16,7 @@ use App\Entity\Images;
 use App\Entity\Users;
 
 /**
- * @Route("users")
+ * @Route("/users")
  */
 class UsersController extends AbstractController
 {
@@ -30,7 +30,7 @@ class UsersController extends AbstractController
         $this->imageRepo = $imageRepo;
     }
     /**
-     * @Route("/", name="users_index", methods={"GET"})
+     * @Route("admin/", name="users_index", methods={"GET"})
      */
     public function index(UsersRepository $usersRepository): Response
     {
@@ -40,7 +40,7 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="users_new", methods={"GET","POST"})
+     * @Route("admin/new", name="users_new", methods={"GET","POST"})
      */
     public function new(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
@@ -92,17 +92,20 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="users_show", methods={"GET"})
+     * @Route("admin/{id}", name="users_show", methods={"GET"})
      */
     public function show(Users $user): Response
     {
+        //$this->denyAccessUnlessGranted('ROLE_USER');
+        // dd($this->get('security.token_storage')->getToken()->getUser());
+
         return $this->render('users/show.html.twig', [
             'user' => $user,
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="users_edit", methods={"GET","POST"})
+     * @Route("profile/{id}/edit", name="users_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Users $user, ImagesRepository $imageRepo = null): Response
     {
@@ -160,7 +163,7 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="users_delete", methods={"DELETE"})
+     * @Route("admin/{id}", name="users_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Users $user): Response
     {

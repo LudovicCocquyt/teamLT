@@ -36,6 +36,20 @@
                 </td>
             </tr>
             <tr>
+                <th>Roles</th>
+                    <td class="font-weight-bold">
+                        {% for role in user.roles %}
+                            {% if role == "ROLE_USER" %}
+                                <span class="text-primary">Utilisateur</span>
+                            {% elseif role == "ROLE_EDITOR" %}
+                                <span class="text-warning">Editeur</span>
+                            {% elseif role == "ROLE_ADMIN" %}
+                                <span class="text-success">Administrateur</span>
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+            </tr>
+            <tr>
                 <th>Jeux</th>
                     <td>
                         {% for jeux in user.Jeux %}

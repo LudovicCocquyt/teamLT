@@ -34,6 +34,16 @@ class UsersEditType extends AbstractType
             ->add('description', TextareaType::class,[
                 'required' => false
             ])
+            ->add('roles', ChoiceType::class, [
+                'choices' => [
+                    'Utilisateur'    => 'ROLE_USER',
+                    'Editeur'        => 'ROLE_EDITOR',
+                    'Administrateur' => 'ROLE_ADMIN'
+                ],
+                'expanded' => true,
+                'multiple' => true,
+                'label'    => 'Rôles' 
+            ])
             ->add('birthday', DateType::class, array(
                     'label'    => 'Date de naissance',
                     'years'    => range(date('1970'), date('Y')),

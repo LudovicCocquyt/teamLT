@@ -210,11 +210,6 @@ class Users implements UserInterface, \Serializable
         return $this->password;
     }
 
-     public function getRoles()
-    {
-        return array('ROLE_USER');
-    }
-
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -439,11 +434,33 @@ class Users implements UserInterface, \Serializable
         return $this;
     }
 
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
 
         return $this;
+    }
+
+    public function removeRoles(array $roles): self
+    {
+        if (in_array($roles[0], $this->getRoles())) {
+            $this->roles = array_diff($this->roles,$roles);
+        }
+        return $this;
+        // $roles = $this->roles;
+        // $roles[] = 'ROLE_USER';
     }
 
     /**
