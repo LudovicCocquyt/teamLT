@@ -20,6 +20,8 @@ class NotesController extends AbstractController
      */
     public function index(NotesRepository $notesRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
+
         return $this->render('notes/index.html.twig', [
             'notes' => $notesRepository->findAll(),
         ]);
@@ -30,6 +32,8 @@ class NotesController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
+
         $note = new Notes();
         $form = $this->createForm(NotesType::class, $note);
         $form->handleRequest($request);
@@ -49,20 +53,12 @@ class NotesController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="notes_show", methods={"GET"})
-     */
-    public function show(Notes $note): Response
-    {
-        return $this->render('notes/show.html.twig', [
-            'note' => $note,
-        ]);
-    }
-
-    /**
      * @Route("/{id}/edit", name="notes_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Notes $note): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
+
         $form = $this->createForm(NotesType::class, $note);
         $form->handleRequest($request);
 
@@ -83,6 +79,8 @@ class NotesController extends AbstractController
      */
     public function delete(Request $request, Notes $note): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
+        
         if ($this->isCsrfTokenValid('delete'.$note->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($note);

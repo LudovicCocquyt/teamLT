@@ -30,17 +30,19 @@ class UsersController extends AbstractController
         $this->imageRepo = $imageRepo;
     }
     /**
-     * @Route("admin/", name="users_index", methods={"GET"})
+     * @Route("/", name="users_index", methods={"GET"})
      */
     public function index(UsersRepository $usersRepository): Response
-    {
+    { 
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        
         return $this->render('users/index.html.twig', [
             'users' => $usersRepository->findAll(),
         ]);
     }
 
     /**
-     * @Route("admin/new", name="users_new", methods={"GET","POST"})
+     * @Route("/new", name="users_new", methods={"GET","POST"})
      */
     public function new(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
@@ -96,8 +98,7 @@ class UsersController extends AbstractController
      */
     public function show(Users $user): Response
     {
-        //$this->denyAccessUnlessGranted('ROLE_USER');
-        // dd($this->get('security.token_storage')->getToken()->getUser());
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         return $this->render('users/show.html.twig', [
             'user' => $user,
@@ -109,6 +110,8 @@ class UsersController extends AbstractController
      */
     public function edit(Request $request, Users $user, ImagesRepository $imageRepo = null): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $form = $this->createForm(UsersEditType::class, $user);
         $form->handleRequest($request);
 
@@ -167,6 +170,8 @@ class UsersController extends AbstractController
      */
     public function delete(Request $request, Users $user): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
 

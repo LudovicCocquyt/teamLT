@@ -22,6 +22,8 @@ class ContactController extends AbstractController
      */
     public function index(ContactRepository $contactRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         return $this->render('contact/index.html.twig', [
             'contacts' => $contactRepository->findAll(),
         ]);
@@ -61,6 +63,8 @@ class ContactController extends AbstractController
      */
     public function show(Contact $contact): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         return $this->render('contact/show.html.twig', [
             'contact' => $contact,
         ]);
@@ -71,6 +75,8 @@ class ContactController extends AbstractController
      */
     public function edit(Request $request, Contact $contact): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $form = $this->createForm(ContactEditType::class, $contact);
         $form->handleRequest($request);
 
@@ -92,6 +98,8 @@ class ContactController extends AbstractController
      */
     public function delete(Request $request, Contact $contact): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         if ($this->isCsrfTokenValid('delete'.$contact->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($contact);

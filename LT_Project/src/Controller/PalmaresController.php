@@ -20,6 +20,8 @@ class PalmaresController extends AbstractController
      */
     public function index(PalmaresRepository $palmaresRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
+
         return $this->render('palmares/index.html.twig', [
             'palmares' => $palmaresRepository->findAll(),
         ]);
@@ -30,6 +32,8 @@ class PalmaresController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
+
         $palmare = new Palmares();
         $form = $this->createForm(PalmaresType::class, $palmare);
         $form->handleRequest($request);
@@ -59,6 +63,8 @@ class PalmaresController extends AbstractController
      */
     public function show(Palmares $palmare): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
+
         return $this->render('palmares/show.html.twig', [
             'palmare' => $palmare,
         ]);
@@ -69,6 +75,8 @@ class PalmaresController extends AbstractController
      */
     public function edit(Request $request, Palmares $palmare): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
+
         $form = $this->createForm(PalmaresType::class, $palmare);
         $form->handleRequest($request);
 
@@ -93,6 +101,8 @@ class PalmaresController extends AbstractController
      */
     public function delete(Request $request, Palmares $palmare): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
+        
         if ($this->isCsrfTokenValid('delete'.$palmare->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($palmare);

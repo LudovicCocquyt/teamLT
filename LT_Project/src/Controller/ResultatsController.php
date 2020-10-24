@@ -20,6 +20,8 @@ class ResultatsController extends AbstractController
      */
     public function index(ResultatsRepository $resultatsRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
+
         return $this->render('resultats/index.html.twig', [
             'resultats' => $resultatsRepository->findAll(),
         ]);
@@ -30,6 +32,8 @@ class ResultatsController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
+
         $resultat = new Resultats();
         $form = $this->createForm(ResultatsType::class, $resultat);
         $form->handleRequest($request);
@@ -59,6 +63,8 @@ class ResultatsController extends AbstractController
      */
     public function show(Resultats $resultat): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
+
         return $this->render('resultats/show.html.twig', [
             'resultat' => $resultat,
         ]);
@@ -69,6 +75,8 @@ class ResultatsController extends AbstractController
      */
     public function edit(Request $request, Resultats $resultat): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
+
         $form = $this->createForm(ResultatsType::class, $resultat);
         $form->handleRequest($request);
 
@@ -93,6 +101,8 @@ class ResultatsController extends AbstractController
      */
     public function delete(Request $request, Resultats $resultat): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
+        
         if ($this->isCsrfTokenValid('delete'.$resultat->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($resultat);

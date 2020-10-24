@@ -30,6 +30,8 @@ class NewsController extends AbstractController
      */
     public function index(NewsRepository $newsRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         return $this->render('news/index.html.twig', [
             'news' => $newsRepository->findAll(),
         ]);
@@ -40,6 +42,8 @@ class NewsController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $news = new News();
         $form = $this->createForm(NewsType::class, $news);
         $form->handleRequest($request);
@@ -85,6 +89,8 @@ class NewsController extends AbstractController
      */
     public function show(News $news): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         return $this->render('news/show.html.twig', [
             'news' => $news,
         ]);
@@ -95,6 +101,8 @@ class NewsController extends AbstractController
      */
     public function edit(Request $request, News $news): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $form = $this->createForm(NewsType::class, $news);
         $form->handleRequest($request);
 
@@ -153,6 +161,8 @@ class NewsController extends AbstractController
      */
     public function delete(Request $request, News $news): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        
         if ($this->isCsrfTokenValid('delete'.$news->getId(), $request->request->get('_token'))) {
 
             $entityManager = $this->getDoctrine()->getManager();

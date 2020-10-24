@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/content/static")
+ * @Route("/admin/content/static")
  */
 class ContentStaticController extends AbstractController
 {
@@ -20,6 +20,8 @@ class ContentStaticController extends AbstractController
      */
     public function index(ContentStaticRepository $contentStaticRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         return $this->render('content_static/index.html.twig', [
             'content_statics' => $contentStaticRepository->findAll(),
         ]);
@@ -30,6 +32,8 @@ class ContentStaticController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN');
+
         $contentStatic = new ContentStatic();
         $form = $this->createForm(ContentStaticType::class, $contentStatic);
         $form->handleRequest($request);
@@ -54,21 +58,13 @@ class ContentStaticController extends AbstractController
         ]);
     }
 
-    // /**
-    //  * @Route("/{id}", name="content_static_show", methods={"GET"})
-    //  */
-    // public function show(ContentStatic $contentStatic): Response
-    // {
-    //     return $this->render('content_static/show.html.twig', [
-    //         'content_static' => $contentStatic,
-    //     ]);
-    // }
-
     /**
      * @Route("/{id}/edit", name="content_static_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, ContentStatic $contentStatic): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $form = $this->createForm(ContentStaticType::class, $contentStatic);
         $form->handleRequest($request);
 
@@ -88,17 +84,19 @@ class ContentStaticController extends AbstractController
         ]);
     }
 
-    // /**
-    //  * @Route("/{id}", name="content_static_delete", methods={"DELETE"})
-    //  */
-    // public function delete(Request $request, ContentStatic $contentStatic): Response
-    // {
-    //     if ($this->isCsrfTokenValid('delete'.$contentStatic->getId(), $request->request->get('_token'))) {
-    //         $entityManager = $this->getDoctrine()->getManager();
-    //         $entityManager->remove($contentStatic);
-    //         $entityManager->flush();
-    //     }
+    /**
+     * @Route("/{id}", name="content_static_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, ContentStatic $contentStatic): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN');
 
-    //     return $this->redirectToRoute('content_static_index');
-    // }
+        if ($this->isCsrfTokenValid('delete'.$contentStatic->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($contentStatic);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('content_static_index');
+    }
 }

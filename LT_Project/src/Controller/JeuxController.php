@@ -23,11 +23,14 @@ class JeuxController extends AbstractController
     {
         $this->imageRepo = $imageRepo;
     }
+
     /**
      * @Route("/", name="jeux_index", methods={"GET"})
      */
     public function index(JeuxRepository $jeuxRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         return $this->render('jeux/index.html.twig', [
             'jeuxes' => $jeuxRepository->findAll(),
         ]);
@@ -38,6 +41,8 @@ class JeuxController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $jeux = new Jeux();
         $form = $this->createForm(JeuxType::class, $jeux);
         $form->handleRequest($request);
@@ -86,6 +91,8 @@ class JeuxController extends AbstractController
      */
     public function show(Jeux $jeux): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         return $this->render('jeux/show.html.twig', [
             'jeux' => $jeux,
         ]);
@@ -96,6 +103,8 @@ class JeuxController extends AbstractController
      */
     public function edit(Request $request, Jeux $jeux): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $form = $this->createForm(JeuxType::class, $jeux);
         $form->handleRequest($request);
 
@@ -155,6 +164,8 @@ class JeuxController extends AbstractController
      */
     public function delete(Request $request, Jeux $jeux): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        
         if ($this->isCsrfTokenValid('delete'.$jeux->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
 

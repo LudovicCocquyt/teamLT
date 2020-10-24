@@ -31,6 +31,8 @@ class LineupController extends AbstractController
      */
     public function index(LineupRepository $lineupRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         return $this->render('lineup/index.html.twig', [
             'lineups' => $lineupRepository->findAll(),
         ]);
@@ -41,6 +43,8 @@ class LineupController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $lineup = new Lineup();
         $form   = $this->createForm(LineupType::class, $lineup);
         $form->handleRequest($request);
@@ -86,6 +90,8 @@ class LineupController extends AbstractController
      */
     public function show(Lineup $lineup): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         return $this->render('lineup/show.html.twig', [
             'lineup' => $lineup,
         ]);
@@ -96,6 +102,8 @@ class LineupController extends AbstractController
      */
     public function edit(Request $request, Lineup $lineup): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $form = $this->createForm(LineupType::class, $lineup);
         $form->handleRequest($request);
 
@@ -154,6 +162,8 @@ class LineupController extends AbstractController
      */
     public function delete(Request $request, Lineup $lineup): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        
         if ($this->isCsrfTokenValid('delete'.$lineup->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
 
