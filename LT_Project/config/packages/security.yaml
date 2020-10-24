@@ -4,6 +4,10 @@ security:
             algorithm: bcrypt
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
+        users:
+            entity:
+                class: 'App\Entity\Users'
+                property: 'email'
         users_in_memory: { memory: null }
     firewalls:
         dev:
@@ -31,4 +35,9 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/editor, roles: ROLE_EDITOR }
         - { path: ^/profile, roles: ROLE_USER }
+
+    role_hierarchy:
+        ROLE_EDITOR: ROLE_USER
+        ROLE_ADMIN: ROLE_EDITOR
