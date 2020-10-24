@@ -1,22 +1,15 @@
-<div id="lineup" style="width: 100%; height: auto; 
-padding-top: 5em; 
-    margin-top: -3em;
-    background-color: #000;
-    ">
-  <div class="row justify-content-center mr-0 ml-0" style="padding-bottom: 70px;">
+<div id="lineup">
+  <div class="pad row justify-content-center mr-0 ml-0">
 
     {% for jeux in jeux %}
       <div class="col-12 col-lg-6 mt-2">
 
           <div class="card mx-auto text-white card_article">
-              <img src="image/{{ jeux.imageName }}" class="card-img" alt="..." 
-              width="100%"
-              style="height: 340px;" 
-              >
+              <img class="height-img" src="image/{{ jeux.imageName }}" class="card-img" alt="..." width="100%">
               <div class=" display-info d-none text-center
               {# card-img-overlay #}
               ">
-              <p class="text-dark">Nos line up <br><span class="font-weight-bold" style="font-size: x-large">{{ jeux.name }}</span></p>
+              <p class="text-dark">Nos line up <br><span class="font-weight-bold size-name">{{ jeux.name }}</span></p>
                 {% for lineup in jeux.lineups %}
                   {% if lineup.isActive == true %}
                     <a class="ml-1 mr-1 text-dark lineupD" href="{{ path('lineups_show', {'id': lineup.id}) }}">{{ lineup.name}}</a>
@@ -30,14 +23,11 @@ padding-top: 5em;
 
       <div class="col-12 col-lg-6 mt-2">
 
-          <div class="card mx-auto text-white card_article bg-white pt-5" style="padding-bottom: 40px;">
-              <img src="image/navbar-logo.png" class="card-img mt-3 mb-3" alt="..." 
-              width="100%"
-              style="height: 220px;" 
-              >
+          <div class="card mx-auto text-white card_article bg-white pt-5 pb">
+              <img src="image/navbar-logo.png" class="card-img mt-3 mb-3 img-height" alt="..." width="100%">
               <div class="display-info d-none text-center">
               <p class="mt-5">
-                <a class="font-weight-bold text-dark"  style="font-size: x-large" href="{{ path('contact_new') }}">
+                <a class="font-weight-bold text-dark size-name" href="{{ path('contact_new') }}">
                 <span>Rejoindre une line up ?</span>
                 <br>
                 <span>Créer une line up ?</span>
@@ -53,42 +43,3 @@ padding-top: 5em;
 
   </div>
 </div>
-
-<style type="text/css">
-
-  .lineupD:hover{
-    text-decoration: none;
-    transition: all 0.2s ease;
-    font-size: x-large;"
-  }
-  .card_article{
-  opacity: 1;
-}
-
-.card_article:hover img{
-  opacity: 0.4;
-  transition : 1000ms;
-}
-
-.card_article:hover .display-info{
-  display: block !important;
-  margin-top: -64px;
-  z-index: 100;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-.card-img-overlay {
-  padding-top: 10rem;
-}
-
-@media screen and (max-width : 576px) {
-  .card-img-overlay {
-    padding-top: 5rem;
-  }
-}
-</style>

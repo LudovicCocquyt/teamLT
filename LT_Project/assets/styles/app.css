@@ -1,3 +1,230 @@
-body {
-    background-color: lightgray;
+/*home page*/
+
+/*presentation*/
+#presentation {
+	padding-top: 120px;
+	padding-bottom: 80px;
+    width: 100%;
+    height: auto;
+    background-color: #000;
 }
+
+#presentation #nokey {
+	position: absolute;
+    z-index: 900; height: 450px;
+}
+
+#presentation #bigTitle {
+    font-family: 'Kaushan Script', cursive;
+	position: relative;
+    z-index: 950;
+    font-size: 110px;
+}
+
+#presentation #small-title {
+	font-family: 'Playfair Display', serif;
+	position: relative;
+    z-index: 950;
+    font-size: 25px;
+    margin-left: 270px;
+}
+
+#presentation #description-title{
+	font-family: 'Playfair Display', serif;
+	font-size: 17px;
+	position: relative;
+    z-index: 950;
+}
+
+@media screen and (max-width : 991px) {
+    .title, .small-title {
+        text-align: center;
+    }
+  }
+
+  *{
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+canvas{
+    background-color: #000;
+}
+/* ---presentation*/
+
+/*News*/
+#news {
+	width: 100%;
+	height: auto;
+	padding-top: 3em; 
+    margin-top: -3em;
+}
+
+#news .borderNews {
+	border-bottom: solid 1px;
+}
+
+#news .newsColorTitle{
+	color: #374348 !important;
+}
+
+@media screen and (max-width : 991px) {
+  	#smallNews {
+		display: none !important;
+  	}
+
+	#miniNews {
+		display: block !important;
+	}
+}
+/* ---News */
+
+/* Palmares */
+#palmares {
+	padding-top: 6em;
+	margin-top: -6em;
+	width: 100%; 
+    height: auto;
+	padding-bottom: 8rem;
+}
+
+#palmares .cup-title {
+	font-family: 'Kaushan Script', cursive;
+	font-size: 90px;
+}
+
+#palmares .cadre {
+	justify-content: center;
+	border: solid 1px;
+}
+
+#palmares .weight5 {
+	font-weight: 500 !important;
+}
+/* ---Palmares */
+
+/* Jeux */
+#lineup {
+	width: 100%;
+	height: auto; 
+	padding-top: 5em; 
+    margin-top: -3em;
+    background-color: #000;
+}
+
+#lineup .pad {
+	padding-bottom: 70px;
+}
+
+#lineup .height-img{
+	height: 340px;
+}
+
+#lineup .size-name {
+	font-size: x-large;
+}
+
+#lineup .pb{
+	padding-bottom: 40px;
+}
+
+#lineup .img-height{
+	height: 220px;
+}
+
+#lineup .lineupD:hover {
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-size: x-large;
+}
+
+#lineup .card_article {
+	opacity: 1;
+}
+
+#lineup .card_article:hover img {
+    opacity: 0.4;
+    transition : 1000ms;
+}
+
+#lineup .card_article:hover .display-info {
+	display: block !important;
+	margin-top: -64px;
+	z-index: 100;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+#lineup .card-img-overlay {
+	padding-top: 10rem;
+}
+
+@media screen and (max-width : 576px) {
+	#lineup .card-img-overlay {
+    	padding-top: 5rem;
+  	}
+}
+/* ---Jeux */
+
+/* navbar */
+#navbar {
+	height: 80px;
+	position: fixed;
+	width: 100%; 
+	z-index: 1000;
+	background-color: #FFF;
+}
+
+#navbar  nav {
+	font-size: large;
+    height: 90%;
+    top: 8px;
+    border-radius: 0% 40% 0% 0;
+}
+
+#navbar #basicExampleNav{
+	justify-content: flex-end;
+	margin-right: 15px;
+	margin-left: -15px;
+}
+
+#navbar #nav-end {
+	font-size: x-large; height: 90%;
+    top: 8px;
+    border-radius: 40% 0% 0% 0%;
+}
+	
+@media screen and (max-width : 1100px) {
+  	#iconSize a i, ul li{
+    	font-size: 15px;
+    }
+  }
+	
+@media screen and (max-width : 991px) {
+    #navbar #iconSize {
+    	display: none !important;
+    }
+}
+/* ---navbar */
+
+/* footer */
+#footer {
+	margin-top: -50px;
+}
+#footer .by-color {
+	background-color: black;
+}
+
+@media screen and (max-width : 1100px) {
+    .footerIconSize a i{
+        font-size: 40px;
+    }
+    .contact_link {
+        font-size: 30px;
+    }
+}
+/* ---footer */

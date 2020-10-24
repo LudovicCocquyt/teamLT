@@ -1,12 +1,12 @@
 <!-- Footer -->
-<footer class="page-footer font-small" style="margin-top: -50px;">
+<footer id="footer" class="page-footer font-small">
   <div class="footer-copyright text-center py-3 bg-dark">
   	<div class="col-3">
         <a class="contact_link" href="{{ path('contact_new') }}">Nous contacter</a>
   	</div>
 
   	<!-- logo links -->
- 	<div class="footerIconSize mt-4" style="justify-content: center;">
+ 	<div class="footerIconSize mt-4">
 
 	    <!-- Links -->
         {% if statics[3].description %}
@@ -36,21 +36,9 @@
   </div>
   
   <!-- Copyright -->
-  <div class="footer-copyright text-center py-1" style="background-color: black;">2020 - Création Open Source <i class="fab fa-github"></i> v1.0 - By <a href="https://www.linkedin.com/in/lcocquyt/"><i class="fab fa-linkedin"></i></a>
+  <div class="footer-copyright text-center py-1 by-color">2020 - Création Open Source <i class="fab fa-github"></i> v1.0 - By <a href="https://www.linkedin.com/in/lcocquyt/"><i class="fab fa-linkedin"></i></a>
   </div>
   <!-- Copyright -->
 
 </footer>
 <!-- Footer -->
-
-<style type="text/css">
-@media screen and (max-width : 1100px) {
-    .footerIconSize a i{
-      font-size: 40px;
-    }
-    .contact_link {
-      font-size: 30px;
-    }
-  }
-  
-</style>

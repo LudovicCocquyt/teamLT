@@ -1,14 +1,11 @@
 {% if palmares and resultats is not empty %}
-<div id="palmares" class="peach-gradient" style="padding-top: 6em; margin-top: -6em; width: 100%; 
-    height: auto;
-    /*background-color: navajowhite;*/ 
-	padding-bottom: 8rem;">
+<div id="palmares" class="peach-gradient">
     
     {% if palmares is not empty %}
 	<section class="col-12">
 		<div class="row m-0">
 
-		    <h1 class="col-12 col-lg-3 text-primary" style="font-family: 'Kaushan Script', cursive; font-size: 90px;">Palmares</h1>
+		    <h1 class="cup-title col-12 col-lg-3 text-primary">Palmares</h1>
 		    
 		    {% if palmares|length <= 10 %}
 			    <div class="text-center col-12 col-lg-8">
@@ -41,11 +38,11 @@
 	<section class="col-12 mt-5">
 		<div class="row m-0">
 		    
-		    <h1 class="col-12 col-lg-3 text-danger" style="font-family: 'Kaushan Script', cursive; font-size: 90px;">Matchs</h1>
+		    <h1 class="cup-title col-12 col-lg-3 text-danger">Matchs</h1>
 		    
 		    <div class="text-center col-6 col-lg-4">
 	            {% for resultat in resultats|slice(0,9)|reverse %}
-	                <div class="row m-1" style="justify-content: center; border: solid 1px;">
+	                <div class="row m-1 cadre">
             		{% if  resultat.scoreOne < resultat.scoreTwo %}
 	                	<p class="mb-0 col-4 bg-danger weight5">{{ resultat.lineup.name }}</p>
 	                 	<p class="mb-0 col-4 bg-danger weight5">
@@ -63,7 +60,7 @@
 
 	        <div class="text-center col-6 col-lg-4">
 		            {% for resultat in resultats|slice(10.19)|reverse %}
-		                <div class="row" style="justify-content: center;  border: solid 1px;">
+		                <div class="row m-1 cadre">
                 		{% if  resultat.scoreOne < resultat.scoreTwo %}
 		                	<p class="mb-0 col-4 bg-danger weight5">{{ resultat.lineup.name }}</p>
 		                	<p class="mb-0 col-4 bg-danger weight5">
@@ -83,9 +80,4 @@
 	</section>
     {% endif %}
 </div>
-<style type="text/css">
-	.weight5{
-		font-weight: 500 !important;
-	}
-</style>
 {% endif %}
