@@ -7,6 +7,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\ContentStatic;
 use App\Entity\Users;
+use App\Entity\Notes;
 
 class AppFixtures extends Fixture
 {
@@ -33,9 +34,14 @@ class AppFixtures extends Fixture
         $user->setBirthday(new \Datetime);
         $user->setDescription('admin');
         $user->setUsername('admin');
-        $user->setRoles(['ROLE_ADMIN']);
+        $user->setRoles(['ROLE_SUPER_ADMIN']);
 
         $entityManager->persist($user);
+
+        $note = new Notes;
+
+        $note->setContent('Ne pas oublier de changer le mail et le password du user super admin');
+        $entityManager->persist($note);
 
         $cs1  = new ContentStatic;
         $cs2  = new ContentStatic;
@@ -49,6 +55,7 @@ class AppFixtures extends Fixture
         $cs10 = new ContentStatic;
         $cs11 = new ContentStatic;
 
+        // laisser le formulaire en 1er
         $cs1->setCreatedAt(new \DateTime('now'));
         $cs1->setCreatedby('DataFixtures');
         $cs1->setUpdatedAt(new \DateTime('now'));
