@@ -81,7 +81,7 @@ class Users implements UserInterface, \Serializable
     private $birthday;
 
     /**
-     * @ORM\Column(type="string", length=800, nullable=true)
+     * @ORM\Column(type="string", length=800)
      */
     private $description;
 
