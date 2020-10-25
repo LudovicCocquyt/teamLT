@@ -1,9 +1,11 @@
 {% extends 'admin/baseAdmin.html.twig' %}
 
 {% block body %}
-    <div class="row m-0" style="justify-content: space-between;">
+<div id="users-index">
+
+    <div class="space-between row m-0">
         <h1 class="m-3">Membres</h1>
-        <a class="m-3" style="color: #63c7d2;" href="{{ path('users_new') }}"><i class="fas fa-user-plus fa-2x"></i></a>
+        <a class="m-3 color-icon" href="{{ path('users_new') }}"><i class="fas fa-user-plus fa-2x"></i></a>
     </div>
 
     <table class="table table-striped">
@@ -31,16 +33,16 @@
                 </td>
                 <td>
                     {% if user.nationality is not null %}
-                        <img style="height: 20px; width: auto;" src="../../flag/{{ user.nationality }}">
+                        <img class="flag" src="../../flag/{{ user.nationality }}">
                     {% else %}
-                        <img style="height: 20px; width: auto;" src="../../flag/eu.png">
+                        <img class="flag" src="../../flag/eu.png">
                     {% endif %}
                     <BR>
                     {{ user.username }}
                 </td>
                 <td>{{ user.isActive ? '<i class="fas fa-check text-success fa-2x"></i>' : '<i class="fas fa-times text-danger fa-2x"></i>' }}
                 </td>
-                <td class="d-flex" style="justify-content: center;">
+                <td class="d-flex justify-content-center">
                     <a href="{{ path('users_show', {'id': user.id}) }}"><i class="far fa-eye m-3"></i></a>
                     <a href="{{ path('users_edit', {'id': user.id}) }}"><i class="fas fa-user-edit m-3"></i></a>
                    <p>{{ include('users/_delete_form.html.twig') }}</p>
@@ -54,4 +56,5 @@
         </tbody>
     </table>
 
+</div>
 {% endblock %}

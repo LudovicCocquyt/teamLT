@@ -1,5 +1,5 @@
 <form method="post" action="{{ path('jeux_delete', {'id': jeux.id}) }}" onsubmit="return confirm('Supprimer {{ jeux.name }}  ?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ jeux.id) }}">
-    <button style="border: solid 2px red; margin-top: 10px;"><i class="fas fa-trash-alt red-text"></i></button>
+    <button class="delete-btn"><i class="fas fa-trash-alt red-text"></i></button>
 </form>

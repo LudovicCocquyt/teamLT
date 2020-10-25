@@ -1,18 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div style="padding-top: 120px; padding-bottom: 80px;
-    			width: 100%;
-    			 height: 700px;
-    			 ">
+<div id="#contact">
+	<div class="form-contact">
     {% if statics[10].description == "oui" %}
     	{{ include('contact/_form.html.twig') }}
     {% else %}
     	<div class="text-center p-5">
 	    	<p class=" p-5 font-weight-bold">Formulaire de contact indisponible !</p>
-	    	<img style="" src="../../image/navbar-logo.png">
+	    	<img src="../../image/navbar-logo.png">
 	    </div>
     {% endif %}
 
     </div>
+</div>
 {% endblock %}

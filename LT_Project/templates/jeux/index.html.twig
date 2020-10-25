@@ -1,10 +1,10 @@
 {% extends 'admin/baseAdmin.html.twig' %}
 
 {% block body %}
-    <div class="row m-0" style="justify-content: space-between;">
+    <div class="row m-0 space-between">
         <h1 class="m-3">Jeux</h1>
-        <a class="m-3" style="color: #63c7d2;" href="{{ path('jeux_new') }}"><i class="fas fa-plus"></i><i class="far fa-image fa-2x"></i>
-</a>
+        <a class="m-3 color-icon" href="{{ path('jeux_new') }}"><i class="fas fa-plus"></i><i class="far fa-image fa-2x"></i>
+        </a>
     </div>
 
     <table class="table table-striped">
@@ -33,7 +33,7 @@
                 <td>{{ jeux.isActive ? '<i class="fas fa-check text-success fa-2x"></i>' : '<i class="fas fa-times text-danger fa-2x"></i>' }}
                 </td>
                 <td>{{ jeux.name }}</td>
-                <td class="d-flex" style="justify-content: center;">
+                <td class="d-flex justify-content-center">
                     <a href="{{ path('jeux_show', {'id': jeux.id}) }}"><i class="far fa-eye m-3"></i></a>
                     <a href="{{ path('jeux_edit', {'id': jeux.id}) }}"><i class="fas fa-edit m-3"></i></a>
                    <p>{{ include('jeux/_delete_form.html.twig') }}</p>

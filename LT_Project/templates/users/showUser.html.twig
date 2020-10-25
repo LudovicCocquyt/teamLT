@@ -1,27 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="aqua-gradient pb-5" style="padding-top: 100px; height: auto;">
-    <div class="container" style="width: 80%;">
-            <div class="row m-0" style="justify-content: space-between;">
+<div id="user-show" class="aqua-gradient pb-5">
+    <div class="container w80">
+            <div class="row m-0 space-between">
                 
                 <div class="col-xl-7">
                     <hr>
                     <div class="d-none mobileImg text-center mb-3">
-                        <img style="height: 150px; width: 150px;" src="../../image/{{ imageName }}">
+                        <img class="logo-user" src="../../image/{{ imageName }}">
                     </div>
 
-                    <div class="row" style="justify-content: center;">
+                    <div class="row justify-content-center">
                         <p class="mt-1">
                             {% if user.nationality is not null %}
-                                <img style="height: 20px; width: auto;" src="../../flag/{{ user.nationality }}">
+                                <img class="natio" src="../../flag/{{ user.nationality }}">
                             {% else %}
-                                <img style="height: 20px; width: auto;" src="../../flag/eu.png">
+                                <img class="natio" src="../../flag/eu.png">
                             {% endif %}
                         </p>
-                        <p class="ml-2 mr-2" style="font-size: 25px;">{{ user.firstname }}</p>
-                        <p class="ml-2 mr-2 font-weight-bold" style="font-size: 30px;">" {{ user.username }} "</p>
-                        <p class="ml-2" style="font-size: 25px;">{{ user.lastname }}</p>
+                        <p class="ml-2 mr-2 size-name">{{ user.firstname }}</p>
+                        <p class="ml-2 mr-2 font-weight-bold size-pseudo">" {{ user.username }} "</p>
+                        <p class="ml-2 size-name">{{ user.lastname }}</p>
                         <p class="ml-4 mt-2">{{ birthday }} ans</p>
                     </div>
                     <hr>
@@ -31,7 +31,7 @@
                     </div>
                     <hr>
 
-                    <div class="row" style="justify-content: space-between;">
+                    <div class="row space-between">
                         <p>Jeux</p>
                             <div class="text-right">
                                 {% for jeux in user.Jeux %}
@@ -41,7 +41,7 @@
                     </div>
                     <hr>
 
-                    <div class="row" style="justify-content: space-between;">
+                    <div class="row space-between">
                         <p>Line up</p>
                             <div class="text-right">
                                 {% for lineUp in user.lineups %}
@@ -55,7 +55,7 @@
                 <div class="statsPerso col-4 m-3 borderColor">
                     {% if imageName is not empty %}
                         <div class="imageLarge borderColor text-center mb-3">
-                            <img style="height: 150px; width: 150px;" src="../../image/{{ imageName }}">
+                            <img class="logo-user" src="../../image/{{ imageName }}">
                         </div>
                     {% endif %}
 
@@ -106,38 +106,5 @@
 
             </div>
     </div>
-</div>
-
-<style type="text/css">
-
-    @media screen and (max-width : 1024px) {
-
-        .imageLarge {
-            display: none !important;
-        }
-
-        .mobileImg {
-            display: block !important;
-        }
-
-        .statsPerso {
-            display: contents;
-        }
-    }
-
-    .borderColor{
-        border: solid 1px #000;
-        margin-bottom: 15px;
-        padding: 10px;
-    }
-
-    .borderScore {
-        border: solid 1px wheat;
-    }
-
-    .weight5{
-        font-weight: 500 !important;
-    }
-</style>
-            
+</div>     
 {% endblock %}

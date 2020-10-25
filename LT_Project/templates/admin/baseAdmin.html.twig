@@ -4,12 +4,14 @@
         <meta charset="UTF-8">
         <title>{% block title %}Admin LT{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
-        {# CDN MDBootstrap #}
-		{% include 'cdn.html.twig' %}
+        {{ encore_entry_link_tags('admin') }}
     </head>
     <body>
         {% include 'admin/navbar.html.twig' %}
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+        {# CDN MDBootstrap #}
+		{% include 'cdn.html.twig' %}
+        {% endblock %}
     </body>
 </html>

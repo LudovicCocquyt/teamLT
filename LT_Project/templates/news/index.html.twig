@@ -2,9 +2,9 @@
 
 
 {% block body %}
-    <div class="row m-0" style="justify-content: space-between;">
+    <div class="row m-0 space-between">
         <h1 class="m-3">News</h1>
-        <a class="m-3" style="color: #63c7d2;" href="{{ path('news_new') }}"><i class="fas fa-plus"><i class="far fa-newspaper fa-2x"></i></i></a>
+        <a class="m-3 color-icon" href="{{ path('news_new') }}"><i class="fas fa-plus"><i class="far fa-newspaper fa-2x"></i></i></a>
     </div>
 
     <table class="table table-striped">
@@ -35,7 +35,7 @@
                 </td>
                 <td>{{ news.title }}</td>
                 <td>{{ news.description|slice(0, 50) }}</td>
-                <td class="d-flex" style="justify-content: center;">
+                <td class="d-flex justify-content-center">
                     <a href="{{ path('news_show', {'id': news.id}) }}"><i class="far fa-eye m-3"></i></a>
                     <a href="{{ path('news_edit', {'id': news.id}) }}"><i class="fas fa-edit m-3"></i></a>
                    <p>{{ include('news/_delete_form.html.twig') }}</p>

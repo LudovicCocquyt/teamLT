@@ -1,9 +1,9 @@
 {% extends 'admin/baseAdmin.html.twig' %}
 
 {% block body %}
-    <div class="row m-0" style="justify-content: space-between;">
+    <div class="row m-0 space-between">
         <h1 class="m-3">Palmares</h1>
-        <a class="m-3" style="color: #63c7d2;" href="{{ path('palmares_new') }}"><i class="fas fa-plus"></i><i class="fas fa-trophy fa-2x"></i></a>
+        <a class="m-3 color-icon" href="{{ path('palmares_new') }}"><i class="fas fa-plus"></i><i class="fas fa-trophy fa-2x"></i></a>
     </div>
 
     <table class="table table-striped">
@@ -33,7 +33,7 @@
                 <td>{{ palmare.lineup.name }}</td>
                 <td>{{ palmare.name }}</td>
                 <td>{{ palmare.rank }}</td>
-                <td class="d-flex" style="justify-content: center;">
+                <td class="d-flex justify-content-center">
                     <a href="{{ path('palmares_show', {'id': palmare.id}) }}"><i class="far fa-eye m-3"></i></a>
                     <a href="{{ path('palmares_edit', {'id': palmare.id}) }}">
                     <i class="fas fa-edit m-3"></i>

@@ -1,0 +1,51 @@
+#lineup-show {
+	padding-top: 100px; 
+	height: auto;
+}
+
+#lineup-show .space-between {
+	justify-content: space-between;
+}
+
+#lineup-show .w-80 {
+	width: 80%;
+}
+
+#lineup-show .logo-team {
+	height: 150px;
+	width: 150px;
+}
+
+#lineup-show .f-size {
+	font-size: 30px;
+}
+
+#lineup-show .borderColor{
+    border: solid 1px #000;
+    margin-bottom: 15px;
+    padding: 10px;
+}
+
+#lineup-show .weight5{
+    font-weight: 500 !important;
+}
+
+#lineup-show .borderScore {
+    border: solid 1px wheat;
+}
+
+
+@media screen and (max-width : 1024px) {
+
+    .imageLarge {
+        display: none !important;
+    }
+
+    .mobileImg {
+        displayay: block !important;
+    }
+
+    .stats {
+        display: contents;
+    }
+}

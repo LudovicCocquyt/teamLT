@@ -1,11 +1,11 @@
 {% extends 'admin/baseAdmin.html.twig' %}
 {% block body %}
-
-    <div class="row m-3" style="justify-content: space-between;">
+<div id="users-show">
+    <div class="row m-3 space-between">
         <h1>{{ user.username }}</h1>
         <div>
-            <a style="color: #63c7d2;" href="{{ path('users_edit', {'id': user.id}) }}"><i class="fas fa-user-edit fa-2x"></i></a>
-            <a class="m-3" style="color: #63c7d2;" href="{{ path('users_index') }}"><i class="fas fa-sign-out-alt  fa-2x"></i></a>
+            <a class="color-icon" href="{{ path('users_edit', {'id': user.id}) }}"><i class="fas fa-user-edit fa-2x"></i></a>
+            <a class="m-3 color-icon" href="{{ path('users_index') }}"><i class="fas fa-sign-out-alt  fa-2x"></i></a>
         </div>
     </div>
 
@@ -27,9 +27,9 @@
                 <th>Nom - Prénom - Pseudo</th>
                 <td>
                     {% if user.nationality is not null %}
-                        <img style="height: 20px; width: auto;" src="../../flag/{{ user.nationality }}">
+                        <img class="flag" src="../../flag/{{ user.nationality }}">
                     {% else %}
-                        <img style="height: 20px; width: auto;" src="../../flag/eu.png">
+                        <img class="flag" src="../../flag/eu.png">
                     {% endif %}
                     {{ user.username }}
                     <br>{{ user.lastname }} - {{ user.firstname }}
@@ -71,5 +71,5 @@
             </tr>
         </tbody>
     </table>
-
+</div>
 {% endblock %}

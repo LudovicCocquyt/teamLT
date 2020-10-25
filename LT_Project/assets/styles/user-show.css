@@ -1,0 +1,60 @@
+#user-show {
+	padding-top: 100px;
+	height: auto;
+}
+
+#user-show .w80 {
+	width: 80%;
+}
+
+.space-between {
+	justify-content: space-between;
+}
+
+#user-show .logo-user {
+	height: 150px;
+	width: 150px;
+}
+
+#user-show .natio {
+	height: 20px;
+	width: auto;
+}
+
+#user-show .size-name {
+	font-size: 25px;
+}
+
+#user-show .size-pseudo {
+	font-size: 30px;
+}
+
+#user-show .borderColor{
+    border: solid 1px #000;
+    margin-bottom: 15px;
+    padding: 10px;
+}
+
+#user-show .borderScore {
+    border: solid 1px wheat;
+}
+
+#user-show .weight5{
+    font-weight: 500 !important;
+}
+
+
+@media screen and (max-width : 1024px) {
+
+    #user-show .imageLarge {
+        display: none !important;
+    }
+
+    #user-show .mobileImg {
+        display: block !important;
+    }
+
+    #user-show .statsPerso {
+        display: contents;
+    }
+}
