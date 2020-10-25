@@ -21,7 +21,7 @@ class ContentStaticType extends AbstractType
                 ],
                 'expanded' => true,
                 'multiple' => false,
-                'data' => 'azaz'
+                'required' => false
             ])
             ->add('description', textareaType::class, [
                     'empty_data' => '' ,
