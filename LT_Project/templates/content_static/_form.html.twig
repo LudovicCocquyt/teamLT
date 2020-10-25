@@ -1,10 +1,40 @@
 {{ form_start(form) }}
     {{ form_errors(form) }}
     <div class="text-center">
-	    <tr>
-	  		<th>{{ form_widget(form.description, { 'attr': {'cols': '100', 'class': "span12",'placeholder': "description", 'rows' : '10'} }) }}</th>
-	  	</tr>
+	    {% if content_static.id == 11 %}
+  	    <tr>
+  	  		<th>{{ form_widget(form.description, { 'attr': {'cols': '100', 'class': "span12",'placeholder': "description", 'rows' : '10'} }) }}</th>
+  	  	</tr>
+
+        <tr>
+          <th>{{ form_widget(form.contact, { 'attr': {'class': 'task_field'} }) }}</th>
+        </tr>
+
+        <style type="text/css">
+          #content-menu form #content_static_description {
+             display: none;
+          }
+        </style>
+      
+      {% else %}
+
+        <tr>
+          <th>{{ form_widget(form.contact, { 'attr': {'class': 'task_field'} }) }}</th>
+        </tr>
+
+        <tr>
+          <th>{{ form_widget(form.description, { 'attr': {'cols': '100', 'class': "span12",'placeholder': "description", 'rows' : '10'} }) }}</th>
+        </tr>
+        
+        <style type="text/css">
+          #content-menu form #content_static_contact {
+             display: none;
+          }
+        </style>
+      
+      {% endif %}  
   	</div>
+
     <div class="text-center">
   		<button class="btn mt-5 admin-btn">{{ button_label|default('Save') }}</button>
   	</div>

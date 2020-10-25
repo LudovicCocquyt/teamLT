@@ -47,6 +47,11 @@ class ContentStatic
      */
     private $description;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $contact;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +125,18 @@ class ContentStatic
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getContact(): ?bool
+    {
+        return $this->contact;
+    }
+
+    public function setContact(?bool $contact): self
+    {
+        $this->contact = $contact;
 
         return $this;
     }

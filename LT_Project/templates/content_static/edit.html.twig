@@ -1,10 +1,18 @@
 {% extends 'admin/baseAdmin.html.twig' %}
 
 {% block body %}
+<div id="content-menu">
 	<div class="row m-3 space-between">
 	    <h1>Modifier "{{ content_static.title }}"</h1>
         <a class="m-3 color-icon" href="{{ path('content_static_index') }}"><i class="fas fa-sign-out-alt  fa-2x"></i></a>
     </div>
 
-    {{ include('content_static/_form.html.twig', {'button_label': 'valider'}) }}
+    {# {% if content_static.id == 11 %}
+	    {{ include('content_static/_formFomulaireContact.html.twig', {'button_label': 'valider'}) }}
+
+	{% else %}
+	
+	{% endif %} #}
+	    {{ include('content_static/_form.html.twig', {'button_label': 'valider'}) }}
+</div>
 {% endblock %}

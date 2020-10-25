@@ -17,7 +17,17 @@
             <tr>
                 <td>{{ content_static.updatedAt ? content_static.updatedAt|date('d-m-Y H:i:s') : '' }} par {{ content_static.updatedBy }}</td>
                 <td>{{ content_static.title }}</td>
-                <td>{{ content_static.description|slice(0, 130) }}</td>
+
+                {% if content_static.id == 11 %}
+                    {% if content_static.contact == true %}
+                        <td>Oui</td>
+                    {% else %}
+                        <td>Non</td>
+                    {% endif %}
+                {% else %}
+                    <td>{{ content_static.description|slice(0, 130) }}</td>
+                {% endif %}
+
                 <td>
                     <a href="{{ path('content_static_edit', {'id': content_static.id}) }}"><i class="fas fa-user-edit"></i></a>
                 </td>
