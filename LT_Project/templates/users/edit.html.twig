@@ -2,11 +2,17 @@
 
 
 {% block body %}
-	<div class="row m-3 space-between">
-	    <h1>Modifier {{ user.userName }}</h1>
-        <a class="m-3 color-icon" href="{{ path('users_index') }}"><i class="fas fa-sign-out-alt  fa-2x"></i></a>
-    </div>
+	{% if user.id  == 1 and not is_granted('ROLE_SUPER_ADMIN')%}
+		<div class="text-center mt-5">
+			<p class="text-primary font-weight-bold">Tu ne peux toucher à la création de Dieu</p>
+		</div>
+	{% else %}
+		<div class="row m-3 space-between">
+		    <h1>Modifier {{ user.userName }}</h1>
+	        <a class="m-3 color-icon" href="{{ path('users_index') }}"><i class="fas fa-sign-out-alt  fa-2x"></i></a>
+	    </div>
 
-    {{ include('users/_formEdit.html.twig', {'button_label': 'Modifier'}) }}
+	    {{ include('users/_formEdit.html.twig', {'button_label': 'Modifier'}) }}
+	{% endif %}
 
 {% endblock %}
