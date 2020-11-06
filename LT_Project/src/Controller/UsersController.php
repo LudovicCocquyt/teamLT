@@ -106,7 +106,7 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("profile/{id}/edit", name="users_edit", methods={"GET","POST"})
+     * @Route("/admin/{id}/edit", name="users_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Users $user, ImagesRepository $imageRepo = null): Response
     {
