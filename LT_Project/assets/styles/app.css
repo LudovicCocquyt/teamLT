@@ -1,4 +1,10 @@
 /*home page*/
+/*logo*/
+@media screen and (min-width : 1201px) {
+    .team-logo {
+    	width: 80%;
+    }
+}
 
 /*presentation*/
 #presentation {
