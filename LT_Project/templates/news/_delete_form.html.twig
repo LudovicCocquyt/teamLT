@@ -1,4 +1,4 @@
-<form class="delete-ml" method="post" action="{{ path('news_delete', {'id': news.id}) }}" onsubmit="return confirm('Etes vous sur ?');">
+<form class="delete-ml" method="post" action="{{ path('news_delete', {'id': news.id}) }}" onsubmit="return confirm('Êtes vous sûrs ?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ news.id) }}">
     
