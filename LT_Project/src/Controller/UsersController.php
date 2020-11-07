@@ -94,7 +94,7 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("admin/{id}", name="users_show", methods={"GET"})
+     * @Route("/admin/{id}", name="users_show", methods={"GET"})
      */
     public function show(Users $user): Response
     {
@@ -106,7 +106,7 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("/admin/{id}/edit", name="users_edit", methods={"GET","POST"})
+     * @Route("/profile/{id}/edit", name="users_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Users $user, ImagesRepository $imageRepo = null): Response
     {
@@ -166,7 +166,7 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("admin/{id}", name="users_delete", methods={"DELETE"})
+     * @Route("/admin/{id}", name="users_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Users $user): Response
     {

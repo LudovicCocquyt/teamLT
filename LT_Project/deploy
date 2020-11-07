@@ -1,4 +1,4 @@
 #!/bin/sh
 npm run build
-rsync -av ./ lasttel-ludo@ssh.cluster030.hosting.ovh.net:~/www/ --include=public/build --include=vendor --include=public/.htaccess --exclude-from=.gitignore --exclude=".*"
+rsync -av ./ lasttel-ludo@ssh.cluster030.hosting.ovh.net:~/www/ --include=public/build --include=vendor --include=public/.htaccess --include=.htaccess --exclude-from=.gitignore --exclude=".*"
 ssh lasttel-ludo@ssh.cluster030.hosting.ovh.net 'cd ~/www && php bin/console cache:clear'
