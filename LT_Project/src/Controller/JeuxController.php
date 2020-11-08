@@ -53,6 +53,7 @@ class JeuxController extends AbstractController
             $jeux->setCreatedby($this->getUser()->getUserName());
             $jeux->setUpdatedAt(new \DateTime('now'));
             $jeux->setUpdatedby($this->getUser()->getUserName());
+            $jeux->setDescription(nl2br($_POST['jeux']['description']));
 
             if (!is_null($form->get('images')->getData())) {
                 // On récupère l'image transmise
@@ -112,6 +113,7 @@ class JeuxController extends AbstractController
 
             $jeux->setUpdatedAt(new \DateTime('now'));
             $jeux->setUpdatedby($this->getUser()->getUserName());
+            $jeux->setDescription(nl2br($_POST['jeux']['description']));
 
             //Gestion de l'image
             if ($form->get('images')->getData()) {

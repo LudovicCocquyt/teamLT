@@ -27,7 +27,11 @@
                     <hr>
 
                     <div>
-                        <p class="text-center">{{ user.description }}</p>
+                        {% set description = user.description|split("<br />") %}
+                        {% for row in description %}
+                            <p class="m-0">{{ row }}</p>
+                        {% endfor %}
+                        
                     </div>
                     <hr>
 

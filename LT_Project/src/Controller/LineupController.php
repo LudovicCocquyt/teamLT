@@ -55,6 +55,7 @@ class LineupController extends AbstractController
             $lineup->setCreatedby($this->getUser()->getUserName());
             $lineup->setUpdatedAt(new \DateTime('now'));
             $lineup->setUpdatedby($this->getUser()->getUserName());
+            $lineup->setDescription(nl2br($_POST['lineup']['description']));
 
             if (!is_null($form->get('images')->getData())) {
                 // On récupère l'image transmise

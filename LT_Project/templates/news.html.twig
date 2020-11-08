@@ -58,7 +58,10 @@
 	                        </div>
 	                        <h3 class="col-lg-12"><a class="newsColorTitle" href="{{ path('showNews_show', {'id': news.id}) }}"><strong>{{ news.title }}</strong></a></h3>
                 		<div class="col-lg-12 mb-4">
-            				<p>{{ news.description }}</p>
+            				{% set description = news.description|split("<br />") %}
+                    		{% for row in description %}
+                        		<p class="m-0">{{ row }}</p>
+                    		{% endfor %}
 		            	</div>
 	                	{% endif %}
 	            	{% endfor %}
