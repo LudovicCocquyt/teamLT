@@ -63,6 +63,7 @@ class UsersController extends AbstractController
             $user->setUpdatedAt(new \DateTime('now'));
             $user->setUpdatedby($this->getUser()->getUserName());
             $user->setIsActive(true);
+            $user->setRoles(['ROLE_USER']);
             
             if (!is_null($form->get('images')->getData())) {
                 // On récupère l'image transmise

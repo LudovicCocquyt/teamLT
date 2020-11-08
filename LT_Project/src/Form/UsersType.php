@@ -31,17 +31,6 @@ class UsersType extends AbstractType
             ->add('username', TextType::class,[
                 'required' => true
             ])
-            ->add('roles', ChoiceType::class, [
-                'choices' => [
-                    'Utilisateur'    => 'ROLE_USER',
-                    'Editeur'        => 'ROLE_EDITOR',
-                    'Administrateur' => 'ROLE_ADMIN'
-                ],
-                'expanded' => true,
-                'multiple' => true,
-                'required' => true, 
-                'label'    => 'Rôles'
-            ])
             ->add('jeux', EntityType::class, [
                     // looks for choices from this entity
                     'class'    => Jeux::class,

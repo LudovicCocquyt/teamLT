@@ -1,18 +1,28 @@
 {% extends 'admin/baseAdmin.html.twig' %}
-
-
 {% block body %}
-	{% if user.id  == 1 and not is_granted('ROLE_SUPER_ADMIN')%}
-		<div class="text-center mt-5">
-			<p class="text-primary font-weight-bold">Tu ne peux toucher à la création de Dieu</p>
+	{% if 'ROLE_SUPER_ADMIN' in user.roles and 'ROLE_ADMIN' in app.user.roles %}
+		<div class="text-center mt-5 w-80 h-60">
+				<p class="text-center font-weight-bold text-danger mt-5">Réservé au Super Admin</p>
+			<img src="../../../img/interdit.jpg">
 		</div>
 	{% else %}
-		<div class="row m-3 space-between">
-		    <h1>Modifier {{ user.userName }}</h1>
-	        <a class="m-3 color-icon" href="{{ path('users_index') }}"><i class="fas fa-sign-out-alt  fa-2x"></i></a>
-	    </div>
+		
+		{% if is_granted('ROLE_ADMIN')%}
+			<div class="row m-3 space-between">
+			    <h1>Modifier {{ user.userName }}</h1>
+		        <a class="m-3 color-icon" href="{{ path('users_index') }}"><i class="fas fa-sign-out-alt  fa-2x"></i></a>
+		    </div>
 
-	    {{ include('users/_formEdit.html.twig', {'button_label': 'Modifier'}) }}
+		    {{ include('users/_formEdit.html.twig', {'button_label': 'Modifier'}) }}
+
+		{% else %}
+		
+			<div class="text-center mt-5 w-80 h-60">
+				<p class="text-center font-weight-bold text-danger mt-5">Réservé au Admin</p>
+				<img src="../../../img/interdit.jpg">
+			</div>
+		
+		{% endif %}
 	{% endif %}
 
 {% endblock %}

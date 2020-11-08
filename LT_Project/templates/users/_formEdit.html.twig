@@ -26,9 +26,11 @@
 		  	<tr class="text-center">
 		  		<th>Nationalité : <br> {{ form_widget(form.nationality, { 'attr': {'class': "span12"} }) }}</th>
 		  	</tr>
-		  	<tr class="text-center">
-		  		<th>Roles : <br> {{ form_widget(form.roles, { 'attr': {'class': "span12"} }) }}</th>
-		  	</tr>
+		  	{% if is_granted('ROLE_SUPER_ADMIN') %}
+			  	<tr class="text-center">
+			  		<th>Roles : <br> {{ form_widget(form.roles, { 'attr': {'class': "span12"} }) }}</th>
+			  	</tr>
+			 {% endif %}
 		  	<tr class="text-center">
 		  		<th>Jeux : <br> {{ form_widget(form.jeux, { 'attr': {'class': "span12"} }) }}</th>
 		  	</tr>

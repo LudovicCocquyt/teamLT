@@ -38,7 +38,8 @@ class UsersEditType extends AbstractType
                 'choices' => [
                     'Utilisateur'    => 'ROLE_USER',
                     'Editeur'        => 'ROLE_EDITOR',
-                    'Administrateur' => 'ROLE_ADMIN'
+                    'Administrateur' => 'ROLE_ADMIN',
+                    'Super admin'    => 'ROLE_SUPER_ADMIN'
                 ],
                 'expanded' => true,
                 'multiple' => true,
