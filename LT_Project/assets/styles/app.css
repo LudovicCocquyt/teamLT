@@ -1,9 +1,42 @@
 /*home page*/
 /*logo*/
-@media screen and (min-width : 1201px) {
-    .team-logo {
-    	width: 80%;
-    }
+.team-logo {
+	margin-top: 15px;
+}
+
+.team-logo img {
+	width: 100%;
+}
+
+@media screen and (min-width:1201px) and (max-width:1400px) {
+ .team-logo {
+  text-align:center;
+  padding:0;
+  margin-top:15px
+ }
+  .team-logo img {
+  width:80%;
+  }
+}
+@media screen and (min-width:1401px) and (max-width:1900px) {
+ .team-logo {
+  text-align:center;
+  padding:0;
+  margin-top:15px
+ }
+ .team-logo img {
+  width:60%;
+  } 
+}
+@media screen and (min-width:1901px) {
+ .team-logo {
+  text-align:center;
+  padding:0;
+  margin-top:15px
+ }
+  .team-logo img {
+  width:40%;
+  }
 }
 
 /*presentation*/
