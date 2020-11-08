@@ -156,7 +156,7 @@ class News
     /**
      * @return Collection|Images[]
      */
-    public function getImages(): Collection
+    public function getImages()
     {
         return $this->images;
     }
