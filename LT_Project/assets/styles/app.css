@@ -250,21 +250,23 @@ canvas{
     border-radius: 40% 0% 0% 0%;
 }
 
-#navbar .navbar #basicExampleNav ul li a {
-  font-size: 40px;
-  margin-left: 20px;
-  line-height: 80px;
-}
+@media screen and (max-width : 991px) {
+  #navbar .navbar #basicExampleNav ul li a {
+    font-size: 40px;
+    margin-left: 20px;
+    line-height: 80px;
+  }
 
-.navbar.navbar-dark .navbar-toggler-icon {
-  font-size: 40px;
+  .navbar.navbar-dark .navbar-toggler-icon {
+    font-size: 40px;
+  }
 }
 
 @media screen and (max-width : 1100px) {
-  	#iconSize a i, ul li{
-    	font-size: 15px;
-    }
+	#iconSize a i, ul li{
+  	font-size: 15px;
   }
+}
 	
 @media screen and (max-width : 991px) {
     #navbar #iconSize {
