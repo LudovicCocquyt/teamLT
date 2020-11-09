@@ -3,13 +3,13 @@
     <table class="table table-striped">
     	<tbody>
 		  	<tr class="text-center">
-		  		<th>Nom* : <br> {{ form_widget(form.name, { 'attr': {'class': "span12",'placeholder': "Nom / pseudo"} }) }}</th>
+		  		<th>Nom* : <br> {{ form_widget(form.name, { 'attr': {'class': "col-10",'placeholder': "Nom"} }) }}</th>
 		  	</tr>
 		  	<tr class="text-center">
-		  		<th>Objet* : <br> {{ form_widget(form.object, { 'attr': {'class': "span12",'placeholder': "Plainte, recrutement..."} }) }}</th>
+		  		<th>Objet* : <br> {{ form_widget(form.object, { 'attr': {'class': "col-10",'placeholder': "Recrutement..."} }) }}</th>
 		  	</tr>
 		  	<tr class="text-center">
-		  		<th>Message* : <br> {{ form_widget(form.description, { 'attr': {'class': "span12",'placeholder': "Votre message ...", 'rows' : '10', 'cols' : '100'} }) }}</th>
+		  		<th>Message* : <br> {{ form_widget(form.description, { 'attr': {'class': "col-10",'placeholder': "Votre message ...", 'rows' : '10', 'cols' : '100'} }) }}</th>
 		  	</tr>
 		</tbody>
 	</table>
