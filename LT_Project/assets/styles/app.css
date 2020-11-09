@@ -1,4 +1,9 @@
 /*home page*/
+/*general*/
+.height-min {
+  min-height: 900px;
+}
+
 /*logo*/
 .team-logo {
 	margin-top: 15px;
@@ -250,6 +255,11 @@ canvas{
 }
 /* ---navbar */
 
+/* contact */
+#contact {
+  padding-top: 90px;
+  padding-bottom: 100px;
+}
 /* footer */
 #footer {
 	margin-top: -50px;
