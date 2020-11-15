@@ -9,7 +9,14 @@
 		
 		{% if is_granted('ROLE_ADMIN')%}
 			<div class="row m-3 space-between">
-			    <h1>Modifier {{ user.userName }}</h1>
+			    <h1>Modifier {{ user.userName }}
+			    	{% if is_granted('ROLE_SUPER_ADMIN') %}
+  						<a href="" data-toggle="modal" data-target="#modalSubscriptionForm"><i class="fas fa-key prefix grey-text"></i></a>
+
+			    		<p>{{ include('users/password.html.twig') }}</p>
+			    	{% endif %}
+			    </h1>
+
 		        <a class="m-3 color-icon" href="{{ path('users_index') }}"><i class="fas fa-sign-out-alt  fa-2x"></i></a>
 		    </div>
 

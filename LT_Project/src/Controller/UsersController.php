@@ -24,10 +24,13 @@ class UsersController extends AbstractController
 
     private $imageRepo;
 
-    public function __construct(UserPasswordEncoderInterface $encoder, ImagesRepository $imageRepo)
+    private $userRepo;
+
+    public function __construct(UserPasswordEncoderInterface $encoder, ImagesRepository $imageRepo, UsersRepository $userRepo)
     {
         $this->encoder   = $encoder;
         $this->imageRepo = $imageRepo;
+        $this->userRepo  = $userRepo;
     }
     /**
      * @Route("/", name="users_index", methods={"GET"})
@@ -110,12 +113,17 @@ class UsersController extends AbstractController
     /**
      * @Route("/profile/{id}/edit", name="users_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Users $user, ImagesRepository $imageRepo = null): Response
+    public function edit(Request $request, Users $user, UserPasswordEncoderInterface $encoder, ImagesRepository $imageRepo = null): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $form = $this->createForm(UsersEditType::class, $user);
         $form->handleRequest($request);
+
+        if (array_key_exists('newPass', $_POST)) {
+            $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN');
+            $this->ChangePassword($_POST['userId'],$_POST['newPass']);
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -155,7 +163,12 @@ class UsersController extends AbstractController
 
             $user->setUpdatedAt(new \DateTime('now'));
             $user->setUpdatedby($this->getUser()->getUserName());
-            $user->setDescription(nl2br($_POST['users_edit']['description']));
+            $user->setDescription(nl2br($form->get('description')->getData()));
+            $user->setPassword(
+                $encoder->encodePassword(
+                    $user,
+                    $form->get('password')->getData()
+                ));
 
             $this->getDoctrine()->getManager()->flush();
 
@@ -220,5 +233,20 @@ class UsersController extends AbstractController
         $an = explode('/', date('d/m/Y'));
         if(($am[1] < $an[1]) || (($am[1] == $an[1]) && ($am[0] <= $an[0]))) return $an[2] - $am[2];
         return $an[2] - $am[2] - 1; 
-    } 
+    }
+
+    private function ChangePassword($userId, $password)
+    {
+        $user = $this->userRepo->findBy(array('id' => $userId))[0];
+
+        $user->setPassword(
+                $this->encoder->encodePassword(
+                    $user,
+                    $password
+                ));
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $entityManager->persist($user);
+        $entityManager->flush();
+    }
 }
