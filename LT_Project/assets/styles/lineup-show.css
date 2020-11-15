@@ -3,13 +3,6 @@
 	height: auto;
 }
 
-@media screen and (min-width: 1250px) {
-    #lineup-show {
-        padding-top: 100px;
-        height: 900px;
-    }
-}
-
 #lineup-show .space-between {
 	justify-content: space-between;
 }
@@ -62,5 +55,12 @@
         border: solid 1px #000;
         margin-bottom: 15px;
         padding: 10px;
+    }
+}
+
+@media screen and (min-width: 1250px) {
+    #lineup-show {
+        padding-top: 100px;
+        height: 900px;
     }
 }
