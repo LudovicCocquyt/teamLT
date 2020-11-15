@@ -31,6 +31,12 @@
   width:80%;
   }
 }
+
+@media screen and (min-width:1201px) {
+ #contact {
+  height: 900px;
+ }
+}
 @media screen and (min-width:1401px) and (max-width:1900px) {
  .team-logo {
   text-align:center;
