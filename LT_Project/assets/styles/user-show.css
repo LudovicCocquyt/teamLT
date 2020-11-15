@@ -3,6 +3,12 @@
 	height: auto;
 }
 
+@media screen and (min-width: 1250px) {
+    #user-show {
+        padding-top: 100px;
+        height: 900px;
+    }
+} 
 #user-show .w80 {
 	width: 80%;
 }

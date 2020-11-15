@@ -3,6 +3,13 @@
 	height: auto;
 }
 
+@media screen and (min-width: 1250px) {
+    #lineup-show {
+        padding-top: 100px;
+        height: 900px;
+    }
+}
+
 #lineup-show .space-between {
 	justify-content: space-between;
 }
@@ -42,10 +49,18 @@
     }
 
     .mobileImg {
-        displayay: block !important;
+        display: block !important;
     }
 
     .stats {
         display: contents;
+    }
+}
+
+@media screen and (max-width : 1199px) {
+    #lineup-show .borderColor{
+        border: solid 1px #000;
+        margin-bottom: 15px;
+        padding: 10px;
     }
 }
